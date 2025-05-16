@@ -9,8 +9,8 @@
 
 //Robot class 
 Robot::Robot() {
-robotsPositionX= rand() % 51 ; // random num from (0 to 50)
-robotsPositionY = rand() % 41; // random num from (0 to 40) 
+robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
+robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 }
 
 int Robot::getPositionX(){

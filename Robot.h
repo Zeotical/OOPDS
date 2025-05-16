@@ -1,4 +1,16 @@
-class Robot {};
+#include <string>
+using namespace std;
+
+class Robot {
+    private:
+    string name;
+    int lives;
+    int robotsPositionX;
+    int robotsPositionY;
+
+    public:
+    Robot ();
+};
 
 // move the below to robotcpp file
 

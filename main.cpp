@@ -12,6 +12,14 @@ Phone: 018-1234567
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <string>
+
+// header files
+#include "Robot.h"
+
+//srand(time(0)); //each time program runs get a new random number
+
 using namespace std;
 
 const int MaxWidth = 50;
@@ -22,3 +30,12 @@ class BattleField
 private:
 public:
 };
+
+int main(){
+
+
+
+return 0;
+}
+
+

@@ -13,8 +13,12 @@ robotsPositionX= rand() % 51 ; // random num from (0 to 50)
 robotsPositionY = rand() % 41; // random num from (0 to 40) 
 }
 
-int Robot::getPosition(){
-    return robotsPositionX, robotsPositionY;
+int Robot::getPositionX(){
+    return robotsPositionX;
+}
+
+int Robot::getPositionY(){
+    return robotsPositionY;
 }
 
 

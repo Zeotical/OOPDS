@@ -10,7 +10,9 @@ class Robot {
 
     public:
     Robot ();
-    int getPosition();
+    int getPositionX();
+    int getPositionY();
+
 };
 
 // move the below to robotcpp file

@@ -1,5 +1,5 @@
 #include <string>
-using namespace std;
+using namespace std; // not recc to use this look into it
 
 class Robot {
     private:
@@ -10,6 +10,7 @@ class Robot {
 
     public:
     Robot ();
+    int getPosition();
 };
 
 // move the below to robotcpp file

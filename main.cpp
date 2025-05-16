@@ -32,8 +32,8 @@ public:
 };
 
 int main(){
-
-
+Robot ro;
+cout << ro.getPosition(); //only main.cpp is comipling need to build executable / use g++ main.cpp Robot.cpp
 
 return 0;
 }

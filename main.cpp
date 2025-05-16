@@ -13,12 +13,12 @@ Phone: 018-1234567
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <ctime>
 #include <string>
 
 // header files
 #include "Robot.h"
 
-//srand(time(0)); //each time program runs get a new random number
 
 using namespace std;
 
@@ -32,6 +32,9 @@ public:
 };
 
 int main(){
+
+    srand(time(0)); //each time program runs get a new random number
+
 Robot ro;
 cout << ro.getPositionX() << " " << ro.getPositionY(); //only main.cpp is comipling need to build executable / use g++ main.cpp Robot.cpp
 

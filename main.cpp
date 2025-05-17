@@ -55,6 +55,22 @@ battle.printBattlefield(battlefield);
  battlefield[ro.getPositionY()][ro.getPositionX()] = "R2"; //battlefield[row][col]
  battle.printBattlefield(battlefield);
 
+// draft code for subclasses :)
+ int t = -1;
+ int u = -1;
+     while (t<=1) {
+        u = -1;
+        while (u<=1) {
+           cout << t << " " << u << endl;
+           battlefield[ro.getPositionY()+ t][ro.getPositionX() + u] = "R2"; //battlefield[row][col]
+           battle.printBattlefield(battlefield);
+
+           
+
+          u++;
+        }
+        t++;
+    }
 // what if two robots get same position? need to implement logic so if positiontaken generte new random num
 
 return 0;

@@ -1,9 +1,11 @@
-//class robot
-// class MovingRobot: public robot // handles movement
-//class SeeingRobot: public robot // handles seeing
-//class ShootingRobot: public robot // handles shooting
-//class ThinkingRobot:public robot //handles thinking
-//Generic robot using multiple inheritance will inherit all the above
+// class Robot
+// Below cannot have overlapping public mehtods & data members
+// class MovingRobot: public Robot // handles movement
+// class SeeingRobot: public Robot // handles seeing
+// class ShootingRobot: public Robot // handles shooting
+// class ThinkingRobot:public Robot //handles thinking
+//***********************************************************
+// Generic Robot using multiple inheritance will inherit all the above
 
 #include "Robot.h" 
 
@@ -21,4 +23,9 @@ int Robot::getPositionY(){
     return robotsPositionY;
 }
 
+// MovingRobot
+
+// SeeinngRobot
+// ThinkingRobot
+// ShootingRobot
 

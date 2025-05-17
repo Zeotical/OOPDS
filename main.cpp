@@ -31,15 +31,15 @@ private:
 public:
 
 BattleField(){};
-void printBattlefield(vector<vector<string>>& v){
-    for (auto i: v) {
-        for (auto j: i) {
-            cout << j << " ";
+void printBattlefield(vector<vector<string>>& field){
+    for (auto row: field) {
+        for (auto col: row) {
+            cout << col << " ";
         }
         cout << endl;
     }
   	cout << endl;
-};
+}
 };
 
 int main(){
@@ -48,7 +48,7 @@ srand(time(0)); //each time program runs get a new random number
 vector <vector<string>> battlefield (MaxHeight, vector<string>(MaxWidth, "- ")); //row then col then value to insert
 BattleField battle;
 Robot ro;
-cout << ro.getPositionX() << " " << ro.getPositionY() << endl; //only main.cpp is comipling need to build executable / use g++ main.cpp Robot.cpp
+cout << ro.getPositionY() << " " << ro.getPositionX() << endl; //only main.cpp is comipling need to build executable / use g++ main.cpp Robot.cpp
 
 battle.printBattlefield(battlefield);
 

@@ -61,10 +61,11 @@ battle.printBattlefield(battlefield);
      while (t<=1) {
         u = -1;
         while (u<=1) {
+         if(ro.getPositionY()+t<=39 && ro.getPositionX()+u<=49 && ro.getPositionY()+t>=0 &&  ro.getPositionX()+u>=0){
            cout << t << " " << u << endl;
            battlefield[ro.getPositionY()+ t][ro.getPositionX() + u] = "R2"; //battlefield[row][col]
            battle.printBattlefield(battlefield);
-
+         }
            
 
           u++;

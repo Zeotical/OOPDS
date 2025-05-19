@@ -5,10 +5,11 @@ using namespace std; // not recc to use this look into it
 class Robot {
     private:
     string name;
-    int lives;
+    string type;
+    int lives = 3;
+    int shells = 10; // max 10 
     int robotsPositionX; // row
     int robotsPositionY; // col
-    int shells; // max 10 
 
     public:
     Robot ();
@@ -23,6 +24,7 @@ class SeeingRobot: public Robot {
     private:
 
     public:
+    //bool positionTaken();
     void look();
 };
 class MovingRobot : public Robot {

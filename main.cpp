@@ -32,33 +32,19 @@ int main()
   vector<vector<string>> battlefield(MaxHeight, vector<string>(MaxWidth, "- ")); // row then col then value to insert
   BattleField battle;
   Robot ro;
-  cout << ro.getPositionY() << " " << ro.getPositionX() << endl; // only main.cpp is comipling need to build executable / use g++ main.cpp Robot.cpp
-
-  battle.printBattlefield(battlefield);
 
   battlefield[ro.getPositionY()][ro.getPositionX()] = "R2"; // battlefield[row][col]
   battle.printBattlefield(battlefield);
 
-  // draft code for subclasses :)
-  int t = -1;
-  int u = -1;
-  while (t <= 1)
-  {
-    u = -1;
-    while (u <= 1)
-    {
-      if (ro.getPositionY() + t <= 39 && ro.getPositionX() + u <= 49 && ro.getPositionY() + t >= 0 && ro.getPositionX() + u >= 0)
-      {
-        cout << t << " " << u << endl;
-        battlefield[ro.getPositionY() + t][ro.getPositionX() + u] = "R2"; // battlefield[row][col]
-        battle.printBattlefield(battlefield);
-      }
-
-      u++;
-    }
-    t++;
-  }
+  
   // what if two robots get same position? need to implement logic so if positiontaken generte new random num
 
+  //Simulation
+  // int turn = 0;
+  // while (turn <3) {
+  //   cout << "Turn " << turn <<endl;
+  //     battle.printBattlefield(battlefield);
+
+  // }
   return 0;
 }

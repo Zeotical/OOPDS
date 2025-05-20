@@ -8,9 +8,15 @@ using namespace std;
 class BattleField
 {
 private:
-public:
+    vector<vector<string>> field;
+    int width, height;
 
-    BattleField() = default ;
-    void printBattlefield(vector<vector<string>> &field) ;
+public:
+    BattleField() = default;
+    void printBattlefield(vector<vector<string>> &field);
+    void placeRobot(int x, int y, string symbol);
+    void clearPosition(int x, int y);
+    bool isOccupied(int x, int y);
+    bool isInside(int x, int y);
 };
 #endif

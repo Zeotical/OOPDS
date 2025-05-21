@@ -49,5 +49,5 @@ class ThinkingRobot: virtual public Robot {
 // Multiple inheritance
 class GenericRobot : public MovingRobot, public SeeingRobot, public ShootingRobot, public ThinkingRobot {
 public:
-GenericRobot(string name):Robot(name){}
+GenericRobot(string name);
 };

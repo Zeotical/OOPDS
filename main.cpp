@@ -22,8 +22,8 @@ Phone: 018-1234567
 
 using namespace std;
 
-const int MaxWidth = 50;  // col, x
-const int MaxHeight = 40; // row, y
+//const int MaxWidth = 50;  // col, x
+//const int MaxHeight = 40; // row, y
 
 int main()
 {
@@ -31,8 +31,12 @@ int main()
 srand(time(0)); // each time program runs get a new random number
 
   GenericRobot robot("R1");
+    GenericRobot robot2("R2");
+
   robot.move();
   robot.look();
+  robot2.move();
+  robot2.look();
 
   // what if two robots get same position? need to implement logic so if positiontaken generte new random num
 

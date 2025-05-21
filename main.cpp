@@ -28,22 +28,18 @@ const int MaxHeight = 40; // row, y
 int main()
 {
 
-  srand(time(0));                                                                // each time program runs get a new random number
-  vector<vector<string>> battlefield(MaxHeight, vector<string>(MaxWidth, "- ")); // row then col then value to insert
-  BattleField battle;
-  Robot ro;
+srand(time(0)); // each time program runs get a new random number
 
-  battlefield[ro.getPositionY()][ro.getPositionX()] = "R2"; // battlefield[row][col]
-  battle.printBattlefield(battlefield);
+  GenericRobot robot("R1");
+  robot.move();
+  robot.look();
 
-  
   // what if two robots get same position? need to implement logic so if positiontaken generte new random num
 
   //Simulation
   // int turn = 0;
   // while (turn <3) {
   //   cout << "Turn " << turn <<endl;
-  //     battle.printBattlefield(battlefield);
 
   // }
   return 0;

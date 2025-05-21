@@ -1,18 +1,23 @@
 #include <string>
 using namespace std; // not recc to use this look into it
+// extern int robotsPositionX;
+// extern int robotsPositionY;
+
 
 // Base Class
 class Robot {
     private:
-    string name;
     string type;
     int lives = 3;
     int shells = 10; // max 10 
+    protected:
     int robotsPositionX; // row
     int robotsPositionY; // col
 
     public:
-    Robot ();
+    string name;
+    Robot () ;
+    Robot (string robotName);
     int getPositionX();
     int getPositionY();
 
@@ -20,22 +25,29 @@ class Robot {
 
 
 // Derived Classes
-class SeeingRobot: public Robot {
+class SeeingRobot: virtual public Robot {
     private:
 
     public:
     //bool positionTaken();
     void look();
 };
-class MovingRobot : public Robot {
-    public:
+class MovingRobot : virtual public Robot {
+    public: 
+    //MovingRobot():Robot(){};
     void move();
 };
-class ShootingRobot: public Robot {
+class ShootingRobot: virtual public Robot {
     public:
     void shoot();
 };
-class ThinkingRobot:public Robot {
+class ThinkingRobot: virtual public Robot {
     public:
     void think();
+};
+
+// Multiple inheritance
+class GenericRobot : public MovingRobot, public SeeingRobot, public ShootingRobot, public ThinkingRobot {
+public:
+GenericRobot(string name):Robot(name){}
 };

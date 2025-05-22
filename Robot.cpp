@@ -10,20 +10,23 @@
 #include "Robot.h" 
 #include "Battlefield.h"
 #include <iostream>
-const int MaxWidth = 50;  // col, x
+ const int MaxWidth = 50;  // col, x
 const int MaxHeight = 40; // row, y
 
 
-BattleField battle;
-vector<vector<string>> battlefield(MaxHeight, vector<string>(MaxWidth, "- ")); // row then col then value to insert
+//BattleField battle;
+//vector<vector<string>> battlefield(MaxHeight, vector<string>(MaxWidth, "- ")); // row then col then value to insert
 
 // int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
 // int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 //Robot class 
- Robot::Robot() {} //default constructor
-// robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-// robotsPositionY = rand() % 40; // random num from (0 to 39) //height
-// }
+Robot::Robot() {} //default constructor
+
+Robot::Robot(string robotName){
+    name = robotName;
+    robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
+    robotsPositionY = rand() % 40; // random num from (0 to 39) //height
+}
 
 int Robot::getPositionX(){
     return robotsPositionX;
@@ -33,9 +36,7 @@ int Robot::getPositionY(){
     return robotsPositionY;
 }
 
-Robot::Robot(string robotName){
-    name = robotName;
-}
+
 string Robot::getname(){
     return name;
 }
@@ -43,21 +44,21 @@ string Robot::getname(){
 
 // SeeinngRobot
 bool SeeingRobot::inBounds(int t, int u){
-  if(robotsPositionY+t<=39 && robotsPositionX+u<=49 && robotsPositionY+t>=0 && robotsPositionX+u>=0){
+  if(getPositionY()+t<=39 && getPositionX()+u<=49 && getPositionY()+t>=0 && getPositionX()+u>=0){
     return true;
   }
   else {
     return false;
   }
 }
-bool SeeingRobot::positionTaken(int t, int u){
-  if(battlefield[robotsPositionY+ t][robotsPositionX + u] != "-" && battlefield[robotsPositionY+ t][robotsPositionX + u] != name ){
-    return true;
-  }
-  else {
-    return false;
-  }
-}
+// //bool SeeingRobot::positionTaken(int t, int u){
+//   if(battlefield[getPositionY()+ t][getPositionX() + u] != "-" && battlefield[getPositionY()+ t][getPositionX() + u] != name ){
+//     return true;
+//   }
+//   else {
+//     return false;
+//   }
+// }
 void SeeingRobot::look(){
  int t = -1;
  int u = -1;
@@ -66,18 +67,18 @@ void SeeingRobot::look(){
         while (u<=1) {
          if(inBounds(t,u)){
 
-          if(positionTaken(t,u)){
+          // if(positionTaken(t,u)){
             
-            cout << "Enemy robot found at " << robotsPositionY + t<<" " << robotsPositionX + u <<endl ;
+          //   cout << "Enemy robot found at " << getPositionY() + t<<" " << getPositionX() + u <<endl ;
           
-          }
+          // }
 
           //  else {
           //  battlefield[robotsPositionY + t][robotsPositionX + u] = "R2"; //battlefield[row][col]
           //  battle.printBattlefield(battlefield);} 
         }
          else{
-            cout <<  robotsPositionY + t << " " << robotsPositionX + u << " out of bounds " ;
+            cout <<  getPositionY() + t << " " << getPositionX() + u << " out of bounds " ;
          }  
           u++;
         }
@@ -86,7 +87,7 @@ void SeeingRobot::look(){
 }
 
 // MovingRobot
-void MovingRobot::move(){
+void MovingRobot::move(BattleField &battle){
   //int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
 //int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 int t = -1;
@@ -94,10 +95,12 @@ int t = -1;
      while (t<=1) {
         u = -1;
        while (u<=1) {
-         if(robotsPositionY+t<=39 && robotsPositionX+u<=49 && robotsPositionY+t>=0 && robotsPositionY+u>=0){
+         if(getPositionY()+t<=39 && getPositionX()+u<=49 && getPositionY()+t>=0 && getPositionY()+u>=0){
            cout << t << " " << u << endl;
            //battlefield[robotsPositionY][ robotsPositionX] = "- " ;
-           battlefield[robotsPositionY+ t][ robotsPositionX + u] = name ; //battlefield[row][col]
+               battle.placeRobot(getPositionX() + u ,getPositionY() + t,getname());
+
+           //battlefield[getPositionY()+ t][getPositionX() + u] = name ; //battlefield[row][col]
            battle.printBattlefield();
          }
            

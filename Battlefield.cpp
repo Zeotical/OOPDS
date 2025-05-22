@@ -1,11 +1,17 @@
 #include "Battlefield.h"
+#include <iostream>
+#include <vector>
+#include <string>
 #include <cstdlib> // for rand()
 
-BattleField::BattleField()
-{
-    field = vector<vector<string>>(height, vector<string>(width, "- "));
-}
+int width = 50;  // col, x
+  int height = 40 ; // row, y
 
+BattleField::BattleField(){
+   field = vector<vector<string>>(height, vector<string>(width, "- "));
+
+}
+ 
 void BattleField::printBattlefield()
 {
     for (const auto &row : field)

@@ -2,6 +2,7 @@
 #define BATTLEFIELD_H
 
 #include <iostream>
+#include<string>
 #include <vector>
 #include <string>
 using namespace std;
@@ -14,8 +15,13 @@ private:
     vector<vector<string>> field;
 
 public:
-    BattleField(); // constructor
+ int width = 50;  // col, x
+  int height = 40 ; // row, y
 
+    vector<vector<string>> field ;
+    
+
+    BattleField();
     void printBattlefield();
     void placeRobot(int x, int y, string robot);
     void clearPosition(int x, int y);

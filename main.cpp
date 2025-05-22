@@ -29,6 +29,9 @@ int main()
   srand(time(0));                    // each time program runs get a new random number
   int robotsPositionX = rand() % 50; // random num from (0 to 49) because vector indexing starts at 0 //width
   int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
+srand(time(0)); // each time program runs get a new random number
+//int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
+//int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 
   BattleField battle;
 
@@ -43,17 +46,21 @@ int main()
 
   battle.printBattlefield();
 
-  // robot.move(); // random position not random each time will fix later
-  // robot.look();
-  //   robot2.look();
-  // robot2.move();
+    //battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
+        battle.placeRobot(robot2.getPositionX(),robot2.getPositionY(),robot2.getname());
+    battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
 
-  // what if two robots get same position? need to implement logic so if positiontaken generte new random num
+  
+    battle.printBattlefield();
+robot.move(battle);
 
-  // Simulation
-  //  int turn = 0;
-  //  while (turn <3) {
-  //    cout << "Turn " << turn <<endl;
+  
+
+
+  //Simulation
+  // int turn = 0;
+  // while (turn <3) {
+  //   cout << "Turn " << turn <<endl;
 
   // }
   return 0;

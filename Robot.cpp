@@ -36,7 +36,9 @@ int Robot::getPositionY(){
 Robot::Robot(string robotName){
     name = robotName;
 }
-
+string Robot::getname(){
+    return name;
+}
 // ThinkingRobot
 
 // SeeinngRobot

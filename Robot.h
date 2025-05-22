@@ -20,6 +20,8 @@ class Robot {
     Robot (string robotName);
     int getPositionX();
     int getPositionY();
+    string getname();
+
 
 };
 

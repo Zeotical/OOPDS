@@ -34,13 +34,15 @@ int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 BattleField battle;
 
 //Initializing robots before turn loop begins, each robot placed in a different random position
-  //GenericRobot robot("R1");
-    //GenericRobot robot2("R2");
-        //battle.printBattlefield(field);
+  GenericRobot robot("R1");
+  GenericRobot robot2("R2");
+  GenericRobot robot3("R3");
 
 
-    battle.placeRobot(robotsPositionX,robotsPositionY,"R1");
-    battle.placeRobot(robotsPositionX,robotsPositionY,"R2"); // need to take the object 
+
+    battle.placeRobot(robotsPositionX,robotsPositionY,robot.getname());
+    battle.placeRobot(robotsPositionX,robotsPositionY,robot2.getname()); 
+    battle.placeRobot(robotsPositionX,robotsPositionY,robot3.getname()); 
 
     battle.printBattlefield();
 

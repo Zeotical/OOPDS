@@ -7,14 +7,16 @@ using namespace std;
 
 class BattleField
 {
-private:
-    vector<vector<string>> field;
-    int width, height;
+// private:
+//     vector<vector<string>> field;
+//     int width = 50;
+//     int height = 40;
 
 public:
+
     BattleField() = default;
-    void printBattlefield(vector<vector<string>> &field);
-    void placeRobot(int x, int y, string symbol);
+    void printBattlefield();
+    void placeRobot(int x, int y, string robot);
     void clearPosition(int x, int y);
     bool isOccupied(int x, int y);
     bool isInside(int x, int y);

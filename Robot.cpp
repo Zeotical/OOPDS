@@ -96,7 +96,7 @@ int t = -1;
            cout << t << " " << u << endl;
            //battlefield[robotsPositionY][ robotsPositionX] = "- " ;
            battlefield[robotsPositionY+ t][ robotsPositionX + u] = name ; //battlefield[row][col]
-           battle.printBattlefield(battlefield);
+           battle.printBattlefield();
          }
            
 

@@ -22,21 +22,33 @@ Phone: 018-1234567
 
 using namespace std;
 
-//const int MaxWidth = 50;  // col, x
-//const int MaxHeight = 40; // row, y
-
 int main()
 {
 
 srand(time(0)); // each time program runs get a new random number
+int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
+int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 
-  GenericRobot robot("R1");
-    GenericRobot robot2("R2");
 
-  robot.move(); // random position not random each time will fix later 
-  robot.look();
-    robot2.look();
-  robot2.move();
+
+BattleField battle;
+
+//Initializing robots before turn loop begins, each robot placed in a different random position
+  //GenericRobot robot("R1");
+    //GenericRobot robot2("R2");
+        //battle.printBattlefield(field);
+
+
+    battle.placeRobot(robotsPositionX,robotsPositionY,"R1");
+    battle.placeRobot(robotsPositionX,robotsPositionY,"R2"); // need to take the object 
+
+    battle.printBattlefield();
+
+
+  // robot.move(); // random position not random each time will fix later 
+  // robot.look();
+  //   robot2.look();
+  // robot2.move();
 
   // what if two robots get same position? need to implement logic so if positiontaken generte new random num
 

@@ -26,10 +26,6 @@ int main()
 {
 
 srand(time(0)); // each time program runs get a new random number
-//int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-//int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
-
-
 
 BattleField battle;
 
@@ -38,8 +34,6 @@ BattleField battle;
   GenericRobot robot2("R2");
   GenericRobot robot3("R3");
 
-
-
     //battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
         battle.placeRobot(robot2.getPositionX(),robot2.getPositionY(),robot2.getname());
     battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
@@ -47,6 +41,9 @@ BattleField battle;
   
     battle.printBattlefield();
 robot.move(battle);
+robot2.move(battle);
+robot.look(battle);
+
 
   
 

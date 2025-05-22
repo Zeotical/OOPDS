@@ -34,13 +34,16 @@ class SeeingRobot: virtual public Robot {
     private:
 
     public:
-    bool positionTaken( int t, int u);
-    bool inBounds (int t, int u);
-    void look();
+    //bool positionTaken( int t, int u);
+    //bool inBounds (int t, int u);
+    void look(BattleField &battle);
 };
 class MovingRobot : virtual public Robot {
     public: 
     MovingRobot():Robot(){};
+    int oldX;
+    int oldY;
+    vector <int> movePositions ; //use std::pair 
     void move(BattleField &battle);
 };
 class ShootingRobot: virtual public Robot {

@@ -29,12 +29,13 @@ class SeeingRobot: virtual public Robot {
     private:
 
     public:
-    //bool positionTaken();
+    bool positionTaken( int t, int u);
+    bool inBounds (int t, int u);
     void look();
 };
 class MovingRobot : virtual public Robot {
     public: 
-    //MovingRobot():Robot(){};
+    MovingRobot():Robot(){};
     void move();
 };
 class ShootingRobot: virtual public Robot {

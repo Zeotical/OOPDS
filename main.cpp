@@ -33,10 +33,10 @@ srand(time(0)); // each time program runs get a new random number
   GenericRobot robot("R1");
     GenericRobot robot2("R2");
 
-  robot.move();
+  robot.move(); // random position not random each time will fix later 
   robot.look();
+    robot2.look();
   robot2.move();
-  robot2.look();
 
   // what if two robots get same position? need to implement logic so if positiontaken generte new random num
 

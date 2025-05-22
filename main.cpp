@@ -34,15 +34,16 @@ BattleField battle;
   GenericRobot robot2("R2");
   GenericRobot robot3("R3");
 
-    //battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
+    battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
         battle.placeRobot(robot2.getPositionX(),robot2.getPositionY(),robot2.getname());
     battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
 
   
     battle.printBattlefield();
-robot.move(battle);
-robot2.move(battle);
-robot.look(battle);
+    robot.look(battle);
+robot.move(battle); 
+//robot2.move(battle);
+//robot.look(battle);
 
 
   

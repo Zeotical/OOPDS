@@ -59,14 +59,17 @@ void SeeingRobot::look(BattleField &battle){
      while (t<=1) {
       u = -1;
       while (u<=1) {
-         if(battle.isInside(getPositionY() + t,getPositionX() + u)){
+         if(battle.isInside(getPositionY() + t,getPositionX() + u)){ // can join with the below if? or nvm
 
-          if(!battle.isOccupied(getPositionY() + t,getPositionX() + u)){
+          if(battle.isOccupied(getPositionY() + t,getPositionX() + u)){
             
             cout << "Enemy robot found at " << getPositionY() + t<<" " << getPositionX() + u <<endl ;
           }
           else {
-            cout << " Position possible to move to";
+            //cout << "Possible positions to move to";
+            movePositions.push_back(make_pair(getPositionY() + t,getPositionX() +u));
+            //clear vector after moving
+
           }
 
         }
@@ -89,7 +92,8 @@ void MovingRobot::move(BattleField &battle){
 //          if(getPositionY()+t<=39 && getPositionX()+u<=49 && getPositionY()+t>=0 && getPositionY()+u>=0){
 //            cout << t << " " << u << endl;
            //battlefield[robotsPositionY][ robotsPositionX] = "- " ;
-               battle.placeRobot(getPositionX() + u ,getPositionY() + t,getname());
+             int i =  rand() % movePositions.size() + 1;
+               battle.placeRobot(movePositions[i].first,movePositions[i].second,getname());
 
            //battlefield[getPositionY()+ t][getPositionX() + u] = name ; //battlefield[row][col]
            battle.printBattlefield();

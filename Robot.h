@@ -24,6 +24,8 @@ class Robot {
     int getPositionX();
     int getPositionY();
     string getname();
+    vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
+
 
 
 };
@@ -37,13 +39,13 @@ class SeeingRobot: virtual public Robot {
     //bool positionTaken( int t, int u);
     //bool inBounds (int t, int u);
     void look(BattleField &battle);
+
 };
 class MovingRobot : virtual public Robot {
     public: 
     MovingRobot():Robot(){};
     int oldX;
     int oldY;
-    vector <int> movePositions ; //use std::pair 
     void move(BattleField &battle);
 };
 class ShootingRobot: virtual public Robot {
@@ -59,4 +61,6 @@ class ThinkingRobot: virtual public Robot {
 class GenericRobot : public MovingRobot, public SeeingRobot, public ShootingRobot, public ThinkingRobot {
 public:
 GenericRobot(string name);
+//vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
+
 };

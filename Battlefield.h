@@ -3,22 +3,25 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 class BattleField
 {
-// private:
-//     vector<vector<string>> field;
-//     int width = 50;
-//     int height = 40;
+private:
+    int width = 50;
+    int height = 40;
+    vector<vector<string>> field;
 
 public:
+    BattleField(); // constructor
 
-    BattleField() = default;
     void printBattlefield();
     void placeRobot(int x, int y, string robot);
     void clearPosition(int x, int y);
     bool isOccupied(int x, int y);
     bool isInside(int x, int y);
+    pair<int, int> getRandomEmptyPosition();
 };
+
 #endif

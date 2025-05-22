@@ -30,21 +30,13 @@ int main()
   int robotsPositionX = rand() % 50; // random num from (0 to 49) because vector indexing starts at 0 //width
   int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 srand(time(0)); // each time program runs get a new random number
-//int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-//int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 
-  BattleField battle;
+BattleField battle;
 
-  // Initializing robots before turn loop begins, each robot placed in a different random position
+//Initializing robots before turn loop begins, each robot placed in a different random position
   GenericRobot robot("R1");
   GenericRobot robot2("R2");
   GenericRobot robot3("R3");
-
-  battle.placeRobot(robotsPositionX, robotsPositionY, robot.getname());
-  battle.placeRobot(robotsPositionX, robotsPositionY, robot2.getname());
-  battle.placeRobot(robotsPositionX, robotsPositionY, robot3.getname());
-
-  battle.printBattlefield();
 
     //battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
         battle.placeRobot(robot2.getPositionX(),robot2.getPositionY(),robot2.getname());
@@ -53,6 +45,9 @@ srand(time(0)); // each time program runs get a new random number
   
     battle.printBattlefield();
 robot.move(battle);
+robot2.move(battle);
+robot.look(battle);
+
 
   
 

@@ -36,12 +36,59 @@ int Robot::getPositionY(){
 Robot::Robot(string robotName){
     name = robotName;
 }
+string Robot::getname(){
+    return name;
+}
+// ThinkingRobot
 
+// SeeinngRobot
+bool SeeingRobot::inBounds(int t, int u){
+  if(robotsPositionY+t<=39 && robotsPositionX+u<=49 && robotsPositionY+t>=0 && robotsPositionX+u>=0){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+bool SeeingRobot::positionTaken(int t, int u){
+  if(battlefield[robotsPositionY+ t][robotsPositionX + u] != "-" && battlefield[robotsPositionY+ t][robotsPositionX + u] != name ){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+void SeeingRobot::look(){
+ int t = -1;
+ int u = -1;
+     while (t<=1) {
+        u = -1;
+        while (u<=1) {
+         if(inBounds(t,u)){
+
+          if(positionTaken(t,u)){
+            
+            cout << "Enemy robot found at " << robotsPositionY + t<<" " << robotsPositionX + u <<endl ;
+          
+          }
+
+          //  else {
+          //  battlefield[robotsPositionY + t][robotsPositionX + u] = "R2"; //battlefield[row][col]
+          //  battle.printBattlefield(battlefield);} 
+        }
+         else{
+            cout <<  robotsPositionY + t << " " << robotsPositionX + u << " out of bounds " ;
+         }  
+          u++;
+        }
+        t++;
+    }
+}
 
 // MovingRobot
 void MovingRobot::move(){
-  int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
+  //int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
+//int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 int t = -1;
  int u = -1;
      while (t<=1) {
@@ -51,7 +98,7 @@ int t = -1;
            cout << t << " " << u << endl;
            //battlefield[robotsPositionY][ robotsPositionX] = "- " ;
            battlefield[robotsPositionY+ t][ robotsPositionX + u] = name ; //battlefield[row][col]
-           battle.printBattlefield(battlefield);
+           battle.printBattlefield();
          }
            
 
@@ -60,35 +107,7 @@ int t = -1;
         t++;
     }
 }
-// SeeinngRobot
-// void SeeingRobot::positionTaken(){
 
-// }
-void SeeingRobot::look(){
- int t = -1;
- int u = -1;
-     while (t<=1) {
-        u = -1;
-        while (u<=1) {
-         if(robotsPositionY+t<=39 && robotsPositionX+u<=49 && robotsPositionY+t>=0 && robotsPositionY+u>=0){
-
-          if(battlefield[robotsPositionY+ t][robotsPositionX + u] != "-" && battlefield[robotsPositionY+ t][robotsPositionX + u] != name ){
-            
-            cout << "Enemy robot found" ;
-          
-          }
-
-         }
-         else{
-            cout <<  robotsPositionY + t << " " << robotsPositionX + u << " out of bounds " ;
-         }  
-
-          u++;
-        }
-        t++;
-    }
-}
-// ThinkingRobot
 // ShootingRobot
 void ShootingRobot::shoot() {
 vector <int> values = {1,2,3,4,5,6,7,8,9,10};

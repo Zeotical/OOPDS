@@ -1,8 +1,12 @@
 #include "Battlefield.h"
 #include <iostream>
 #include <vector>
+ const int width = 50;  // col, x
+ const int height = 40; // row, y
 
-void BattleField::printBattlefield(vector<vector<string>> &field)
+    vector<vector<string>> field(height, vector<string>(width, "- "));
+    
+void BattleField::printBattlefield()
 {
     for (auto row : field)
     {
@@ -15,11 +19,31 @@ void BattleField::printBattlefield(vector<vector<string>> &field)
     cout << endl;
 }
 
-void BattleField::placeRobot(int x, int y, string symbol)
+bool BattleField::isInside(int x, int y)
 {
-    if (isInside(x, y))
-    {
-        field[y][x] = symbol;
+    return x >= 0 && x < width && y >= 0 && y < height; }
+
+bool BattleField::isOccupied(int x, int y)
+{
+    return field[y][x] != "- ";
+}
+
+
+void BattleField::placeRobot(int x, int y, string robot)
+{
+    // if (isInside(x, y))
+    // {
+    //     field[y][x] = symbol;
+    // }
+
+    if (!isOccupied(x,y) && isInside(x,y)) {
+        field[y][x] = robot;
+    }
+    else {
+        
+        x = rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
+        y = rand() % 40; // random num from (0 to 39) //height
+        placeRobot(x, y, robot);
     }
 }
 
@@ -27,15 +51,8 @@ void BattleField::clearPosition(int x, int y)
 {
     if (isInside(x, y))
     {
-        field[y][x] = ".";
+        field[y][x] = "-";
     }
 }
 
-bool BattleField::isOccupied(int x, int y)
-{
-    return isInside(x, y) && field[y][x] != ".";
-}
 
-bool BattleField::isInside(int x, int y)
-{
-    return x >= 0 && x < width && y >= 0 && y < height; }

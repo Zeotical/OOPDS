@@ -1,4 +1,7 @@
 #include <string>
+#include <vector>
+#include "Battlefield.h"
+
 using namespace std; // not recc to use this look into it
 // extern int robotsPositionX;
 // extern int robotsPositionY;
@@ -10,7 +13,7 @@ class Robot {
     string type;
     int lives = 3;
     int shells = 10; // max 10 
-    protected:
+    //protected:
     int robotsPositionX; // row
     int robotsPositionY; // col
 
@@ -38,7 +41,7 @@ class SeeingRobot: virtual public Robot {
 class MovingRobot : virtual public Robot {
     public: 
     MovingRobot():Robot(){};
-    void move();
+    void move(BattleField &battle);
 };
 class ShootingRobot: virtual public Robot {
     public:

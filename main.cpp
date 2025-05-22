@@ -26,8 +26,8 @@ int main()
 {
 
 srand(time(0)); // each time program runs get a new random number
-int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
+//int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
+//int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
 
 
 
@@ -40,19 +40,16 @@ BattleField battle;
 
 
 
-    battle.placeRobot(robotsPositionX,robotsPositionY,robot.getname());
-    battle.placeRobot(robotsPositionX,robotsPositionY,robot2.getname()); 
-    battle.placeRobot(robotsPositionX,robotsPositionY,robot3.getname()); 
+    //battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
+        battle.placeRobot(robot2.getPositionX(),robot2.getPositionY(),robot2.getname());
+    battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
 
+  
     battle.printBattlefield();
+robot.move(battle);
 
+  
 
-  // robot.move(); // random position not random each time will fix later 
-  // robot.look();
-  //   robot2.look();
-  // robot2.move();
-
-  // what if two robots get same position? need to implement logic so if positiontaken generte new random num
 
   //Simulation
   // int turn = 0;

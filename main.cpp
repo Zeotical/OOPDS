@@ -42,6 +42,10 @@ BattleField battle;
     battle.printBattlefield();
     robot.look(battle);
 robot.move(battle); 
+robot.move(battle); 
+robot.move(battle); 
+robot.move(battle); 
+
 //robot2.move(battle);
 //robot.look(battle);
 

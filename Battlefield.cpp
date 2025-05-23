@@ -54,10 +54,11 @@ void BattleField::placeRobot(int x, int y, string robot)
 
 void BattleField::clearPosition(int x, int y)
 {
-    if (isInside(x, y))
-    {
-        field[y][x] = "-";
-    }
+            field[y][x] = "- ";
+
+    // if (isInside(x, y))
+    // {
+    // }
 }
 
 

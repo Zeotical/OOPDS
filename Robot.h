@@ -13,7 +13,7 @@ class Robot {
     string type;
     int lives = 3;
     int shells = 10; // max 10 
-    //protected:
+    protected:
     int robotsPositionX; // row
     int robotsPositionY; // col
 
@@ -25,9 +25,6 @@ class Robot {
     int getPositionY();
     string getname();
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
-
-
-
 };
 
 

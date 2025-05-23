@@ -1,5 +1,6 @@
-// class Robot
-// Below cannot have overlapping public mehtods & data members
+// class Robot Base class 
+//***********************************************************
+// Below cannot have overlapping public mehtods & data members (Derived classes)
 // class MovingRobot: public Robot // handles movement
 // class SeeingRobot: public Robot // handles seeing
 // class Shooting Robot: public Robot // handles shooting
@@ -68,10 +69,9 @@ void SeeingRobot::look(BattleField &battle){
           else {
             //cout << "Possible positions to move to";
             movePositions.push_back(make_pair(getPositionY() + t,getPositionX() +u));
-            //clear vector after moving
+            //clear vector after moving //everytime I run I get smth diff
 
           }
-
         }
         else{
             cout <<  getPositionY() + t << " " << getPositionX() + u << " out of bounds " ;
@@ -83,27 +83,18 @@ void SeeingRobot::look(BattleField &battle){
 }
 
 // MovingRobot
-void MovingRobot::move(BattleField &battle){
-// int t = -1;
-//  int u = -1;
-//      while (t<=1) {
-//         u = -1;
-//        while (u<=1) {
-//          if(getPositionY()+t<=39 && getPositionX()+u<=49 && getPositionY()+t>=0 && getPositionY()+u>=0){
-//            cout << t << " " << u << endl;
-           //battlefield[robotsPositionY][ robotsPositionX] = "- " ;
+void MovingRobot::move(BattleField &battle){ //smth wrong here 
+
+           oldX = getPositionX();
+           oldY = getPositionY();
+           battle.clearPosition(oldX,oldY);
+           if (movePositions.size()> 0) { 
              int i =  rand() % movePositions.size() + 1;
-               battle.placeRobot(movePositions[i].first,movePositions[i].second,getname());
-
-           //battlefield[getPositionY()+ t][getPositionX() + u] = name ; //battlefield[row][col]
-           battle.printBattlefield();
-        //  }
+               battle.placeRobot(movePositions[i].second,movePositions[i].first,getname());
+               robotsPositionX = movePositions[i].second ;
+               robotsPositionY = movePositions[i].first ;
+           battle.printBattlefield(); }
            
-
-        //   u++;
-        // }
-        // t++;
-    //}
 }
 
 // ShootingRobot

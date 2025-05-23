@@ -14,8 +14,8 @@ class BattleField
 //     int height = 40;
 
 public:
- int width = 50;  // col, x
-  int height = 40 ; // row, y
+ int width = 30;  // col, x
+  int height = 20 ; // row, y
 
     vector<vector<string>> field ;
     

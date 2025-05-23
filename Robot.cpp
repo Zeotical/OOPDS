@@ -12,15 +12,14 @@
 #include "Battlefield.h"
 #include <iostream>
  
-// int robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-// int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
+
 //Robot class 
 Robot::Robot() {} //default constructor
 
 Robot::Robot(string robotName){
     name = robotName;
-    robotsPositionX= rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-    robotsPositionY = rand() % 40; // random num from (0 to 39) //height
+    robotsPositionX= rand() % 30 ; // random num from (0 to 29) because vector indexing starts at 0 //width
+    robotsPositionY = rand() % 20; // random num from (0 to 19) //height
 }
 
 int Robot::getPositionX(){
@@ -60,11 +59,11 @@ void SeeingRobot::look(BattleField &battle){
      while (t<=1) {
       u = -1;
       while (u<=1) {
-         if(battle.isInside(getPositionY() + t,getPositionX() + u)){ // can join with the below if? or nvm
+        if(battle.isInside(getPositionX() + u,getPositionY() + t)){ // can join with the below if? or nvm
 
-          if(battle.isOccupied(getPositionY() + t,getPositionX() + u)){
+          if(battle.isOccupied(getPositionX() + u,getPositionY() + t) && t!=0 && u!=0){  //(width,height) (row,col)
             
-            cout << "Enemy robot found at " << getPositionY() + t<<" " << getPositionX() + u <<endl ;
+            cout << "Enemy robot found at " << getPositionX() + u<<" " << getPositionY() + t <<endl ;
           }
           else {
             //cout << "Possible positions to move to";
@@ -85,20 +84,23 @@ void SeeingRobot::look(BattleField &battle){
 // MovingRobot
 void MovingRobot::move(BattleField &battle){ //smth wrong here 
 
-           oldX = getPositionX();
-           oldY = getPositionY();
-           battle.clearPosition(oldX,oldY);
-           if (movePositions.size()> 0) { 
-             int i =  rand() % movePositions.size() + 1;
-               battle.placeRobot(movePositions[i].second,movePositions[i].first,getname());
-               robotsPositionX = movePositions[i].second ;
-               robotsPositionY = movePositions[i].first ;
-           battle.printBattlefield(); }
+  oldX = getPositionX();
+  oldY = getPositionY();
+  //battle.clearPosition(oldX,oldY);
+  //if (movePositions.size()> 0) { 
+   // int i =  rand() % movePositions.size() + 1;
+    for(auto i:movePositions){
+      cout << i.second << " " << i.first<<endl;
+      battle.placeRobot(i.second,i.first,getname()); //}
+      // robotsPositionX = movePositions[i].second ;
+      // robotsPositionY = movePositions[i].first ;
+  //battle.printBattlefield(); 
+  }
            
 }
 
 // ShootingRobot
-void ShootingRobot::shoot() {
+void ShootingRobot::fire() {
 vector <int> values = {1,2,3,4,5,6,7,8,9,10};
 int prob = rand() % 10 ; // 0 to 9
 if (values[prob] <=7){ //Hit probability 70%

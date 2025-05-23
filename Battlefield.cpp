@@ -3,9 +3,6 @@
 #include <vector>
 #include <string>
 
-int width = 50;  // col, x
-  int height = 40 ; // row, y
-
 BattleField::BattleField(){
    field = vector<vector<string>>(height, vector<string>(width, "- "));
 
@@ -46,8 +43,8 @@ void BattleField::placeRobot(int x, int y, string robot)
     }
     else {
         
-        x = rand() % 50 ; // random num from (0 to 49) because vector indexing starts at 0 //width
-        y = rand() % 40; // random num from (0 to 39) //height
+        x = rand() % 30 ; // random num from (0 to 29) because vector indexing starts at 0 //width
+        y = rand() % 20; // random num from (0 to 19) //height
         placeRobot(x, y, robot);
     }
 }

@@ -47,7 +47,7 @@ class MovingRobot : virtual public Robot {
 };
 class ShootingRobot: virtual public Robot {
     public:
-    void shoot();
+    void fire();
 };
 class ThinkingRobot: virtual public Robot {
     public:

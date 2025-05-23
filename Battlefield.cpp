@@ -33,11 +33,6 @@ bool BattleField::isOccupied(int x, int y)
 
 void BattleField::placeRobot(int x, int y, string robot)
 {
-    // if (isInside(x, y))
-    // {
-    //     field[y][x] = symbol;
-    // }
-
     if (!isOccupied(x,y) && isInside(x,y)) {
         field[y][x] = robot;
     }
@@ -52,10 +47,6 @@ void BattleField::placeRobot(int x, int y, string robot)
 void BattleField::clearPosition(int x, int y)
 {
             field[y][x] = "- ";
-
-    // if (isInside(x, y))
-    // {
-    // }
 }
 
 

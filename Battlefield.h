@@ -8,10 +8,6 @@ using namespace std;
 
 class BattleField
 {
-// private:
-//     vector<vector<string>> field;
-//     int width = 50;
-//     int height = 40;
 
 public:
  int width = 30;  // col, x

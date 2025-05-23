@@ -30,29 +30,12 @@ int Robot::getPositionY(){
     return robotsPositionY;
 }
 
-
 string Robot::getname(){
     return name;
 }
 // ThinkingRobot
 
 // SeeinngRobot
-// bool SeeingRobot::inBounds(int t, int u){
-//   if(getPositionY()+t<=39 && getPositionX()+u<=49 && getPositionY()+t>=0 && getPositionX()+u>=0){
-//     return true;
-//   }
-//   else {
-//     return false;
-//   }
-// }
-// bool SeeingRobot::positionTaken(int t, int u){
-//   if(BattleField.isOcc[getPositionY()+ t][getPositionX() + u] != "-" && battle.field[getPositionY()+ t][getPositionX() + u] != name ){
-//     return true;
-//   }
-//   else {
-//     return false;
-//   }
-// }
 void SeeingRobot::look(BattleField &battle){
  int t = -1;
  int u = -1;
@@ -65,15 +48,15 @@ void SeeingRobot::look(BattleField &battle){
             
             cout << "Enemy robot found at " << getPositionX() + u<<" " << getPositionY() + t <<endl ;
           }
-          else {
+          else if (t!=0 && u!=0) {
             //cout << "Possible positions to move to";
-            movePositions.push_back(make_pair(getPositionY() + t,getPositionX() +u));
+            movePositions.push_back(make_pair(getPositionX() +u,getPositionY() + t));
             //clear vector after moving //everytime I run I get smth diff
 
           }
         }
         else{
-            cout <<  getPositionY() + t << " " << getPositionX() + u << " out of bounds " ;
+            cout <<  getPositionY() + t << " " << getPositionX() + u << " out of bounds " <<endl ;
          }  
           u++;
         }
@@ -84,17 +67,16 @@ void SeeingRobot::look(BattleField &battle){
 // MovingRobot
 void MovingRobot::move(BattleField &battle){ //smth wrong here 
 
-  oldX = getPositionX();
+  oldX = getPositionX(); //why not jus use robotpos
   oldY = getPositionY();
-  //battle.clearPosition(oldX,oldY);
-  //if (movePositions.size()> 0) { 
-   // int i =  rand() % movePositions.size() + 1;
-    for(auto i:movePositions){
-      cout << i.second << " " << i.first<<endl;
-      battle.placeRobot(i.second,i.first,getname()); //}
-      // robotsPositionX = movePositions[i].second ;
-      // robotsPositionY = movePositions[i].first ;
-  //battle.printBattlefield(); 
+  battle.clearPosition(oldX,oldY);
+  if (movePositions.size()> 0) {  
+    int i =  rand() % movePositions.size();//from the possible to move to positions we pick a random one
+    
+    battle.placeRobot(movePositions[i].first,movePositions[i].second,getname()); //else statement will not be triggered because movePositions only returns unoccupied positions
+    robotsPositionX = movePositions[i].first ;
+    robotsPositionY = movePositions[i].second ;
+    movePositions.clear();
   }
            
 }

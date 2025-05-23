@@ -1,11 +1,11 @@
+#ifndef ROBOT_H
+#define ROBOT_H
+
 #include <string>
 #include <vector>
 #include "Battlefield.h"
 
 using namespace std; // not recc to use this look into it
-// extern int robotsPositionX;
-// extern int robotsPositionY;
-
 
 // Base Class
 class Robot {
@@ -33,8 +33,6 @@ class SeeingRobot: virtual public Robot {
     private:
 
     public:
-    //bool positionTaken( int t, int u);
-    //bool inBounds (int t, int u);
     void look(BattleField &battle);
 
 };
@@ -61,3 +59,4 @@ GenericRobot(string name);
 //vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
 
 };
+#endif

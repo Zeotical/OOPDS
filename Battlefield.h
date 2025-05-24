@@ -9,14 +9,10 @@ using namespace std;
 
 class BattleField
 {
-private:
-    int width = 50;
-    int height = 40;
-    vector<vector<string>> field;
 
 public:
- int width = 50;  // col, x
-  int height = 40 ; // row, y
+ int width = 30;  // col, x
+  int height = 20 ; // row, y
 
     vector<vector<string>> field ;
     

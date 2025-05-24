@@ -4,9 +4,6 @@
 #include <string>
 #include <cstdlib> // for rand()
 
-int width = 50;  // col, x
-  int height = 40 ; // row, y
-
 BattleField::BattleField(){
    field = vector<vector<string>>(height, vector<string>(width, "- "));
 
@@ -37,24 +34,20 @@ bool BattleField::isOccupied(int x, int y)
 
 void BattleField::placeRobot(int x, int y, string robot)
 {
-    if (!isOccupied(x, y) && isInside(x, y))
-    {
+    if (!isOccupied(x,y) && isInside(x,y)) {
         field[y][x] = robot;
     }
-    else
-    {
-        // Retry at a new random position
-        auto [newX, newY] = getRandomEmptyPosition();
-        placeRobot(newX, newY, robot);
+    else {
+        
+        x = rand() % 30 ; // random num from (0 to 29) because vector indexing starts at 0 //width
+        y = rand() % 20; // random num from (0 to 19) //height
+        placeRobot(x, y, robot);
     }
 }
 
 void BattleField::clearPosition(int x, int y)
 {
-    if (isInside(x, y))
-    {
-        field[y][x] = "- ";
-    }
+            field[y][x] = "- ";
 }
 
 pair<int, int> BattleField::getRandomEmptyPosition()

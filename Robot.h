@@ -1,11 +1,11 @@
+#ifndef ROBOT_H
+#define ROBOT_H
+
 #include <string>
 #include <vector>
 #include "Battlefield.h"
 
 using namespace std; // not recc to use this look into it
-// extern int robotsPositionX;
-// extern int robotsPositionY;
-
 
 // Base Class
 class Robot {
@@ -13,7 +13,7 @@ class Robot {
     string type;
     int lives = 3;
     int shells = 10; // max 10 
-    //protected:
+    protected:
     int robotsPositionX; // row
     int robotsPositionY; // col
 
@@ -24,8 +24,7 @@ class Robot {
     int getPositionX();
     int getPositionY();
     string getname();
-
-
+    vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
 };
 
 
@@ -34,21 +33,19 @@ class SeeingRobot: virtual public Robot {
     private:
 
     public:
-    //bool positionTaken( int t, int u);
-    //bool inBounds (int t, int u);
     void look(BattleField &battle);
+
 };
 class MovingRobot : virtual public Robot {
     public: 
     MovingRobot():Robot(){};
     int oldX;
     int oldY;
-    vector <int> movePositions ; //use std::pair 
     void move(BattleField &battle);
 };
 class ShootingRobot: virtual public Robot {
     public:
-    void shoot();
+    void fire();
 };
 class ThinkingRobot: virtual public Robot {
     public:
@@ -59,4 +56,7 @@ class ThinkingRobot: virtual public Robot {
 class GenericRobot : public MovingRobot, public SeeingRobot, public ShootingRobot, public ThinkingRobot {
 public:
 GenericRobot(string name);
+//vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
+
 };
+#endif

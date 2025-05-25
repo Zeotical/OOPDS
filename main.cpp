@@ -26,11 +26,8 @@ using namespace std;
 int main()
 {
 
-  srand(time(0));                    // each time program runs get a new random number
-  int robotsPositionX = rand() % 50; // random num from (0 to 49) because vector indexing starts at 0 //width
-  int robotsPositionY = rand() % 40; // random num from (0 to 39) //height
-srand(time(0)); // each time program runs get a new random number
-
+  srand(time(0)); // each time program runs get a new random number
+  
 BattleField battle;
 
 //Initializing robots before turn loop begins, each robot placed in a different random position

@@ -11,23 +11,27 @@ using namespace std; // not recc to use this look into it
 class Robot {
     private:
     string type;
-    int lives; // max 3
-    int shells; // max 10 
-    int kills;
+    int shells; // max 10 // can jus put this in shoot func why here?
     int upgrades; // max 3
     protected:
     int robotsPositionX; // row
     int robotsPositionY; // col
+    int kills;
+
 
     public:
+        int lives; // max 3
+
     string name;
+    int numOfRobots;
     Robot () ;
-    Robot (string robotName);
+    Robot (string robotName,string robotType);
     int getPositionX();
     int getPositionY();
     string getname();
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
     vector <pair<int,int>> enemyPos ; //use std::pair stores enemy positions in surrounding area
+    // queue <int> re_enteringRobots;
 };
 
 
@@ -48,7 +52,8 @@ class MovingRobot : virtual public Robot {
 };
 class ShootingRobot: virtual public Robot {
     public:
-    void fire();
+    void fire(BattleField &battle);
+    string destroyedRobot ;
 };
 class ThinkingRobot: virtual public Robot {
     public:
@@ -59,7 +64,7 @@ class ThinkingRobot: virtual public Robot {
 class GenericRobot : public MovingRobot, public SeeingRobot, public ShootingRobot, public ThinkingRobot {
 public:
 GenericRobot(string name);
-//vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
+static string type; //all objects from this class share the same type
 
 };
 #endif

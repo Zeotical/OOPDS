@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "Battlefield.h"
 
 using namespace std; // not recc to use this look into it
@@ -14,14 +15,13 @@ class Robot {
     int shells; // max 10 // can jus put this in shoot func why here?
     int upgrades; // max 3
     protected:
+    int lives; // max 3
     int robotsPositionX; // row
     int robotsPositionY; // col
     int kills;
 
 
     public:
-        int lives; // max 3
-
     string name;
     int numOfRobots;
     Robot () ;
@@ -63,6 +63,7 @@ class ThinkingRobot: virtual public Robot {
 // Multiple inheritance
 class GenericRobot : public MovingRobot, public SeeingRobot, public ShootingRobot, public ThinkingRobot {
 public:
+static map<string, GenericRobot> robotObjects; //can jus use emplace to construct diretly in here instead of pointers==getting the address 
 GenericRobot(string name);
 static string type; //all objects from this class share the same type
 

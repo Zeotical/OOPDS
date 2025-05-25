@@ -112,6 +112,8 @@ else {
 string GenericRobot::type = "Generic Robot" ; //static variable, shred by all objects
 GenericRobot::GenericRobot(string name):Robot(name, GenericRobot::type){}
 
+map<string,GenericRobot> GenericRobot::robotObjects; // static definition
+
 // UPGRADES
 //There are three possible areas to upgrade. They are moving, shooting and seeing. 
 // 1. Moving: HideBot or JumpBot.

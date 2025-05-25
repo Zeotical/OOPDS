@@ -12,6 +12,7 @@ Phone: 018-1234567
 
 #include <iostream>
 #include <vector>
+#include <map>
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -31,7 +32,12 @@ int main()
 BattleField battle;
 
 //Initializing robots before turn loop begins, each robot placed in a different random position
-  GenericRobot robot("R1");
+  //GenericRobot robot("R1");
+  GenericRobot::robotObjects.emplace("R1","R1"); // (key,obj)
+  // assign object using key to robot, easier to access methods //auto& == referenced data type (in this case GenericRobot)
+  auto& robot =  GenericRobot::robotObjects.at("R1"); // doesn't need a defualt constructor as [] does
+
+
   GenericRobot robot2("R2");
   GenericRobot robot3("R3");
 
@@ -42,12 +48,14 @@ BattleField battle;
   
     battle.printBattlefield();
     robot.look(battle);
-    robot.move(battle); 
+  robot.move(battle); 
        
-  robot2.look(battle);
+  battle.printBattlefield();
+
+//   robot2.look(battle);
 
 
- robot2.move(battle);
+//  robot2.move(battle);
     // battle.printBattlefield();
 
 //robot.look(battle);

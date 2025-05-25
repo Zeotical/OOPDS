@@ -46,7 +46,9 @@ void SeeingRobot::look(BattleField &battle){
 
           if(battle.isOccupied(getPositionX() + u,getPositionY() + t) && t!=0 && u!=0){  //(width,height) (row,col)
             
-            cout << "Enemy robot found at " << getPositionX() + u<<" " << getPositionY() + t <<endl ;
+            cout << "Enemy robot found at (" << getPositionX() + u<<" " << getPositionY() + t <<")" <<endl ;
+            // 
+            enemyPos.push_back(make_pair(getPositionX() +u,getPositionY() + t))''
           }
           else if (t!=0 && u!=0) {
             //cout << "Possible positions to move to";
@@ -86,7 +88,13 @@ void ShootingRobot::fire() {
 vector <int> values = {1,2,3,4,5,6,7,8,9,10};
 int prob = rand() % 10 ; // 0 to 9
 if (values[prob] <=7){ //Hit probability 70%
-  cout << "Hit" ; // + other stuff will add after class 
+   int i =  rand() % enemyPos.size();
+   battle.clearPosition(movePositions[i].first,movePositions[i].second);
+   // send the loser robot to the backrooms using queue can reneter in next round? 
+   // reduce from the lives 
+   // add to the kills of the winner robot
+   // if kills ++ then choose upgrade
+  cout << name << " hit " << "oter robot name at " <<   ; // + other stuff will add after class 
 }
 else {
   cout << "Miss" ;

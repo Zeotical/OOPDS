@@ -11,8 +11,10 @@ using namespace std; // not recc to use this look into it
 class Robot {
     private:
     string type;
-    int lives = 3;
-    int shells = 10; // max 10 
+    int lives; // max 3
+    int shells; // max 10 
+    int kills;
+    int upgrades; // max 3
     protected:
     int robotsPositionX; // row
     int robotsPositionY; // col
@@ -25,6 +27,7 @@ class Robot {
     int getPositionY();
     string getname();
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
+    vector <pair<int,int>> enemyPos ; //use std::pair stores enemy positions in surrounding area
 };
 
 

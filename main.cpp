@@ -13,6 +13,7 @@ Phone: 018-1234567
 #include <iostream>
 #include <vector>
 #include <map>
+#include <memory>
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -32,40 +33,39 @@ int main()
 BattleField battle;
 
 //Initializing robots before turn loop begins, each robot placed in a different random position
-  //GenericRobot robot("R1");
-  GenericRobot::robotObjects.emplace("R1","R1"); // (key,obj)
+
+   GenericRobot::robotObjects.emplace("R1","R1"); // (key,obj)
   // assign object using key to robot, easier to access methods //auto& == referenced data type (in this case GenericRobot)
   auto& robot =  GenericRobot::robotObjects.at("R1"); // doesn't need a defualt constructor as [] does
 
+   GenericRobot::robotObjects.emplace("R2","R2"); // (key,obj)
+  // assign object using key to robot, easier to access methods //auto& == referenced data type (in this case GenericRobot)
+  auto& robot2 =  GenericRobot::robotObjects.at("R2"); // doesn't need a defualt constructor as [] does
 
-  GenericRobot robot2("R2");
-  GenericRobot robot3("R3");
+  // GenericRobot robot3("R3");
 
     battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
-    battle.placeRobot(robot2.getPositionX(),robot2.getPositionY(),robot2.getname());
-    battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
+    battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot2.getname());
+  // battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
 
   
     battle.printBattlefield();
-    robot.look(battle);
-  robot.move(battle); 
+    robot.look(battle); 
+  //robot.move(battle); 
        
   battle.printBattlefield();
 
+  robot.fire(battle);
+
+  battle.printBattlefield();
+
 //   robot2.look(battle);
-
-
 //  robot2.move(battle);
-    // battle.printBattlefield();
+// battle.printBattlefield();
 
 //robot.look(battle);
 
 
-  //Simulation
-  // int turn = 0;
-  // while (turn <3) {
-  //   cout << "Turn " << turn <<endl;
 
-  // }
   return 0;
 }

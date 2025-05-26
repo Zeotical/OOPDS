@@ -36,6 +36,7 @@ int Robot::getPositionY(){
 string Robot::getname(){
     return name;
 }
+
 // ThinkingRobot
 
 // SeeinngRobot
@@ -47,15 +48,17 @@ void SeeingRobot::look(BattleField &battle){
       while (u<=1) {
         if(battle.isInside(getPositionX() + u,getPositionY() + t)){ // can join with the below if? or nvm
 
-          if(battle.isOccupied(getPositionX() + u,getPositionY() + t) && t!=0 && u!=0){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
+          if(battle.isOccupied(getPositionX() + u,getPositionY() + t) && (t!=0 || u!=0)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
             
-            cout << "Enemy robot found at (" << getPositionX() + u<<" " << getPositionY() + t <<")" <<endl ;
+            cout << "Enemy robot found at (" << getPositionY() + t<<" " << getPositionX() + u <<")" <<endl ;
             // 
-            enemyPos.push_back(make_pair(getPositionX() +u,getPositionY() + t)) ;
+            enemyPos.push_back(make_pair(getPositionX()+u,getPositionY() + t)) ;
           } // inner if 
-          else if (t!=0 && u!=0) {
-            //cout << "Possible positions to move to";
+          else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
+            cout << "Possible positions to move to";
             movePositions.push_back(make_pair(getPositionX() +u,getPositionY() + t));
+            cout <<  getPositionY() + t << " " << getPositionX() + u  <<endl ;
+
             //clear vector after moving //everytime I run I get smth diff
 
           } // else if
@@ -91,15 +94,18 @@ void ShootingRobot::fire(BattleField &battle) {
 vector <int> values = {1,2,3,4,5,6,7,8,9,10};
 int prob = rand() % 10 ; // 0 to 9
 cout <<  name  << "used shoot action" << endl;
-if (values[prob] <=7){ //Hit probability 70%
+if (values[prob] <=7 && enemyPos.size()!=0){ //Hit probability 70%
    int i =  rand() % enemyPos.size();
-   destroyedRobot = battle.field[enemyPos[i].first][enemyPos[i].second]; // gets the name of the robot
+   destroyedRobotName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
+   GenericRobot destroyedRobot = GenericRobot::robotObjects.at(destroyedRobotName);
    // using a map and the name get the object
-   //--destroyedRobotOBJECT.lives; // reduce from the lives  of the loser robot
-   battle.clearPosition(enemyPos[i].first,enemyPos[i].second);
+  // destroyedRobot = GenericRobot::robotObjects.at(destroyedRobotName); //obj not name
+  --destroyedRobot.lives; // reduce from the lives  of the loser robot
    // send the loser robot to the backrooms using queue can reneter in next round? 
-   // queue.push_back(destroyedRobot) or use obeject better?
-  cout << name << " hits " << destroyedRobot << enemyPos[i].first << "," << enemyPos[i].second << ") and destroyed it."  <<endl; 
+      // queue.push_back(destroyedRobot) or use obeject better?
+   battle.clearPosition(enemyPos[i].first,enemyPos[i].second); // x,y == row,col
+  cout << name << " hits " << destroyedRobot.name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroyed it."  <<endl; 
+  enemyPos.clear();
   kills ++ ;    // add to the kills of the winner robot
   //updates ++; / call upgragde func    // if kills ++ then choose upgrade 
   } //if
@@ -108,12 +114,16 @@ else {
 } //else
 }
 
-// GenericRobot later will move to it's own file
-string GenericRobot::type = "Generic Robot" ; //static variable, shred by all objects
+//GenericRobot
+string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
 GenericRobot::GenericRobot(string name):Robot(name, GenericRobot::type){}
-
 map<string,GenericRobot> GenericRobot::robotObjects; // static definition
 
+GenericRobot GenericRobot::getRobotByName(string& name) {
+
+  return GenericRobot::robotObjects.at(name) ; }
+
+// do func here ??
 // UPGRADES
 //There are three possible areas to upgrade. They are moving, shooting and seeing. 
 // 1. Moving: HideBot or JumpBot.

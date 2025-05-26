@@ -4,9 +4,12 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 #include "Battlefield.h"
 
 using namespace std; // not recc to use this look into it
+
+class GenericRobot;
 
 // Base Class
 class Robot {
@@ -32,6 +35,7 @@ class Robot {
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
     vector <pair<int,int>> enemyPos ; //use std::pair stores enemy positions in surrounding area
     // queue <int> re_enteringRobots;
+
 };
 
 
@@ -43,7 +47,7 @@ class SeeingRobot: virtual public Robot {
     void look(BattleField &battle);
 
 };
-class MovingRobot : virtual public Robot {
+class MovingRobot: virtual public Robot {
     public: 
     MovingRobot():Robot(){};
     int oldX;
@@ -53,7 +57,9 @@ class MovingRobot : virtual public Robot {
 class ShootingRobot: virtual public Robot {
     public:
     void fire(BattleField &battle);
-    string destroyedRobot ;
+    string destroyedRobotName ;
+    GenericRobot* destroyedRobot ;
+
 };
 class ThinkingRobot: virtual public Robot {
     public:
@@ -63,9 +69,12 @@ class ThinkingRobot: virtual public Robot {
 // Multiple inheritance
 class GenericRobot : public MovingRobot, public SeeingRobot, public ShootingRobot, public ThinkingRobot {
 public:
-static map<string, GenericRobot> robotObjects; //can jus use emplace to construct diretly in here instead of pointers==getting the address 
 GenericRobot(string name);
+static map<string, GenericRobot> robotObjects; //can jus use emplace to construct diretly in here instead of pointers==getting the address 
+
 static string type; //all objects from this class share the same type
+static GenericRobot getRobotByName(string& name) ;
+
 
 };
 #endif

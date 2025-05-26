@@ -24,10 +24,13 @@ void Simulation::loadScenario(const string &filename)
 
     string dummy;
     file >> dummy >> dummy >> dummy >> battlefieldWidth >> battlefieldHeight;
-    file >> dummy >> maxTurns;
-    file >> dummy >> numRobots;
+    file >> dummy >> maxTurns;  // store the maximum turns
+    file >> dummy >> numRobots; // store number of robots
 
-    robots.clear();
+    // dummy store the unnecessary word like :
+    // m by n = dummy >> dummy >> dummy >> battlefieldWidth >> battlefieldHeight;
+
+    robots.clear(); // clear before run to ensure no data left
     for (int i = 0; i < numRobots; i++)
     {
         string type, name;

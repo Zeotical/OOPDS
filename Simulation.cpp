@@ -18,41 +18,60 @@ void Simulation::loadScenario(const string &filename)
     ifstream file(filename);
     if (!file.is_open())
     {
-        cerr << "Error: Could not open input file!" << endl;
+        cerr << "Error: Could not open input file: " << filename << endl;
         exit(1);
     }
 
     string dummy;
-    file >> dummy >> dummy >> dummy >> battlefieldWidth >> battlefieldHeight;
-    file >> dummy >> maxTurns;  // store the maximum turns
-    file >> dummy >> numRobots; // store number of robots
 
-    // dummy store the unnecessary word like :
-    // m by n = dummy >> dummy >> dummy >> battlefieldWidth >> battlefieldHeight;
+    // Read "M by N : 40 50"
+    file >> dummy >> dummy >> dummy >> dummy >> battlefieldWidth >> battlefieldHeight;
 
-    robots.clear(); // clear before run to ensure no data left
+    // Read "steps: 300"
+    file >> dummy >> maxTurns;
+
+    // Read "robots: 3"
+    file >> dummy >> numRobots;
+
+    // Initialize battlefield with correct dimensions
+    battlefield.initialize(battlefieldWidth, battlefieldHeight);
+
+    cout << "Battlefield: " << battlefieldWidth << "x" << battlefieldHeight << endl;
+    cout << "Max turns: " << maxTurns << endl;
+    cout << "Number of robots: " << numRobots << endl;
+
+    robots.clear();
+
     for (int i = 0; i < numRobots; i++)
     {
-        string type, name;
-        int x, y;
-        file >> type >> name >> x >> y;
+        string type, name, xStr, yStr;
+        file >> type >> name >> xStr >> yStr;
 
         if (type == "GenericRobot")
         {
             GenericRobot *robot = new GenericRobot(name);
-            if (x == -1 && y == -1)
-            { // Random position
+
+            // Handle random position
+            if (xStr == "random" || yStr == "random")
+            {
                 auto pos = battlefield.getRandomEmptyPosition();
                 robot->setPosition(pos.first, pos.second);
+                cout << "Placed " << name << " at random position (" << pos.first << "," << pos.second << ")" << endl;
             }
             else
             {
+                int x = stoi(xStr);
+                int y = stoi(yStr);
                 robot->setPosition(x, y);
+                cout << "Placed " << name << " at position (" << x << "," << y << ")" << endl;
             }
+
             robots.push_back(robot);
             battlefield.placeRobot(robot->getPositionX(), robot->getPositionY(), robot->getname());
         }
     }
+
+    file.close();
 }
 
 void Simulation::run()

@@ -28,25 +28,25 @@ void BattleField::printBattlefield()
     cout << "   ";
     for (int i = 0; i < width; i++)
     {
-        if (i>9){
+        if (i>9){ //Double digit nums border spacing (triple digits not considered) (col)
         cout   << setw(3) << i << setw(3) ; 
     }
-        else 
+        else  //single digits border spacing (col)
             cout << " " << i << setw(2) ;
     }
     cout << endl;
 
     // Print battlefield with row numbers
-    for (int i = 0; i < height; i++)
+    for (int row = 0; row < height; row++)
     {
-        if (i<10){
-        cout  << setw(2) << i << "| " ;
+        if (row<10){
+        cout  << setw(2) << i << "| " ; //single digits border spacing (row)
     }
     else 
             cout << i << "| ";
-        for (int j = 0; j < width; j++)
+        for (int col = 0; col < width; col++)
         {
-            cout << field[i][j] << " ";
+            cout << field[row][col] << " ";
         }
         cout << endl;
     }

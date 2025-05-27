@@ -16,13 +16,13 @@ class GenericRobot;
 class Robot {
     private:
     string type;
-    int shells; // max 10 // can jus put this in shoot func why here?
-    int upgrades; // max 3
     protected:
     int lives; // max 3
     int robotsPositionX; // row
     int robotsPositionY; // col
     int kills;
+    int shells; // max 10
+    int upgrades; // max 3
 
 
     public:
@@ -57,6 +57,8 @@ class MovingRobot: virtual public Robot {
 class ShootingRobot: virtual public Robot {
     public:
     void fire(BattleField &battle);
+    vector <int> values;
+    int probability ;
     string destroyedRobotName ;
     GenericRobot* destroyedRobot ;
 

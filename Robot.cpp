@@ -20,6 +20,8 @@ Robot::Robot(string robotName, string robotType){
     name = robotName;
     type = robotType;
     lives = 3;
+    shells = 10;
+    upgrades = 0;
     numOfRobots ++ ;
     robotsPositionX= rand() % 30 ; // random num from (0 to 29) because vector indexing starts at 0 //width
     robotsPositionY = rand() % 20; // random num from (0 to 19) //height
@@ -50,21 +52,21 @@ void SeeingRobot::look(BattleField &battle){
 
           if(battle.isOccupied(getPositionX() + u,getPositionY() + t) && (t!=0 || u!=0)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
             
-            cout << "Enemy robot found at (" << getPositionY() + t<<" " << getPositionX() + u <<")" <<endl ;
+            cout << "Enemy robot found at (" << getPositionY() + t<<"," << getPositionX() + u <<")" <<endl ;
             // 
             enemyPos.push_back(make_pair(getPositionX()+u,getPositionY() + t)) ;
           } // inner if 
           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
-            cout << "Possible positions to move to";
+            cout << "Possible positions to move to ";
             movePositions.push_back(make_pair(getPositionX() +u,getPositionY() + t));
-            cout <<  getPositionY() + t << " " << getPositionX() + u  <<endl ;
+            cout << "(" getPositionY() + t << "," << getPositionX() + u  << ")" << endl ;
 
             //clear vector after moving //everytime I run I get smth diff
 
           } // else if
         } // outer if
         else{
-            cout <<  getPositionY() + t << " " << getPositionX() + u << " out of bounds " <<endl ;
+            cout << "(" getPositionY() + t << "," << getPositionX() + u << ") is out of bounds " <<endl ;
          } // outer else 
           u++;
         } // inner while
@@ -90,30 +92,38 @@ void MovingRobot::move(BattleField &battle){
 }
 
 // ShootingRobot
+
 void ShootingRobot::fire(BattleField &battle) {
-vector <int> values = {1,2,3,4,5,6,7,8,9,10};
-int prob = rand() % 10 ; // 0 to 9
-cout <<  name  << "used shoot action" << endl;
-if (values[prob] <=7 && enemyPos.size()!=0){ //Hit probability 70%
-   int i =  rand() % enemyPos.size();
+values = {1,2,3,4,5,6,7,8,9,10};
+probability = rand() % 10 ; // 0 to 9
+cout <<  name  << " used fire action" << endl;
+if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
+   --shells;
+    int i =  rand() % enemyPos.size();
    destroyedRobotName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
   // using a map and the name get the object
    GenericRobot destroyedRobot = GenericRobot::robotObjects.at(destroyedRobotName);
+   // using the object we can acccess lives,name etc
   --destroyedRobot.lives; // reduce from the lives  of the loser robot
    battle.clearPosition(enemyPos[i].first,enemyPos[i].second); // x,y == row,col
-  cout << name << " hits " << destroyedRobot.name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroyed it."  <<endl; 
+  cout << name << " hits " << destroyedRobot.name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroys it."  <<endl; 
   // send the loser robot to the backrooms using queue can reneter in next round? 
+  cout << "Lives left for " << destroyedRobot.name << ": " << destroyedRobot.lives << endl;
    if (destroyedRobot.lives > 0){
+   cout << "*" <<destroyedRobot.name<< " goes into the queue*" <<endl;
    GenericRobot::re_enteringRobots.push(destroyedRobot); }
    else {
     cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
    }
   enemyPos.clear();
-  kills ++ ;    // add to the kills of the winner robot
-  //updates ++; / call upgragde func    // if kills ++ then choose upgrade 
+  kills++ ;    // add to the kills of the winner robot
+  if (kills < 4) { //after 3 no more upgrades possible
+  updates ++; // call upgragde func    // if kills ++ then choose upgrade  
+  }
   } //if
 else {
-  cout << name << " missed"  ;
+  --shells;
+  cout << name << " missed" << endl;
 } //else
 }
 
@@ -129,10 +139,10 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 
 // do func here ??
 // UPGRADES
-//There are three possible areas to upgrade. They are moving, shooting and seeing. 
+// There are three possible areas to upgrade. They are moving, shooting and seeing. 
 // 1. Moving: HideBot or JumpBot.
 //  2. Shooting: LongShotBot, SemiAutoBot or ThirtyShotBot.
 // 3. Seeing: ScoutBot or TrackBot
-//In each area, a robot can choose only one upgrade. For the next upgrade, the robot
-//must choose from the areas not chosen before. After three upgrades, a robot
-//cannot be upgraded anymore.
+// In each area, a robot can choose only one upgrade. For the next upgrade, the robot
+// must choose from the areas not chosen before. After three upgrades, a robot
+// cannot be upgraded anymore.

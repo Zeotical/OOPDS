@@ -29,7 +29,7 @@ void BattleField::printBattlefield()
     for (int i = 0; i < width; i++)
     {
         if (i>9){
-        cout  << i << " " << setw(2); //910 issue fix later
+        cout   << setw(3) << i << setw(3) ; 
     }
         else 
             cout << " " << i << setw(2) ;

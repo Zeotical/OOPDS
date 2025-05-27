@@ -40,10 +40,10 @@ void BattleField::printBattlefield()
     for (int row = 0; row < height; row++)
     {
         if (row<10){
-        cout  << setw(2) << i << "| " ; //single digits border spacing (row)
+        cout  << setw(2) << row << "| " ; //single digits border spacing (row)
     }
     else 
-            cout << i << "| ";
+            cout << row << "| ";
         for (int col = 0; col < width; col++)
         {
             cout << field[row][col] << " ";

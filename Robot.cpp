@@ -59,14 +59,14 @@ void SeeingRobot::look(BattleField &battle){
           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
             cout << "Possible positions to move to ";
             movePositions.push_back(make_pair(getPositionX() +u,getPositionY() + t));
-            cout << "(" getPositionY() + t << "," << getPositionX() + u  << ")" << endl ;
+            cout << "(" << getPositionY() + t << "," << getPositionX() + u  << ")" << endl ;
 
             //clear vector after moving //everytime I run I get smth diff
 
           } // else if
         } // outer if
         else{
-            cout << "(" getPositionY() + t << "," << getPositionX() + u << ") is out of bounds " <<endl ;
+            cout << "(" << getPositionY() + t << "," << getPositionX() + u << ") is out of bounds " <<endl ;
          } // outer else 
           u++;
         } // inner while
@@ -118,7 +118,7 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
   enemyPos.clear();
   kills++ ;    // add to the kills of the winner robot
   if (kills < 4) { //after 3 no more upgrades possible
-  updates ++; // call upgragde func    // if kills ++ then choose upgrade  
+  upgrades ++; // call upgragde func    // if kills ++ then choose upgrade  
   }
   } //if
 else {
@@ -137,7 +137,7 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 
   return GenericRobot::robotObjects.at(name) ; }
 
-// do func here ??
+// do func here ?? no in sub-classes
 // UPGRADES
 // There are three possible areas to upgrade. They are moving, shooting and seeing. 
 // 1. Moving: HideBot or JumpBot.
@@ -146,3 +146,29 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 // In each area, a robot can choose only one upgrade. For the next upgrade, the robot
 // must choose from the areas not chosen before. After three upgrades, a robot
 // cannot be upgraded anymore.
+
+// The capabilites of the upgrades are as follow:
+//MOVING
+
+// HideBot : The robot can hide three times in a match. When the robot hides, it
+// cannot be hit by other robots
+// JumpBot : The robot can jump to a new location anywhere in the map. It can
+// jump three times in a match.
+
+// SHOOTING
+
+// LongShotBot : The robot can fire up to three unit distance away from its location.
+// It means the robot can fire(x, y) where x + y <= 3.
+// SemiAutoBot : Each shell the robot fires is now considered as three consecutive
+// shots into one location and each shot has a 70% probability to hit and destroy
+// another robot.
+// ThirtyShotBot : The robot now has a fresh load of 30 shells replacing its current 
+// load of shells.
+
+// SEEING
+
+// ScoutBot : Instead of look(x, y) The robot can see the entire battlefield for one
+// turn. This ability can be used three times in a match.
+// TrackBot : The robot can plant a tracker on another robot it can see. The location
+// of the targetted robot will be known to the robot until the end of a match. The
+// robot has three trackers.

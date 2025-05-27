@@ -4,11 +4,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip> // For setw()
 using namespace std;
 
 class BattleField
 {
-   
 public:
     int width;
     int height;
@@ -23,10 +23,6 @@ public:
     bool isInside(int x, int y) const;
     pair<int, int> getRandomEmptyPosition();
     void moveRobot(int oldX, int oldY, int newX, int newY);
-
-    // Getters
-    int getWidth() const { return width; }
-    int getHeight() const { return height; }
     string getCell(int x, int y) const;
 };
 

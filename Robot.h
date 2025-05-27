@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include <queue>
 #include "Battlefield.h"
 
 using namespace std; // not recc to use this look into it
@@ -34,7 +35,6 @@ class Robot {
     string getname();
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
     vector <pair<int,int>> enemyPos ; //use std::pair stores enemy positions in surrounding area
-    // queue <int> re_enteringRobots;
 
 };
 
@@ -74,6 +74,7 @@ static map<string, GenericRobot> robotObjects; //can jus use emplace to construc
 
 static string type; //all objects from this class share the same type
 static GenericRobot getRobotByName(string& name) ;
+static queue <GenericRobot> re_enteringRobots;
 
 
 };

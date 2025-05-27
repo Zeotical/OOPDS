@@ -8,12 +8,11 @@ using namespace std;
 
 class BattleField
 {
-private:
+   
+public:
     int width;
     int height;
     vector<vector<string>> field;
-
-public:
     BattleField();
     BattleField(int w, int h);
     void initialize(int w, int h);

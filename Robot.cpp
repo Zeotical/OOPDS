@@ -97,14 +97,17 @@ cout <<  name  << "used shoot action" << endl;
 if (values[prob] <=7 && enemyPos.size()!=0){ //Hit probability 70%
    int i =  rand() % enemyPos.size();
    destroyedRobotName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
+  // using a map and the name get the object
    GenericRobot destroyedRobot = GenericRobot::robotObjects.at(destroyedRobotName);
-   // using a map and the name get the object
-  // destroyedRobot = GenericRobot::robotObjects.at(destroyedRobotName); //obj not name
   --destroyedRobot.lives; // reduce from the lives  of the loser robot
-   // send the loser robot to the backrooms using queue can reneter in next round? 
-      // queue.push_back(destroyedRobot) or use obeject better?
    battle.clearPosition(enemyPos[i].first,enemyPos[i].second); // x,y == row,col
   cout << name << " hits " << destroyedRobot.name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroyed it."  <<endl; 
+  // send the loser robot to the backrooms using queue can reneter in next round? 
+   if (destroyedRobot.lives > 0){
+   GenericRobot::re_enteringRobots.push(destroyedRobot); }
+   else {
+    cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
+   }
   enemyPos.clear();
   kills ++ ;    // add to the kills of the winner robot
   //updates ++; / call upgragde func    // if kills ++ then choose upgrade 
@@ -118,6 +121,7 @@ else {
 string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
 GenericRobot::GenericRobot(string name):Robot(name, GenericRobot::type){}
 map<string,GenericRobot> GenericRobot::robotObjects; // static definition
+queue <GenericRobot> GenericRobot::re_enteringRobots;
 
 GenericRobot GenericRobot::getRobotByName(string& name) {
 

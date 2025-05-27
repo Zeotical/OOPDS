@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <iomanip>
 
 BattleField::BattleField() : width(0), height(0)
 {
@@ -27,14 +28,22 @@ void BattleField::printBattlefield()
     cout << "   ";
     for (int i = 0; i < width; i++)
     {
-        cout << i % 10 << " ";
+        if (i>9){
+        cout  << i << " " << setw(2); //910 issue fix later
+    }
+        else 
+            cout << " " << i << setw(2) ;
     }
     cout << endl;
 
     // Print battlefield with row numbers
     for (int i = 0; i < height; i++)
     {
-        cout << i % 10 << "| ";
+        if (i<10){
+        cout  << setw(2) << i << "| " ;
+    }
+    else 
+            cout << i << "| ";
         for (int j = 0; j < width; j++)
         {
             cout << field[i][j] << " ";

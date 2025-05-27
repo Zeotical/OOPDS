@@ -12,6 +12,7 @@ Phone: 018-1234567
 
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <map>
 #include <memory>
 #include <cstdlib>
@@ -31,6 +32,7 @@ int main()
   srand(time(0)); // each time program runs get a new random number
   
 BattleField battle;
+battle.initialize(30,20);
 
 //Initializing robots before turn loop begins, each robot placed in a different random position
 

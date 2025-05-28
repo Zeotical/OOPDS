@@ -62,6 +62,7 @@ class ShootingRobot: virtual public Robot {
     GenericRobot* destroyedRobot ;
     void fire(BattleField &battle);
     void semiAutoBot(BattleField &battle);
+    void thirtyShotBot () ;
    
 
 };

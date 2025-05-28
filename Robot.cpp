@@ -145,6 +145,10 @@ shells = --cshells;
   
 }
 
+void ShootingRobot::thirtyShotBot(){
+shells = 30 ;
+}
+
 //GenericRobot
 string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
 GenericRobot::GenericRobot(string name):Robot(name, GenericRobot::type){}
@@ -178,19 +182,23 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 // LongShotBot : The robot can fire up to three unit distance away from its location.
 // It means the robot can fire(x, y) where x + y <= 3.
 
-// ThirtyShotBot : The robot now has a fresh load of 30 shells replacing its current 
-// load of shells.
+
 
 // SEEING
 
 // ScoutBot : Instead of look(x, y) The robot can see the entire battlefield for one
 // turn. This ability can be used three times in a match.
-// TrackBot : The robot can plant a tracker on another robot it can see. The location
-// of the targetted robot will be known to the robot until the end of a match. The
-// robot has three trackers.
+
 
 //Doing/Done
 
 // SemiAutoBot : Each shell the robot fires is now considered as three consecutive
 // shots into one location and each shot has a 70% probability to hit and destroy
-// another robot.
+// another robot. (shooting)
+
+// TrackBot : The robot can plant a tracker on another robot it can see. The location
+// of the targetted robot will be known to the robot until the end of a match. The
+// robot has three trackers. (seeing)
+
+// ThirtyShotBot : The robot now has a fresh load of 30 shells replacing its current 
+// load of shells.

@@ -44,13 +44,20 @@ battle.initialize(30,20);
   // assign object using key to robot, easier to access methods //auto& == referenced data type (in this case GenericRobot)
   auto& robot2 =  GenericRobot::robotObjects.at("R2"); // doesn't need a defualt constructor as [] does
 
+  GenericRobot::robotObjects.emplace("R3","R3"); // (key,obj)
+  // assign object using key to robot, easier to access methods //auto& == referenced data type (in this case GenericRobot)
+  auto& robot3 =  GenericRobot::robotObjects.at("R3"); // doesn't need a defualt constructor as [] does
   // GenericRobot robot3("R3");
+  GenericRobot::robotObjects.emplace("R4","R4"); // (key,obj)
+  // assign object using key to robot, easier to access methods //auto& == referenced data type (in this case GenericRobot)
+  auto& robot4 =  GenericRobot::robotObjects.at("R4"); // doesn't need a defualt 
 
     battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
     battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot2.getname());
-  // battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
+   battle.placeRobot(robot3.getPositionX(),robot3.getPositionY(),robot3.getname());
 
-  
+     battle.placeRobot(robot4.getPositionX(),robot4.getPositionY(),robot4.getname());
+
     battle.printBattlefield();
     robot.look(battle); 
   //robot.move(battle); 
@@ -61,9 +68,17 @@ cout << GenericRobot::re_enteringRobots.size();
   //robot.fire(battle);
    // cout << "shelssss " << robot.shells;
 cout << GenericRobot::re_enteringRobots.size();
+  robot.thirtyShotBot();
+
 robot.semiAutoBot(battle);
 
   battle.printBattlefield();
+    robot.look(battle); 
+
+  robot.semiAutoBot(battle);
+
+    battle.printBattlefield();
+
 
 //   robot2.look(battle);
 //  robot2.move(battle);

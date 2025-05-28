@@ -56,11 +56,13 @@ class MovingRobot: virtual public Robot {
 };
 class ShootingRobot: virtual public Robot {
     public:
-    void fire(BattleField &battle);
     vector <int> values;
     int probability ;
     string destroyedRobotName ;
     GenericRobot* destroyedRobot ;
+    void fire(BattleField &battle);
+    void semiAutoBot(BattleField &battle);
+   
 
 };
 class ThinkingRobot: virtual public Robot {

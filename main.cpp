@@ -58,10 +58,10 @@ battle.initialize(30,20);
   battle.printBattlefield();
   //cout << "shelssss " << robot.shells;
 cout << GenericRobot::re_enteringRobots.size();
-  robot.fire(battle);
+  //robot.fire(battle);
    // cout << "shelssss " << robot.shells;
 cout << GenericRobot::re_enteringRobots.size();
-
+robot.semiAutoBot(battle);
 
   battle.printBattlefield();
 

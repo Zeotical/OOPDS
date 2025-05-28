@@ -23,7 +23,7 @@ Robot::Robot(string robotName, string robotType){
     shells = 10;
     upgrades = 0;
     numOfRobots ++ ;
-    robotsPositionX= rand() % 30 ; // random num from (0 to 29) because vector indexing starts at 0 //width
+    robotsPositionX= rand() % 30; // random num from (0 to 29) because vector indexing starts at 0 //width
     robotsPositionY = rand() % 20; // random num from (0 to 19) //height
 }
 
@@ -127,6 +127,24 @@ else {
 } //else
 }
 
+void ShootingRobot::semiAutoBot(BattleField &battle){
+  int current = kills;
+  int tries = 0;
+  int cshells = shells;
+  while (tries < 3 && current == kills){
+    cout << "SemiAutoBot " <<endl;
+    fire(battle);
+    ++tries ;
+    cout << "THIS IS" <<current << "this " << kills <<endl ;
+        cout << "THIS IS" <<cshells << "this " << shells <<endl ;
+
+  }
+shells = --cshells;
+    cout << "THIS IS" <<shells << "this skibidi"  <<endl ;
+
+  
+}
+
 //GenericRobot
 string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
 GenericRobot::GenericRobot(string name):Robot(name, GenericRobot::type){}
@@ -159,9 +177,7 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 
 // LongShotBot : The robot can fire up to three unit distance away from its location.
 // It means the robot can fire(x, y) where x + y <= 3.
-// SemiAutoBot : Each shell the robot fires is now considered as three consecutive
-// shots into one location and each shot has a 70% probability to hit and destroy
-// another robot.
+
 // ThirtyShotBot : The robot now has a fresh load of 30 shells replacing its current 
 // load of shells.
 
@@ -172,3 +188,9 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 // TrackBot : The robot can plant a tracker on another robot it can see. The location
 // of the targetted robot will be known to the robot until the end of a match. The
 // robot has three trackers.
+
+//Doing/Done
+
+// SemiAutoBot : Each shell the robot fires is now considered as three consecutive
+// shots into one location and each shot has a 70% probability to hit and destroy
+// another robot.

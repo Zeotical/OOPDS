@@ -11,6 +11,8 @@
 #include "Robot.h" 
 #include "Battlefield.h"
 #include <iostream>
+#include <cstdlib> 
+#include <vector>
  
 
 //Robot class 
@@ -77,6 +79,7 @@ void SeeingRobot::look(BattleField &battle){
 // MovingRobot
 void MovingRobot::move(BattleField &battle){  
 
+
   oldX = getPositionX(); //why not jus use robotpos ye getpos is for outside methinks
   oldY = getPositionY();
   battle.clearPosition(oldX,oldY);
@@ -87,9 +90,40 @@ void MovingRobot::move(BattleField &battle){
     robotsPositionX = movePositions[i].first ;
     robotsPositionY = movePositions[i].second ;
     movePositions.clear();
-  } // if
+  } else {
+    cout << getname() << " found no possible moves." << endl;
+    battle.placeRobot(oldX, oldY, getname()); // Place robot back if no move was made
+  } 
            
 }
+
+void MovingRobot::jumpBot(BattleField &battle){
+  if (jumpUsesLeft > 0) {
+    // Remove robot from current position on battlefield
+    // Assuming battle.removeRobot exists and takes robot's name.
+    // If not, use battle.clearPosition(robotsPositionX, robotsPositionY)
+    battle.clearPosition(robotsPositionX, robotsPositionY);
+
+    // Generate new random coordinates within battlefield bounds
+    // Assuming battle.width and battle.height are accessible (e.g., public members or getters).
+    int newX = rand() % battle.width;
+    int newY = rand() % battle.height;
+
+    // Update robot's internal position
+        robotsPositionX = newX;
+        robotsPositionY = newY;
+
+    // Place robot at new position on battlefield
+    // Assuming battle.placeRobot takes robot's name.
+    battle.placeRobot(robotsPositionX, robotsPositionY, getname());
+
+    jumpUsesLeft--; // Decrement remaining jumps
+
+    std::cout << getname() << " jumped to (" << newX << ", " << newY << "). Jumps left: " << jumpUsesLeft << std::endl;
+    } else {
+    std::cout << getname() << " has no jumps left!" << std::endl;
+    }
+  }
 
 // ShootingRobot
 
@@ -151,7 +185,7 @@ shells = 30 ;
 
 //GenericRobot
 string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
-GenericRobot::GenericRobot(string name):Robot(name, GenericRobot::type){}
+GenericRobot::GenericRobot(string name) : Robot(name, GenericRobot::type) {}
 map<string,GenericRobot> GenericRobot::robotObjects; // static definition
 queue <GenericRobot> GenericRobot::re_enteringRobots;
 

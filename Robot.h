@@ -49,10 +49,13 @@ class SeeingRobot: virtual public Robot {
 };
 class MovingRobot: virtual public Robot {
     public: 
-    MovingRobot():Robot(){};
+    MovingRobot():Robot(), jumpUsesLeft(3){};
     int oldX;
     int oldY;
     void move(BattleField &battle);
+    int jumpUsesLeft; // Declaration of jumpUsesLeft
+    void jumpBot(BattleField &battle);
+
 };
 class ShootingRobot: virtual public Robot {
     public:

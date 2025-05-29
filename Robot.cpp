@@ -77,22 +77,22 @@ void SeeingRobot::look(BattleField &battle){
 }
 
 
-void SeeingRobot::trackbot(BattleField &battle){
+// void SeeingRobot::trackbot(BattleField &battle){
 
-  look(battle) ;
-  int i =  rand() % enemyPos.size();
-  robottotrackName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
-  robottotrack =  GenericRobot::robotObjects.at(robottotrackName);
-  // if (trackedrobots.find(robottotrack) && trackedrobots.size() < 3){
+//   look(battle) ;
+//   int i =  rand() % enemyPos.size();
+//   robottotrackName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
+//   robottotrack =  &GenericRobot::robotObjects.at(robottotrackName);
+//   // if (trackedrobots.find(robottotrack) && trackedrobots.size() < 3){
 
-  // trackedrobots.push_back(robottotrack); }
-// ranomd pos1
-// random pos2
-// posx = robotTotrack.robotposx
-// pos y = robottotrack.posy
-// pass pos to a make pair vector 
+//   // trackedrobots.push_back(robottotrack); }
+// // ranomd pos1
+// // random pos2
+// // posx = robotTotrack.robotposx
+// // pos y = robottotrack.posy
+// // pass pos to a make pair vector 
 
-}
+// }
 // MovingRobot
 void MovingRobot::move(BattleField &battle){  
 
@@ -153,15 +153,15 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
     int i =  rand() % enemyPos.size();
    destroyedRobotName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
   // using a map and the name get the object
-   GenericRobot destroyedRobot = GenericRobot::robotObjects.at(destroyedRobotName);
+   destroyedRobot = &GenericRobot::robotObjects.at(destroyedRobotName);
    // using the object we can acccess lives,name etc
-  --destroyedRobot.lives; // reduce from the lives  of the loser robot
+  --destroyedRobot->lives; // reduce from the lives  of the loser robot
    battle.clearPosition(enemyPos[i].first,enemyPos[i].second); // x,y == row,col
-  cout << name << " hits " << destroyedRobot.name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroys it."  <<endl; 
+  cout << name << " hits " << destroyedRobot->name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroys it."  <<endl; 
   // send the loser robot to the backrooms using queue can reneter in next round? 
-  cout << "Lives left for " << destroyedRobot.name << ": " << destroyedRobot.lives << endl;
-   if (destroyedRobot.lives > 0){
-   cout << "*" <<destroyedRobot.name<< " goes into the queue*" <<endl;
+  cout << "Lives left for " << destroyedRobot->name << ": " << destroyedRobot->lives << endl;
+   if (destroyedRobot->lives > 0){
+   cout << "*" <<destroyedRobot->name<< " goes into the queue*" <<endl;
    GenericRobot::re_enteringRobots.push(destroyedRobot); }
    else {
     cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
@@ -204,7 +204,7 @@ shells = 30 ;
 string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
 GenericRobot::GenericRobot(string name) : Robot(name, GenericRobot::type) {}
 map<string,GenericRobot> GenericRobot::robotObjects; // static definition
-queue <GenericRobot> GenericRobot::re_enteringRobots;
+queue <GenericRobot*> GenericRobot::re_enteringRobots;
 
 GenericRobot GenericRobot::getRobotByName(string& name) {
 

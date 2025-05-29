@@ -8,8 +8,6 @@
 #include <queue>
 #include "Battlefield.h"
 
-using namespace std; // not recc to use this look into it
-
 class GenericRobot;
 
 // Base Class
@@ -27,6 +25,7 @@ class Robot {
 
     public:
     string name;
+
     int numOfRobots;
     Robot () ;
     Robot (string robotName,string robotType);
@@ -86,7 +85,7 @@ static map<string, GenericRobot> robotObjects; //can jus use emplace to construc
 
 static string type; //all objects from this class share the same type
 static GenericRobot getRobotByName(string& name) ;
-static queue <GenericRobot> re_enteringRobots;
+static queue <GenericRobot*> re_enteringRobots;
 
 
 };

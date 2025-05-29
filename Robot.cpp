@@ -13,6 +13,8 @@
 #include <iostream>
 #include <cstdlib> 
 #include <vector>
+#include <algorithm>
+
  
 
 //Robot class 
@@ -77,22 +79,23 @@ void SeeingRobot::look(BattleField &battle){
 }
 
 
-// void SeeingRobot::trackbot(BattleField &battle){
+void SeeingRobot::trackbot(BattleField &battle){
 
-//   look(battle) ;
-//   int i =  rand() % enemyPos.size();
-//   robottotrackName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
-//   robottotrack =  &GenericRobot::robotObjects.at(robottotrackName);
-//   // if (trackedrobots.find(robottotrack) && trackedrobots.size() < 3){
+  look(battle) ;
+  int i =  rand() % enemyPos.size();
+  robottotrackName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
+  robottotrack =  &GenericRobot::robotObjects.at(robottotrackName);
+  robotIsTracked = find(trackedrobots.begin(),trackedrobots.end(),robottotrack);
+   if (robotIsTracked==trackedrobots.end() && trackedrobots.size() < 3){
 
-//   // trackedrobots.push_back(robottotrack); }
-// // ranomd pos1
-// // random pos2
-// // posx = robotTotrack.robotposx
-// // pos y = robottotrack.posy
-// // pass pos to a make pair vector 
+  trackedrobots.push_back(robottotrack); }
+// ranomd pos1
+// random pos2
+// posx = robotTotrack.robotposx
+// pos y = robottotrack.posy
+// pass pos to a make pair vector 
 
-// }
+}
 // MovingRobot
 void MovingRobot::move(BattleField &battle){  
 

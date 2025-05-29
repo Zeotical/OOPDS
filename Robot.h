@@ -46,7 +46,8 @@ class SeeingRobot: virtual public Robot {
     void look(BattleField &battle);
     string robottotrackName ;
     GenericRobot* robottotrack ;
-    vector <GenericRobot> trackedrobots;
+    vector <GenericRobot*> trackedrobots;
+    vector <GenericRobot*>::iterator   robotIsTracked; //std::vector for all
     void trackbot(BattleField &battle);
 
 };

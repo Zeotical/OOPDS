@@ -10,10 +10,10 @@ BattleField::BattleField() : width(0), height(0)
     // Default constructor - field will be initialized when initialize() is called
 }
 
-BattleField::BattleField(int w, int h) : width(w), height(h)
-{
-    field = vector<vector<string>>(height, vector<string>(width, "- "));
-}
+// BattleField::BattleField(int w, int h) : width(w), height(h)
+// {
+//     field = vector<vector<string>>(height, vector<string>(width, "- "));
+// }
 
 void BattleField::initialize(int w, int h)
 {
@@ -65,7 +65,7 @@ bool BattleField::isOccupied(int x, int y) const
 
 void BattleField::placeRobot(int x, int y, const string &robot)
 {
-    if (isInside(x, y) && !isOccupied(x, y))
+    if (!isOccupied(x, y))
     {
         field[y][x] = robot.substr(0, 2); // Use first 2 characters of robot name
     }
@@ -123,15 +123,15 @@ pair<int, int> BattleField::getRandomEmptyPosition()
     return {x, y};
 }
 
-void BattleField::moveRobot(int oldX, int oldY, int newX, int newY)
-{
-    if (isInside(oldX, oldY) && isInside(newX, newY) && !isOccupied(newX, newY))
-    {
-        string robot = field[oldY][oldX];
-        clearPosition(oldX, oldY);
-        field[newY][newX] = robot;
-    }
-}
+// void BattleField::moveRobot(int oldX, int oldY, int newX, int newY)
+// {
+//     if (isInside(oldX, oldY) && isInside(newX, newY) && !isOccupied(newX, newY))
+//     {
+//         string robot = field[oldY][oldX];
+//         clearPosition(oldX, oldY);
+//         field[newY][newX] = robot;
+//     }
+// }
 
 string BattleField::getCell(int x, int y) const
 {

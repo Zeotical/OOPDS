@@ -27,8 +27,16 @@ Robot::Robot(string robotName, string robotType){
     shells = 10;
     upgrades = 0;
     numOfRobots ++ ;
-    robotsPositionX= rand() % 30; // random num from (0 to 29) because vector indexing starts at 0 //width
-    robotsPositionY = rand() % 20; // random num from (0 to 19) //height
+    //robotsPositionX= rand() % 30; // random num from (0 to 29) because vector indexing starts at 0 //width
+    //robotsPositionY = rand() % 20; // random num from (0 to 19) //height
+}
+
+void Robot::setPositionX(int posx){
+  robotsPositionX = posx ;
+}
+
+void Robot::setPositionY(int posy){
+  robotsPositionY = posy ;
 }
 
 int Robot::getPositionX(){

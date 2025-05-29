@@ -22,7 +22,7 @@ public:
     bool isOccupied(int x, int y) const;
     bool isInside(int x, int y) const;
     pair<int, int> getRandomEmptyPosition();
-    void moveRobot(int oldX, int oldY, int newX, int newY);
+    //void moveRobot(int oldX, int oldY, int newX, int newY);
     string getCell(int x, int y) const;
 };
 

@@ -25,10 +25,11 @@ class Robot {
 
     public:
     string name;
-
     int numOfRobots;
     Robot () ;
     Robot (string robotName,string robotType);
+    void setPositionX(int posx);
+    void setPositionY(int posy);
     int getPositionX();
     int getPositionY();
     string getname();

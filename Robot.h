@@ -45,6 +45,10 @@ class SeeingRobot: virtual public Robot {
 
     public:
     void look(BattleField &battle);
+    string robottotrackName ;
+    GenericRobot* robottotrack ;
+    vector <GenericRobot> trackedrobots;
+    void trackbot(BattleField &battle);
 
 };
 class MovingRobot: virtual public Robot {
@@ -65,7 +69,7 @@ class ShootingRobot: virtual public Robot {
     GenericRobot* destroyedRobot ;
     void fire(BattleField &battle);
     void semiAutoBot(BattleField &battle);
-    void thirtyShotBot () ;
+    void thirtyShotBot () ; // add var from cpp here 
    
 
 };

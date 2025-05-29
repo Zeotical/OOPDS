@@ -76,6 +76,23 @@ void SeeingRobot::look(BattleField &battle){
     } // outer while
 }
 
+
+void SeeingRobot::trackbot(BattleField &battle){
+
+  look(battle) ;
+  int i =  rand() % enemyPos.size();
+  robottotrackName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
+  robottotrack =  GenericRobot::robotObjects.at(robottotrackName);
+  // if (trackedrobots.find(robottotrack) && trackedrobots.size() < 3){
+
+  // trackedrobots.push_back(robottotrack); }
+// ranomd pos1
+// random pos2
+// posx = robotTotrack.robotposx
+// pos y = robottotrack.posy
+// pass pos to a make pair vector 
+
+}
 // MovingRobot
 void MovingRobot::move(BattleField &battle){  
 
@@ -235,4 +252,5 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 // robot has three trackers. (seeing)
 
 // ThirtyShotBot : The robot now has a fresh load of 30 shells replacing its current 
-// load of shells.
+// load of shells. (shooting)
+

@@ -51,7 +51,99 @@ string Robot::getname(){
     return name;
 }
 
+ string Robot::handle_upgrades(){
+  
+  //Seeing ScoutBot or TrackBot
+if (see==0){
+  if(shells < 4 || enemyPos.size() == 0 ){
+    see++;
+    return "ScoutBot" ;
+  }
+  else {
+    see++;
+    return "TrackBot" ;
+  }
+}
+  //Moving HideBot or JumpBot.
+else if (move==0){
+    if(shells < 4 || lives == 1 && move == 0)
+    move++;
+    return "HideBot" ; 
+    
+   else if (enemyPos.size() > 4 || lives==1 && move == 0) {
+     move++;
+     return "JumpBot" ; 
+    }
+   else {
+        random = rand() % 10;
+        if (random%2){
+          move++;
+          return "HideBot" ;
+        }
+        else {
+          move++;
+          return "JumpBot" ;
+          }
+
+      }
+    }
+  //Shooting LongShotBot, SemiAutoBot or ThirtyShotBot.
+  else if (shoot == 0){
+    if( shells>4 || enemyPos.size() == 0 ){
+      shoot++;
+      return "LongShotBot" ;
+    }
+    else if(lives > 4 || enemyPos.size() > 4) {
+      shoot++;
+      return "SemiAutoBot";
+  }
+
+    else if(shells < 4 || enemyPos.size() != 0){
+      shoot++;
+      return "ThirtyShotBot";
+
+  }
+    else {
+        random = rand() % 10;
+        if (0 < random && random < 3){
+          shoot++;
+          return "LongShotBot" ;
+        }
+        else if (3<random && random<6) {
+          shoot++;
+          return "SemiAutoBot" ;
+          }
+        else {
+          shoot++;
+          return "ThirtyShotBot";
+        }  
+
+      }
+
+  }//shoot else if
+}
+
 // ThinkingRobot
+void ThinkingRobot::think(){
+
+if (lives = 1 || shells < 4){
+  //look
+  //move
+  return 1; //defense
+}
+
+else if (shells>4){
+  //look
+  //shoot
+  return 2; //offense
+}
+
+//upgrades
+
+
+
+
+}
 
 // SeeinngRobot
 void SeeingRobot::look(BattleField &battle){
@@ -236,21 +328,16 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 
 // HideBot : The robot can hide three times in a match. When the robot hides, it
 // cannot be hit by other robots
-// JumpBot : The robot can jump to a new location anywhere in the map. It can
-// jump three times in a match.
 
 // SHOOTING
 
 // LongShotBot : The robot can fire up to three unit distance away from its location.
 // It means the robot can fire(x, y) where x + y <= 3.
 
-
-
 // SEEING
 
 // ScoutBot : Instead of look(x, y) The robot can see the entire battlefield for one
 // turn. This ability can be used three times in a match.
-
 
 //Doing/Done
 
@@ -264,4 +351,7 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 
 // ThirtyShotBot : The robot now has a fresh load of 30 shells replacing its current 
 // load of shells. (shooting)
+
+// JumpBot : The robot can jump to a new location anywhere in the map. It can
+// jump three times in a match.
 

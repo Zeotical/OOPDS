@@ -35,6 +35,11 @@ class Robot {
     string getname();
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
     vector <pair<int,int>> enemyPos ; //use std::pair stores enemy positions in surrounding area
+    string handle_upgrades();
+    int see =0 ;
+    int move = 0;
+    int shoot = 0;
+    int random ;
 
 };
 
@@ -77,6 +82,7 @@ class ShootingRobot: virtual public Robot {
 class ThinkingRobot: virtual public Robot {
     public:
     void think();
+    void handleUpgrades(); //no need
 };
 
 // Multiple inheritance

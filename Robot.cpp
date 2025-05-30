@@ -197,19 +197,19 @@ void SeeingRobot::trackbot(BattleField &battle){
 
  void  SeeingRobot::ScoutBot(BattleField &battle){
   for ( auto row =0 ; row < battle.height ; row++) {
-        for (auto col=0 ; col < battle.width; col++) {
-          if(battle.isInside(col,row)){ // can join with the below if? or nvm
+      for (auto col=0 ; col < battle.width; col++) {
+        if(battle.isInside(col,row)){ // can join with the below if? or nvm
 
-          if(battle.isOccupied(col,row) && (battle.field[col][row] != name)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
+          if(battle.isOccupied(col,row) && battle.field[row][col] != name.substr(0, 2)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
             
-            cout << "Enemy robot found at (" << col <<"," << row <<")" <<endl ;
+            cout << "Enemy robot found at (" << col <<"," << row <<")" <<endl ; //for the above name.substr(0,2) since only the first 2 charas of robots name is placed
             // 
             enemyPos.push_back(make_pair(col,row)) ;
           } // inner if 
           else if (!battle.isOccupied(col,row) ) { // don't need the first cond
             cout << "Possible positions to move to ";
             movePositions.push_back(make_pair(col,row));
-            cout << "(" << row << "," << col << ")" << endl ;
+            cout << "(" << col << "," << row << ")" << endl ;
 
             //clear vector after moving //everytime I run I get smth diff
 

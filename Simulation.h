@@ -11,22 +11,18 @@ using namespace std;
 class Simulation
 {
 private:
-    
-
 public:
-int battlefieldWidth;
+    int battlefieldWidth;
     int battlefieldHeight;
+    BattleField battlefield;
+    vector<GenericRobot *> robots;
+    int currentTurn;
+    int maxTurns;
+    int numRobots;
     Simulation();
     void loadScenario(const string &filename, BattleField &battle);
     void run(BattleField &battle);
     void cleanup();
-    BattleField battlefield;
-    vector<GenericRobot*> robots;
-    int currentTurn;
-    int maxTurns;
-    int numRobots;
-    
-
     bool checkGameOver();
     Robot *getWinner();
 };

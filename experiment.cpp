@@ -59,8 +59,8 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
             {
                 auto pos = battle.getRandomEmptyPosition();
                 //robot->setPosition(pos.first, pos.second);
-                robot.setPositionX(pos.second);
-                robot.setPositionY(pos.first);
+                robot.setPositionX(pos.first);
+                robot.setPositionY(pos.second);
                 cout << "Placed " << name << " at random position (" << pos.first << "," << pos.second << ")" << endl;
                 battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
 
@@ -91,14 +91,15 @@ void Simulation::run(BattleField &battle)
 {
     ofstream logfile("simulation_log.txt");
 
-    for (currentTurn = 0; currentTurn < maxTurns; currentTurn++)
+    for (currentTurn = 0; currentTurn < maxTurns;)
     {
-        logfile << "=== Turn " << currentTurn << " ===" << endl;
-        cout << "=== Turn " << currentTurn << " ===" << endl;
+        
 
         // Process each robot's turn
         for (GenericRobot robot : robots)
         {
+            logfile << "=== Turn " << currentTurn << " ===" << endl;
+        cout << "=== Turn " << currentTurn << " ===" << endl;
             // if (!robot->isAlive())
             //     continue;
 
@@ -112,10 +113,12 @@ void Simulation::run(BattleField &battle)
             logfile << robot.getname() << " at ("
                     << robot.getPositionX() << ","
                     << robot.getPositionY() << ")" << endl;
+            ++currentTurn;      
+                      battle.printBattlefield();
         }
 
         // Print battlefield state
-        battle.printBattlefield();
+        // battle.printBattlefield();
 
         // Check for game over condition
         if (checkGameOver())

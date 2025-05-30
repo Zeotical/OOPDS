@@ -66,9 +66,9 @@ if (see==0){
 }
   //Moving HideBot or JumpBot.
 else if (move==0){
-    if(shells < 4 || lives == 1 && move == 0)
+    if(shells < 4 || lives == 1 && move == 0) {
     move++;
-    return "HideBot" ; 
+    return "HideBot" ; }
     
    else if (enemyPos.size() > 4 || lives==1 && move == 0) {
      move++;
@@ -124,7 +124,7 @@ else if (move==0){
 }
 
 // ThinkingRobot
-void ThinkingRobot::think(){
+int ThinkingRobot::think(){
 
 if (lives = 1 || shells < 4){
   //look
@@ -139,9 +139,6 @@ else if (shells>4){
 }
 
 //upgrades
-
-
-
 
 }
 
@@ -194,11 +191,38 @@ void SeeingRobot::trackbot(BattleField &battle){
 // posx = robotTotrack.robotposx
 // pos y = robottotrack.posy
 // pass pos to a make pair vector 
-
 }
+
+//  void  SeeingRobot::ScoutBot(BattleField &battle){
+//   for ( auto battle.width : battle.field) {
+//         for (auto battle.height : battle.width) {
+//           if(battle.isInside(battle.width,battle.height)){ // can join with the below if? or nvm
+
+//           if(battle.isOccupied(battle.width ,battle.height) && ()){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
+            
+//             cout << "Enemy robot found at (" << getPositionY() + t<<"," << getPositionX() + u <<")" <<endl ;
+//             // 
+//             enemyPos.push_back(make_pair(getPositionX()+u,getPositionY() + t)) ;
+//           } // inner if 
+//           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
+//             cout << "Possible positions to move to ";
+//             movePositions.push_back(make_pair(getPositionX() +u,getPositionY() + t));
+//             cout << "(" << getPositionY() + t << "," << getPositionX() + u  << ")" << endl ;
+
+//             //clear vector after moving //everytime I run I get smth diff
+
+//           } // else if
+//         } // outer if
+//         else{
+//             cout << "(" << getPositionY() + t << "," << getPositionX() + u << ") is out of bounds " <<endl ;
+//          } // outer els
+
+//         } 
+//     }
+// }
+
 // MovingRobot
 void MovingRobot::move(BattleField &battle){  
-
 
   oldX = getPositionX(); //why not jus use robotpos ye getpos is for outside methinks
   oldY = getPositionY();

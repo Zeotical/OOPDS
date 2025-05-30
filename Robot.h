@@ -55,7 +55,7 @@ class SeeingRobot: virtual public Robot {
     vector <GenericRobot*> trackedrobots;
     vector <GenericRobot*>::iterator   robotIsTracked; //std::vector for all
     void trackbot(BattleField &battle);
-
+    void ScoutBot(BattleField &battle);
 };
 class MovingRobot: virtual public Robot {
     public: 
@@ -81,7 +81,7 @@ class ShootingRobot: virtual public Robot {
 };
 class ThinkingRobot: virtual public Robot {
     public:
-    void think();
+    int think();
     void handleUpgrades(); //no need
 };
 

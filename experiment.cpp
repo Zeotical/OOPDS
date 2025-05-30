@@ -108,6 +108,7 @@ void Simulation::run(BattleField &battle)
             robot->look(battle);
             //robot->think();
             robot->move(battle);
+            robot->ScoutBot(battle);
             //robot->fire(battlefield);
 
             // Log robot status

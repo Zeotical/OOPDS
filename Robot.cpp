@@ -195,33 +195,33 @@ void SeeingRobot::trackbot(BattleField &battle){
 // pass pos to a make pair vector 
 }
 
-//  void  SeeingRobot::ScoutBot(BattleField &battle){
-//   for ( auto battle.width : battle.field) {
-//         for (auto battle.height : battle.width) {
-//           if(battle.isInside(battle.width,battle.height)){ // can join with the below if? or nvm
+ void  SeeingRobot::ScoutBot(BattleField &battle){
+  for ( auto row =0 ; row < battle.height ; row++) {
+        for (auto col=0 ; col < battle.width; col++) {
+          if(battle.isInside(col,row)){ // can join with the below if? or nvm
 
-//           if(battle.isOccupied(battle.width ,battle.height) && ()){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
+          if(battle.isOccupied(col,row) && (battle.field[col][row] != name)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
             
-//             cout << "Enemy robot found at (" << getPositionY() + t<<"," << getPositionX() + u <<")" <<endl ;
-//             // 
-//             enemyPos.push_back(make_pair(getPositionX()+u,getPositionY() + t)) ;
-//           } // inner if 
-//           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
-//             cout << "Possible positions to move to ";
-//             movePositions.push_back(make_pair(getPositionX() +u,getPositionY() + t));
-//             cout << "(" << getPositionY() + t << "," << getPositionX() + u  << ")" << endl ;
+            cout << "Enemy robot found at (" << col <<"," << row <<")" <<endl ;
+            // 
+            enemyPos.push_back(make_pair(col,row)) ;
+          } // inner if 
+          else if (!battle.isOccupied(col,row) ) { // don't need the first cond
+            cout << "Possible positions to move to ";
+            movePositions.push_back(make_pair(col,row));
+            cout << "(" << row << "," << col << ")" << endl ;
 
-//             //clear vector after moving //everytime I run I get smth diff
+            //clear vector after moving //everytime I run I get smth diff
 
-//           } // else if
-//         } // outer if
-//         else{
-//             cout << "(" << getPositionY() + t << "," << getPositionX() + u << ") is out of bounds " <<endl ;
-//          } // outer els
+          } // else if
+        } // outer if
+        else{
+            cout << "(" << col << "," << row << ") is out of bounds " <<endl ;
+         } // outer els
 
-//         } 
-//     }
-// }
+        } 
+    }
+}
 
 // MovingRobot
 void MovingRobot::move(BattleField &battle){  

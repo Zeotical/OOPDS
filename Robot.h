@@ -76,6 +76,7 @@ class ShootingRobot: virtual public Robot {
     void fire(BattleField &battle);
     void semiAutoBot(BattleField &battle);
     void thirtyShotBot () ; // add var from cpp here 
+    void LongShotBot(BattleField &battle);
    
 
 };

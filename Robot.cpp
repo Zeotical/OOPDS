@@ -283,6 +283,13 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
     int i =  rand() % enemyPos.size();
    destroyedRobotName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
   // using a map and the name get the object
+  for (auto pair: GenericRobot::robotObjects){
+
+    if(pair.first.substr(0, 2) == destroyedRobotName) {
+      destroyedRobotName = pair.first ;
+    }
+  }
+
    destroyedRobot = &GenericRobot::robotObjects.at(destroyedRobotName);
    // using the object we can acccess lives,name etc
   --destroyedRobot->lives; // reduce from the lives  of the loser robot
@@ -330,6 +337,24 @@ void ShootingRobot::thirtyShotBot(){
 shells = 30 ;
 }
 
+void ShootingRobot::LongShotBot(BattleField &battle){
+for ( auto row =0 ; row < battle.height ; row++) {
+      for (auto col=0 ; col < battle.width; col++) {
+        if(battle.isInside(col,row)){ // can join with the below if? or nvm
+
+          if(battle.isOccupied(col,row) && battle.field[row][col] != name.substr(0, 2) && (abs(col - robotsPositionX) + abs(row - robotsPositionY) <=3)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
+            
+            cout << "Enemy robot found at (" << col <<"," << row <<")" <<endl ; //for the above name.substr(0,2) since only the first 2 charas of robots name is placed
+            // 
+            enemyPos.clear(); //in case other funcs already filled it
+            enemyPos.push_back(make_pair(col,row)) ;
+          } // inner if 
+        } //outer if
+      } //inner for
+} // outer for
+      fire(battle);
+
+}
 //GenericRobot
 string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
 GenericRobot::GenericRobot(string name) : Robot(name, GenericRobot::type) {}
@@ -358,13 +383,7 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 
 // SHOOTING
 
-// LongShotBot : The robot can fire up to three unit distance away from its location.
-// It means the robot can fire(x, y) where x + y <= 3.
-
 // SEEING
-
-// ScoutBot : Instead of look(x, y) The robot can see the entire battlefield for one
-// turn. This ability can be used three times in a match.
 
 //Doing/Done
 
@@ -380,5 +399,10 @@ GenericRobot GenericRobot::getRobotByName(string& name) {
 // load of shells. (shooting)
 
 // JumpBot : The robot can jump to a new location anywhere in the map. It can
-// jump three times in a match.
+// jump three times in a match. (moving)
 
+// ScoutBot : Instead of look(x, y) The robot can see the entire battlefield for one
+// turn. This ability can be used three times in a match. (seeing)
+
+// LongShotBot : The robot can fire up to three unit distance away from its location.
+// It means the robot can fire(x, y) where x + y <= 3. (shooting)

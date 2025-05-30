@@ -105,11 +105,12 @@ void Simulation::run(BattleField &battle)
             //     continue;
 
             // Robot actions
-            robot->look(battle);
+            //robot->look(battle);
             //robot->think();
-            robot->move(battle);
-            robot->ScoutBot(battle);
+            //robot->move(battle);
+            //robot->ScoutBot(battle);
             //robot->fire(battlefield);
+            robot->LongShotBot(battle);
 
             // Log robot status
             logfile << robot->getname() << " at ("

@@ -121,6 +121,7 @@ else if (move==0){
       }
 
   }//shoot else if
+return 0 ;
 }
 
 // ThinkingRobot
@@ -138,6 +139,7 @@ else if (shells>4){
   return 2; //offense
 }
 
+return 0;
 //upgrades
 
 }
@@ -160,14 +162,14 @@ void SeeingRobot::look(BattleField &battle){
           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
             cout << "Possible positions to move to ";
             movePositions.push_back(make_pair(getPositionX() +u,getPositionY() + t));
-            cout << "(" << getPositionY() + t << "," << getPositionX() + u  << ")" << endl ;
+            cout << "(" << getPositionX() + u << "," << getPositionY() + t  << ")" << endl ;
 
             //clear vector after moving //everytime I run I get smth diff
 
           } // else if
         } // outer if
         else{
-            cout << "(" << getPositionY() + t << "," << getPositionX() + u << ") is out of bounds " <<endl ;
+            cout << "(" << getPositionX() + u << "," << getPositionY() + t << ") is out of bounds " <<endl ;
          } // outer else 
           u++;
         } // inner while
@@ -234,6 +236,7 @@ void MovingRobot::move(BattleField &battle){
     robotsPositionX = movePositions[i].first ;
     robotsPositionY = movePositions[i].second ;
     movePositions.clear();
+    cout << name << " moved to (" << movePositions[i].first << "," << movePositions[i].second << ") from (" <<oldX << "," <<oldY <<")" <<endl ;
   } else {
     cout << getname() << " found no possible moves." << endl;
     battle.placeRobot(oldX, oldY, getname()); // Place robot back if no move was made

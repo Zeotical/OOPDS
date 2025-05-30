@@ -59,9 +59,9 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
             {
                 auto pos = battle.getRandomEmptyPosition();
                 //robot->setPosition(pos.first, pos.second);
-                robot.setPositionX(pos.first);
-                robot.setPositionY(pos.second);
-                cout << "Placed " << name << " at random position (" << pos.first << "," << pos.second << ")" << endl;
+                robot.setPositionX(pos.second);
+                robot.setPositionY(pos.first);
+                cout << "Placed " << name << " at random position (" << pos.second << "," << pos.first << ")" << endl;
                 battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
 
             }
@@ -75,7 +75,7 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
 
                 battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
 
-                cout << "Placed " << name << " at position (" << x << "," << y << ")" << endl;
+                cout << "Placed " << name << " at position (" << y << "," << x << ")" << endl;
             }
 
             robots.push_back(&robot);

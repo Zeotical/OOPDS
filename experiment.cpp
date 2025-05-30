@@ -78,7 +78,7 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
                 cout << "Placed " << name << " at position (" << x << "," << y << ")" << endl;
             }
 
-            robots.push_back(robot);
+            robots.push_back(&robot);
             //battlefield.placeRobot(robot->getPositionX(), robot->getPositionY(), robot->getname());
         //}
     }
@@ -90,32 +90,34 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
 void Simulation::run(BattleField &battle)
 {
     ofstream logfile("simulation_log.txt");
-
-    for (currentTurn = 0; currentTurn < maxTurns;)
-    {
-        
+    currentTurn = -1;
+     while ( currentTurn < maxTurns)
+    {    
 
         // Process each robot's turn
-        for (GenericRobot robot : robots)
+        for (GenericRobot* robot : robots)
         {
+                        ++currentTurn;      
+
             logfile << "=== Turn " << currentTurn << " ===" << endl;
         cout << "=== Turn " << currentTurn << " ===" << endl;
             // if (!robot->isAlive())
             //     continue;
 
             // Robot actions
-            robot.look(battle);
+            robot->look(battle);
             //robot->think();
-            robot.move(battle);
+            robot->move(battle);
             //robot->fire(battlefield);
 
             // Log robot status
-            logfile << robot.getname() << " at ("
-                    << robot.getPositionX() << ","
-                    << robot.getPositionY() << ")" << endl;
-            ++currentTurn;      
+            logfile << robot->getname() << " at ("
+                    << robot->getPositionX() << ","
+                    << robot->getPositionY() << ")" << endl;
                       battle.printBattlefield();
+
         }
+
 
         // Print battlefield state
         // battle.printBattlefield();
@@ -125,8 +127,9 @@ void Simulation::run(BattleField &battle)
         {
             //logfile << "Game over! Winner: " << getWinner()->getname() << endl;
             //cout << "Game over! Winner: " << getWinner()->getname() << endl;
-            break;
+            //break;
         }
+
     }
 
     logfile.close();
@@ -137,7 +140,7 @@ bool Simulation::checkGameOver()
     int aliveCount = 0;
     Robot *lastAlive = nullptr;
 
-    for (GenericRobot robot : robots)
+    for (GenericRobot* robot : robots)
     {
         // if (robot->isAlive())
         // {

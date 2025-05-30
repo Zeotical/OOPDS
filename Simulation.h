@@ -21,7 +21,7 @@ int battlefieldWidth;
     void run(BattleField &battle);
     void cleanup();
     BattleField battlefield;
-    vector<GenericRobot> robots;
+    vector<GenericRobot*> robots;
     int currentTurn;
     int maxTurns;
     int numRobots;

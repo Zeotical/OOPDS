@@ -163,7 +163,7 @@ void SeeingRobot::look(BattleField &battle){
  int t = -1;
  int u = -1;
    enemyPos.clear();
-
+   movePositions.clear();
      while (t<=1) {
       u = -1;
       while (u<=1) {
@@ -272,7 +272,8 @@ void MovingRobot::JumpBot(BattleField &battle){
     // Assuming battle.removeRobot exists and takes robot's name.
     // If not, use battle.clearPosition(robotsPositionX, robotsPositionY)
     battle.clearPosition(robotsPositionX, robotsPositionY);
-
+    oldX = robotsPositionX;
+    oldY = robotsPositionY;
     // Generate new random coordinates within battlefield bounds
     // Assuming battle.width and battle.height are accessible (e.g., public members or getters).
     int newX = rand() % battle.width;
@@ -288,7 +289,7 @@ void MovingRobot::JumpBot(BattleField &battle){
 
     jumpUsesLeft--; // Decrement remaining jumps
 
-    std::cout << getname() << " jumped to (" << newX << ", " << newY << "). Jumps left: " << jumpUsesLeft << std::endl;
+    std::cout << getname() << " jumped to (" << newX << ", " << newY << ") from (" << oldX << ", " << oldY << ") <<. Jumps left: " << jumpUsesLeft << std::endl;
     } else {
     std::cout << getname() << " has no jumps left!" << std::endl;
     }
@@ -339,10 +340,14 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
   cout << name << " picked " << choice << endl;
   }
   } //if
-else {
+else if(values[probability] > 7 && enemyPos.size()!=0) {
   --shells;
   cout << name << " missed" << endl;
-} //else
+} //else 
+
+else {
+  cout <<"There are no enemies nearby " << name << " will not fire" << endl;
+}
 }
 
 void ShootingRobot::SemiAutoBot(BattleField &battle){

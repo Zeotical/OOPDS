@@ -54,7 +54,8 @@ class SeeingRobot: virtual public Robot {
     GenericRobot* robottotrack ;
     vector <GenericRobot*> trackedrobots;
     vector <GenericRobot*>::iterator robotIsTracked; //std::vector for all
-    void trackbot(BattleField &battle);
+    void TrackBot(BattleField &battle);
+    int scout_bot_uses = 3;
     void ScoutBot(BattleField &battle);
 };
 class MovingRobot: virtual public Robot {
@@ -64,7 +65,7 @@ class MovingRobot: virtual public Robot {
     int oldY;
     void move(BattleField &battle);
     int jumpUsesLeft; // Declaration of jumpUsesLeft
-    void jumpBot(BattleField &battle);
+    void JumpBot(BattleField &battle);
 
 };
 class ShootingRobot: virtual public Robot {
@@ -74,10 +75,13 @@ class ShootingRobot: virtual public Robot {
     string destroyedRobotName ;
     GenericRobot* destroyedRobot ;
     void fire(BattleField &battle);
-    void semiAutoBot(BattleField &battle);
-    void thirtyShotBot () ; // add var from cpp here 
+    void SemiAutoBot(BattleField &battle);
+    void ThirtyShotBot () ; // add var from cpp here 
     void LongShotBot(BattleField &battle);
     vector<string> choices;
+    int current_kills;
+    int tries ;
+    int actual_shell_num;
    
 
 };

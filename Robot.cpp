@@ -62,8 +62,8 @@ return false;
  string Robot::handle_upgrades(){
   
   //Seeing ScoutBot or TrackBot
-if (see==0){
-  if(shells < 4 || enemyPos.size() == 0 ){
+if (see!=1 || see < 1){
+  if(shells < 4 ){ //|| enemyPos.size() == 0
     see++;
     return "ScoutBot" ;
   }
@@ -73,7 +73,7 @@ if (see==0){
   }
 }
   //Moving HideBot or JumpBot.
-else if (move==0){
+else if (move!=1 || move < 1){
     if((shells < 4 || lives == 1) && move == 0) {
     move++;
     return "HideBot" ; }
@@ -96,8 +96,8 @@ else if (move==0){
       }
     }
   //Shooting LongShotBot, SemiAutoBot or ThirtyShotBot.
-  else if (shoot == 0){
-    if( shells>4 || enemyPos.size() == 0 ){
+  else if (shoot != 1 || shoot < 1){
+    if( shells>4 ){ //|| enemyPos.size() == 0 
       shoot++;
       return "LongShotBot" ;
     }
@@ -167,7 +167,7 @@ void SeeingRobot::look(BattleField &battle){
             
             cout << "Enemy robot found at (" << getPositionX() + u<<"," << getPositionY() + t <<")" <<endl ;
             // 
-            enemyPos.push_back(make_pair(getPositionY()+t,getPositionX() + u)) ;
+            enemyPos.push_back(make_pair(getPositionY()+t,getPositionX() + u)) ; //y,x
           } // inner if 
           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
             cout << "Possible positions to move to ";
@@ -188,16 +188,22 @@ void SeeingRobot::look(BattleField &battle){
 }
 
 
-void SeeingRobot::trackbot(BattleField &battle){
-
+void SeeingRobot::TrackBot(BattleField &battle){
   look(battle) ;
+  if(enemyPos.size()!=0) {
   int i =  rand() % enemyPos.size();
-  robottotrackName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
-  robottotrack =  &GenericRobot::robotObjects.at(robottotrackName);
+  robottotrackName = battle.field[enemyPos[i].first][enemyPos[i].second]; // gets the name of the robot //use y,x
+  for (auto pair: GenericRobot::robotObjects){
+
+    if(pair.first.substr(0, 2) == robottotrackName) {
+      robottotrackName = pair.first ;
+    }
+  }
+  robottotrack =  &GenericRobot::robotObjects.at(robottotrackName); //enemyPos uses y,x and so does field[y][x]
   robotIsTracked = find(trackedrobots.begin(),trackedrobots.end(),robottotrack);
    if (robotIsTracked==trackedrobots.end() && trackedrobots.size() < 3){
 
-  trackedrobots.push_back(robottotrack); }
+  trackedrobots.push_back(robottotrack); } }
 // ranomd pos1
 // random pos2
 // posx = robotTotrack.robotposx
@@ -206,6 +212,7 @@ void SeeingRobot::trackbot(BattleField &battle){
 }
 
  void  SeeingRobot::ScoutBot(BattleField &battle){
+  --scout_bot_uses;
   for ( auto row =0 ; row < battle.height ; row++) {
       for (auto col=0 ; col < battle.width; col++) {
         if(battle.isInside(col,row)){ // can join with the below if? or nvm
@@ -254,7 +261,7 @@ void MovingRobot::move(BattleField &battle){
            
 }
 
-void MovingRobot::jumpBot(BattleField &battle){
+void MovingRobot::JumpBot(BattleField &battle){
   if (jumpUsesLeft > 0) {
     // Remove robot from current position on battlefield
     // Assuming battle.removeRobot exists and takes robot's name.
@@ -331,29 +338,30 @@ else {
 } //else
 }
 
-void ShootingRobot::semiAutoBot(BattleField &battle){
-  int current = kills;
-  int tries = 0;
-  int cshells = shells;
-  while (tries < 3 && current == kills){
+void ShootingRobot::SemiAutoBot(BattleField &battle){
+  current_kills = kills;
+  tries = 0; //max 3
+  actual_shell_num = shells;
+  while (tries < 3 && current_kills == kills){
     cout << "SemiAutoBot " <<endl;
     fire(battle);
     ++tries ;
-    cout << "THIS IS" <<current << "this " << kills <<endl ;
-        cout << "THIS IS" <<cshells << "this " << shells <<endl ;
+    //cout << "THIS IS" <<current << "this " << kills <<endl ;
+        //cout << "THIS IS" <<cshells << "this " << shells <<endl ;
 
   }
-shells = --cshells;
-    cout << "THIS IS" <<shells << "this skibidi"  <<endl ;
+shells = --actual_shell_num;
+    //cout << "THIS IS" <<shells << "this skibidi"  <<endl ;
 
   
 }
 
-void ShootingRobot::thirtyShotBot(){
-shells = 30 ;
+void ShootingRobot::ThirtyShotBot(){
+  shells = 30 ;
 }
 
 void ShootingRobot::LongShotBot(BattleField &battle){
+  shoot++;
 for ( auto row =0 ; row < battle.height ; row++) {
       for (auto col=0 ; col < battle.width; col++) {
         if(battle.isInside(col,row)){ // can join with the below if? or nvm

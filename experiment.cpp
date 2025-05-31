@@ -114,7 +114,7 @@ void Simulation::run(BattleField &battle)
                     cout << robot->name << " is dead" <<endl;                 }
                  continue; } }
 
-
+        //Handle re-entering Robots
         else if(robot->re_enteringRobots.size() > 0 ){
                 cout << robot->name << " is re-entering" << endl;
                 robot->re_enteringRobots.pop();
@@ -153,7 +153,7 @@ void Simulation::run(BattleField &battle)
                     << robot->getPositionY() << ")" << endl;
 
             }
-
+        //Handle still alive robots
         else if (robot->lives == 3 || (robot->lives <= 3 && robot->re_enteringRobots.size() == 0)) {
             // Robot actions
             // robot->look(battle);
@@ -164,33 +164,51 @@ void Simulation::run(BattleField &battle)
             //robot->LongShotBot(battle);
 
             action = robot->think();
-        if (robot->upgrades == 0 || robot->choices.size() == 0) {
-            if (action == 1) {
-                robot->look(battle);
-                robot->move(battle);
+            if (robot->upgrades == 0 || robot->choices.size() == 0) {
+                if (action == 1) {
+                    robot->look(battle);
+                    robot->move(battle);
+                }
+                else if (action == 2) {
+                    robot->look(battle);
+                    robot->fire(battle);
+                }
+                else {
+                    // optional fallback, maybe just look? or upgrades?
+                    robot->look(battle);
+                }
             }
-            else if (action == 2) {
-                robot->look(battle);
-                robot->fire(battle);
-            }
+
             else {
-                // optional fallback, maybe just look? or upgrades?
-                robot->look(battle);
+                int idx = rand() % robot->choices.size();
+                string choice = robot->choices[idx];
+
+                if (choice=="ScoutBot") {
+                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                    robot->ScoutBot(battle);
+                }
+                else if (choice== "TrackBot") {
+                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                    robot->TrackBot(battle);
+                }
+                else if (choice=="HideBot") {}
+                else if (choice=="JumpBot") {
+                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                    robot->JumpBot(battle);
+                }
+                else if (choice=="LongShotBot") {
+                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                    robot->LongShotBot(battle);
+                }
+                else if (choice=="SemiAutoBot") {
+                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                    robot->SemiAutoBot(battle);
+                }
+                else if (choice=="ThirtyShotBot") {
+                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                    robot->ThirtyShotBot();
+                }
             }
-        }
-
-        else {
-            string choice = robot->handle_upgrades;
-
-            if (choice=="ScoutBot") {}
-            else if (choice== "TrackBot") {}
-            else if (choice=="HideBot") {}
-            else if (choice=="JumpBot") {}
-            else if (choice=="LongShotBot") {}
-            else if (choice=="SemiAutoBot") {}
-            else if (choice=="ThirtyShotBot") {}
-
-        }
 
             // Log robot status
             logfile << robot->getname() << " at ("

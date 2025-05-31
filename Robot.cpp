@@ -245,8 +245,8 @@ void MovingRobot::move(BattleField &battle){
     battle.placeRobot(movePositions[i].first,movePositions[i].second,getname()); //else statement will not be triggered because movePositions only returns unoccupied positions
     robotsPositionX = movePositions[i].first ;
     robotsPositionY = movePositions[i].second ;
-    movePositions.clear();
     cout << name << " moved to (" << movePositions[i].first << "," << movePositions[i].second << ") from (" <<oldX << "," <<oldY <<")" <<endl ;
+    movePositions.clear();
   } else {
     cout << getname() << " found no possible moves." << endl;
     battle.placeRobot(oldX, oldY, getname()); // Place robot back if no move was made

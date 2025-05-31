@@ -61,10 +61,10 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
             {
                 auto pos = battle.getRandomEmptyPosition();
                 //robot->setPosition(pos.first, pos.second);
-                robot.setPositionX(pos.second);
-                robot.setPositionY(pos.first);
-                cout << "Placed " << name << " at random position (" << pos.second << "," << pos.first << ")" << endl;
-                battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
+                robot.setPositionX(pos.first);
+                robot.setPositionY(pos.second);
+                cout << "Placed " << name << " at random position (" << pos.first << "," << pos.second << ")" << endl;
+                battle.placeRobot(pos.first,pos.second,robot.getname());
 
             }
              else
@@ -120,10 +120,10 @@ void Simulation::run(BattleField &battle)
                 robot->re_enteringRobots.pop();
                 auto pos = battle.getRandomEmptyPosition();
                 //robot->setPosition(pos.first, pos.second);
-                robot->setPositionX(pos.second);
-                robot->setPositionY(pos.first);
-                cout << "Placed " << robot->name << " at random position (" << pos.second << "," << pos.first << ")" << endl;
-                battle.placeRobot(robot->getPositionX(),robot->getPositionY(),robot->name);
+                robot->setPositionX(pos.first);
+                robot->setPositionY(pos.second);
+                cout << "Placed " << robot->name << " at random position (" << pos.first << "," << pos.second << ")" << endl;
+                battle.placeRobot(pos.first,pos.second,robot->name);
             // Robot actions
             //robot->look(battle);
             //robot->think();

@@ -9,6 +9,7 @@
 #include <memory>
 
 
+
 Simulation::Simulation() : currentTurn(0)
 {
     // Initialize random seed
@@ -352,7 +353,7 @@ Robot *Simulation::getWinner()
 
 // void Simulation::cleanup()
 // {
-//     for (GenericRobot robot : robots)
+//     for (GenericRobot* robot : robots) //no need for this
 //     {
 //         delete robot;
 //     }

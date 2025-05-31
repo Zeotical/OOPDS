@@ -276,7 +276,11 @@ void MovingRobot::JumpBot(BattleField &battle){
     oldY = robotsPositionY;
     // Generate new random coordinates within battlefield bounds
     // Assuming battle.width and battle.height are accessible (e.g., public members or getters).
-    auto pos = battle.getRandomEmptyPosition();
+    pair<int, int> pos;
+    do {
+    pos = battle.getRandomEmptyPosition();
+    }while (pos.first == oldX && pos.second == oldY);
+
     // Update robot's internal position
     robotsPositionX = pos.first;
     robotsPositionY = pos.second;
@@ -296,6 +300,7 @@ void MovingRobot::JumpBot(BattleField &battle){
 
 void ShootingRobot::self_destruction(BattleField &battle) {
 if (shells == 0){
+  lives = 0;
   cout <<  name  << " has run out of shells." << endl;
   cout <<  name  << " *self-destructs*" << endl;
   cout <<  name  << " has died and will not be entering again" << endl;

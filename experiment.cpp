@@ -94,6 +94,7 @@ void Simulation::run(BattleField &battle)
     ofstream logfile("simulation_log.txt");
     currentTurn = -1;
     GenericRobot* robot = nullptr;
+    int action =0;
      while ( currentTurn < maxTurns)
     {    
 
@@ -124,12 +125,27 @@ void Simulation::run(BattleField &battle)
                 cout << "Placed " << robot->name << " at random position (" << pos.second << "," << pos.first << ")" << endl;
                 battle.placeRobot(robot->getPositionX(),robot->getPositionY(),robot->name);
             // Robot actions
-            robot->look(battle);
+            //robot->look(battle);
             //robot->think();
             //robot->move(battle);
             //robot->ScoutBot(battle);
-             robot->fire(battle);
+            //robot->fire(battle);
             //robot->LongShotBot(battle);
+
+             action = robot->think();
+
+            if (action == 1) {
+                robot->look(battle);
+                robot->move(battle);
+            }
+            else if (action == 2) {
+                robot->look(battle);
+                robot->fire(battle);
+            }
+            else {
+                // optional fallback, maybe just look? or upgrades?
+                robot->look(battle);
+            }
 
             // Log robot status
             logfile << robot->getname() << " at ("
@@ -138,14 +154,29 @@ void Simulation::run(BattleField &battle)
 
             }
 
-        else if (robot->lives == 3 || (robot->lives < 3 && robot->re_enteringRobots.size() == 0)) {
+        else if (robot->lives == 3 || (robot->lives <= 3 && robot->re_enteringRobots.size() == 0)) {
             // Robot actions
-            robot->look(battle);
-            //robot->think();
-            //robot->move(battle);
-            //robot->ScoutBot(battle);
-             robot->fire(battle);
+            // robot->look(battle);
+            // //robot->think();
+            // //robot->move(battle);
+            // //robot->ScoutBot(battle);
+            //  robot->fire(battle);
             //robot->LongShotBot(battle);
+
+            action = robot->think();
+
+            if (action == 1) {
+                robot->look(battle);
+                robot->move(battle);
+            }
+            else if (action == 2) {
+                robot->look(battle);
+                robot->fire(battle);
+            }
+            else {
+                // optional fallback, maybe just look? or upgrades?
+                robot->look(battle);
+            }
 
             // Log robot status
             logfile << robot->getname() << " at ("

@@ -134,8 +134,8 @@ return 0 ;
 
 // ThinkingRobot
 int ThinkingRobot::think(){
-
-if (lives = 1 || shells < 4){
+cout << "*" << name << " is thinking*" <<endl;
+if (lives == 1 || shells < 4){
   //look
   //move
   return 1; //defense

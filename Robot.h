@@ -36,10 +36,17 @@ class Robot {
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
     vector <pair<int,int>> enemyPos ; //use std::pair stores enemy positions in surrounding area
     string handle_upgrades();
-    int see =0 ;
+    int see = 0;
     int move = 0;
     int shoot = 0;
     int random ;
+    int scout_bot_uses;
+    int track_bot_uses;
+    int hide_bot_uses;
+    int jump_bot_uses;
+    int long_shot_bot_uses;
+    int semi_auto_bot_uses;
+    int thirty_shot_uses;
     bool isAlive();
 };
 
@@ -55,7 +62,6 @@ class SeeingRobot: virtual public Robot {
     vector <GenericRobot*> trackedrobots;
     vector <GenericRobot*>::iterator robotIsTracked; //std::vector for all
     void TrackBot(BattleField &battle);
-    int scout_bot_uses = 3;
     void ScoutBot(BattleField &battle);
 };
 class MovingRobot: virtual public Robot {

@@ -60,9 +60,15 @@ if(lives != 0){
 return false;
 }
  string Robot::handle_upgrades(){
-  
+  scout_bot_uses = 0;
+  track_bot_uses = 0;
+  hide_bot_uses = 0;
+  jump_bot_uses = 0;
+  long_shot_bot_uses = 0;
+  semi_auto_bot_uses = 0;
+  thirty_shot_uses = 0;
   //Seeing ScoutBot or TrackBot
-if (see!=1 || see < 1){
+if (see!=1 || see < 1){ // To force it to choose from another area
   if(shells < 4 ){ //|| enemyPos.size() == 0
     see++;
     return "ScoutBot" ;
@@ -212,7 +218,6 @@ void SeeingRobot::TrackBot(BattleField &battle){
 }
 
  void  SeeingRobot::ScoutBot(BattleField &battle){
-  --scout_bot_uses;
   for ( auto row =0 ; row < battle.height ; row++) {
       for (auto col=0 ; col < battle.width; col++) {
         if(battle.isInside(col,row)){ // can join with the below if? or nvm

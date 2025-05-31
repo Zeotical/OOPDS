@@ -183,28 +183,34 @@ void Simulation::run(BattleField &battle)
                 int idx = rand() % robot->choices.size();
                 string choice = robot->choices[idx];
 
-                if (choice=="ScoutBot") {
+                if (choice=="ScoutBot" && robot->semi_auto_bot_uses < 3) {
+                    ++robot->semi_auto_bot_uses ;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->ScoutBot(battle);
                 }
-                else if (choice== "TrackBot") {
+                else if (choice== "TrackBot" && robot->track_bot_uses < 3) {
+                    ++robot->track_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->TrackBot(battle);
                 }
-                else if (choice=="HideBot") {}
-                else if (choice=="JumpBot") {
+                else if (choice=="HideBot") {} //TBD
+                else if (choice=="JumpBot" && robot->jump_bot_uses < 3) {
+                    ++robot->jump_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->JumpBot(battle);
                 }
-                else if (choice=="LongShotBot") {
+                else if (choice=="LongShotBot" && robot->long_shot_bot_uses < 3) {
+                    ++robot->long_shot_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->LongShotBot(battle);
                 }
-                else if (choice=="SemiAutoBot") {
+                else if (choice=="SemiAutoBot" && robot->semi_auto_bot_uses < 3) {
+                    ++robot->semi_auto_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->SemiAutoBot(battle);
                 }
-                else if (choice=="ThirtyShotBot") {
+                else if (choice=="ThirtyShotBot" && robot->thirty_shot_uses < 3) {
+                    ++robot->thirty_shot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->ThirtyShotBot();
                 }

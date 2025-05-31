@@ -89,6 +89,7 @@ class ShootingRobot: virtual public Robot {
     int tries ;
     int actual_shell_num;
     int cooldown;
+    void self_destruction(BattleField &battle) ;
    
 
 };

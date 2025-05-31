@@ -54,7 +54,7 @@ string Robot::getname(){
 }
 
 bool Robot::isAlive(){
-if(lives != 0){
+if(lives != 0 && shells > 0 ){
   return true;
 }
 return false;
@@ -276,26 +276,34 @@ void MovingRobot::JumpBot(BattleField &battle){
     oldY = robotsPositionY;
     // Generate new random coordinates within battlefield bounds
     // Assuming battle.width and battle.height are accessible (e.g., public members or getters).
-    int newX = rand() % battle.width;
-    int newY = rand() % battle.height;
-
+    auto pos = battle.getRandomEmptyPosition();
     // Update robot's internal position
-        robotsPositionX = newX;
-        robotsPositionY = newY;
-
+    robotsPositionX = pos.first;
+    robotsPositionY = pos.second;
     // Place robot at new position on battlefield
     // Assuming battle.placeRobot takes robot's name.
-    battle.placeRobot(robotsPositionX, robotsPositionY, getname());
+    battle.placeRobot(pos.first,pos.second,name);
 
     jumpUsesLeft--; // Decrement remaining jumps
 
-    std::cout << getname() << " jumped to (" << newX << ", " << newY << ") from (" << oldX << ", " << oldY << ") <<. Jumps left: " << jumpUsesLeft << std::endl;
+    std::cout << getname() << " jumped to (" << pos.first << ", " << pos.second << ") from (" << oldX << ", " << oldY << ") <<. Jumps left: " << jumpUsesLeft << std::endl;
     } else {
     std::cout << getname() << " has no jumps left!" << std::endl;
     }
   }
 
 // ShootingRobot
+
+void ShootingRobot::self_destruction(BattleField &battle) {
+if (shells == 0){
+  cout <<  name  << " has run out of shells." << endl;
+  cout <<  name  << " *self-destructs*" << endl;
+  cout <<  name  << " has died and will not be entering again" << endl;
+
+  battle.clearPosition(robotsPositionX,robotsPositionY); // x,y == row,col
+  GenericRobot::robotObjects.erase(name) ; //
+}
+}
 
 void ShootingRobot::fire(BattleField &battle) {
 values = {1,2,3,4,5,6,7,8,9,10};
@@ -321,17 +329,17 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
   cout << "Lives left for " << destroyedRobot->name << ": " << destroyedRobot->lives << endl;
    if (destroyedRobot->lives > 0){
    cout << "*" <<destroyedRobot->name<< " goes into the queue*" <<endl;
-   
    destroyedRobot->re_enteringRobots.push(destroyedRobot); 
    destroyedRobot->cooldown = 1;
   }
    else {
     cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
-     battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == row,col
+    battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == row,col
     GenericRobot::robotObjects.erase(destroyedRobotName) ; //of o delte from here will pointer disappear also?
    }
   enemyPos.clear();
   kills++ ;    // add to the kills of the winner robot
+  self_destruction(battle); //check if it has to self destruct, if yes no need for upgrades
   if (kills < 4) { //after 3 no more upgrades possible
   ++upgrades; // call upgragde func    // if kills ++ then choose upgrade 
    string choice = handle_upgrades();
@@ -343,6 +351,7 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
 else if(values[probability] > 7 && enemyPos.size()!=0) {
   --shells;
   cout << name << " missed" << endl;
+  self_destruction(battle);
 } //else 
 
 else {

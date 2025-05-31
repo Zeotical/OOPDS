@@ -71,6 +71,7 @@ void BattleField::placeRobot(int x, int y, const string &robot)
     }
     else
     {
+        cout << "PICKING RANDOM PLACE" << endl;
         // Try to find a random empty position (with safety limit)
         int attempts = 0;
         int maxAttempts = width * height; // Prevent infinite loop

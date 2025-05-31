@@ -321,7 +321,9 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
    if (destroyedRobot->lives > 0){
    cout << "*" <<destroyedRobot->name<< " goes into the queue*" <<endl;
    
-   destroyedRobot->re_enteringRobots.push(destroyedRobot); }
+   destroyedRobot->re_enteringRobots.push(destroyedRobot); 
+   destroyedRobot->cooldown = 1;
+  }
    else {
     cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
      battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == row,col

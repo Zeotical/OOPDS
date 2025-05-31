@@ -88,6 +88,7 @@ class ShootingRobot: virtual public Robot {
     int current_kills;
     int tries ;
     int actual_shell_num;
+    int cooldown;
    
 
 };

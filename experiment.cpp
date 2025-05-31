@@ -114,8 +114,13 @@ void Simulation::run(BattleField &battle)
                     cout << robot->name << " is dead" <<endl;                 }
                  continue; } }
 
+        else if (robot->re_enteringRobots.size() > 0 && robot->cooldown == 1) {
+            cout << robot->name << " will respawn in it's next turn" <<endl ;
+            --robot->cooldown ;
+        }
         //Handle re-entering Robots
-        else if(robot->re_enteringRobots.size() > 0 ){
+        else if(robot->re_enteringRobots.size() > 0  && robot->cooldown == 0)
+            {  
                 cout << robot->name << " is re-entering" << endl;
                 robot->re_enteringRobots.pop();
                 auto pos = battle.getRandomEmptyPosition();
@@ -180,61 +185,61 @@ void Simulation::run(BattleField &battle)
                 }
             }
 
-            else {
+            // else {
 
-                int idx = rand() % robot->choices.size();
-                string choice = robot->choices[idx];
+            //     int idx = rand() % robot->choices.size();
+            //     string choice = robot->choices[idx];
 
-                if (choice=="ScoutBot" && robot->scout_bot_uses < 3) {
-                    ++robot->scout_bot_uses ;
-                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
-                    robot->ScoutBot(battle);
-                    if(robot->scout_bot_uses == 3) {
-                        robot->choices.erase(robot->choices + idx);
-                    }
-                }
-                else if (choice== "TrackBot" && robot->track_bot_uses < 3) {
-                    ++robot->track_bot_uses;
-                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
-                    robot->TrackBot(battle);
-                    if(robot->track_bot_uses == 3) {
-                        robot->choices.erase(robot->choices + idx);
-                    }
-                }
-                else if (choice=="HideBot") {} //TBD
-                else if (choice=="JumpBot" && robot->jump_bot_uses < 3) {
-                    ++robot->jump_bot_uses;
-                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
-                    robot->JumpBot(battle);
-                    if(robot->jump_bot_uses == 3) {
-                        robot->choices.erase(robot->choices + idx);
-                    }
-                }
-                else if (choice=="LongShotBot" && robot->long_shot_bot_uses < 3) {
-                    ++robot->long_shot_bot_uses;
-                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
-                    robot->LongShotBot(battle);
-                    if(robot->long_shot_bot_uses == 3) {
-                        robot->choices.erase(robot->choices + idx);
-                    }
-                }
-                else if (choice=="SemiAutoBot" && robot->semi_auto_bot_uses < 3) {
-                    ++robot->semi_auto_bot_uses;
-                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
-                    robot->SemiAutoBot(battle);
-                    if(robot->semi_auto_bot_uses == 3) {
-                        robot->choices.erase(robot->choices + idx);
-                    }
-                }
-                else if (choice=="ThirtyShotBot" && robot->thirty_shot_uses < 3) {
-                    ++robot->thirty_shot_uses;
-                    cout << robot->name <<" is using " << choice << " upgrade" << endl;
-                    robot->ThirtyShotBot();
-                    if(robot->thirty_shot_uses == 3) {
-                        robot->choices.erase(robot->choices + idx);
-                    }
-                }
-            }
+            //     if (choice=="ScoutBot" && robot->scout_bot_uses < 3) {
+            //         ++robot->scout_bot_uses ;
+            //         cout << robot->name <<" is using " << choice << " upgrade" << endl;
+            //         robot->ScoutBot(battle);
+            //         if(robot->scout_bot_uses == 3) {
+            //             robot->choices.erase(robot->choices + idx);
+            //         }
+            //     }
+            //     else if (choice== "TrackBot" && robot->track_bot_uses < 3) {
+            //         ++robot->track_bot_uses;
+            //         cout << robot->name <<" is using " << choice << " upgrade" << endl;
+            //         robot->TrackBot(battle);
+            //         if(robot->track_bot_uses == 3) {
+            //             robot->choices.erase(robot->choices + idx);
+            //         }
+            //     }
+            //     else if (choice=="HideBot") {} //TBD
+            //     else if (choice=="JumpBot" && robot->jump_bot_uses < 3) {
+            //         ++robot->jump_bot_uses;
+            //         cout << robot->name <<" is using " << choice << " upgrade" << endl;
+            //         robot->JumpBot(battle);
+            //         if(robot->jump_bot_uses == 3) {
+            //             robot->choices.erase(robot->choices + idx);
+            //         }
+            //     }
+            //     else if (choice=="LongShotBot" && robot->long_shot_bot_uses < 3) {
+            //         ++robot->long_shot_bot_uses;
+            //         cout << robot->name <<" is using " << choice << " upgrade" << endl;
+            //         robot->LongShotBot(battle);
+            //         if(robot->long_shot_bot_uses == 3) {
+            //             robot->choices.erase(robot->choices + idx);
+            //         }
+            //     }
+            //     else if (choice=="SemiAutoBot" && robot->semi_auto_bot_uses < 3) {
+            //         ++robot->semi_auto_bot_uses;
+            //         cout << robot->name <<" is using " << choice << " upgrade" << endl;
+            //         robot->SemiAutoBot(battle);
+            //         if(robot->semi_auto_bot_uses == 3) {
+            //             robot->choices.erase(robot->choices + idx);
+            //         }
+            //     }
+            //     else if (choice=="ThirtyShotBot" && robot->thirty_shot_uses < 3) {
+            //         ++robot->thirty_shot_uses;
+            //         cout << robot->name <<" is using " << choice << " upgrade" << endl;
+            //         robot->ThirtyShotBot();
+            //         if(robot->thirty_shot_uses == 3) {
+            //             robot->choices.erase(robot->choices + idx);
+            //         }
+            //    }
+           // }
 
             // Log robot status
             logfile << robot->getname() << " at ("

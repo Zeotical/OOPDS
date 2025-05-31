@@ -15,7 +15,6 @@ class Robot {
     private:
     string type;
     protected:
-    int lives; // max 3
     int robotsPositionX; // row
     int robotsPositionY; // col
     int kills;
@@ -24,6 +23,8 @@ class Robot {
 
 
     public:
+        int lives; // max 3
+
     string name;
     int numOfRobots;
     Robot () ;
@@ -40,7 +41,7 @@ class Robot {
     int move = 0;
     int shoot = 0;
     int random ;
-
+    bool isAlive();
 };
 
 
@@ -53,7 +54,7 @@ class SeeingRobot: virtual public Robot {
     string robottotrackName ;
     GenericRobot* robottotrack ;
     vector <GenericRobot*> trackedrobots;
-    vector <GenericRobot*>::iterator   robotIsTracked; //std::vector for all
+    vector <GenericRobot*>::iterator robotIsTracked; //std::vector for all
     void trackbot(BattleField &battle);
     void ScoutBot(BattleField &battle);
 };
@@ -94,7 +95,7 @@ static map<string, GenericRobot> robotObjects; //can jus use emplace to construc
 
 static string type; //all objects from this class share the same type
 static GenericRobot getRobotByName(string& name) ;
-static queue <GenericRobot*> re_enteringRobots;
+queue <GenericRobot*> re_enteringRobots;
 
 
 };

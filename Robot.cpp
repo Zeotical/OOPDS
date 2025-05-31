@@ -16,6 +16,8 @@
 #include <algorithm>
 
  
+queue <Robot*> re_enteringRobots;
+
 
 //Robot class 
 Robot::Robot() {} //default constructor
@@ -51,6 +53,12 @@ string Robot::getname(){
     return name;
 }
 
+bool Robot::isAlive(){
+if(lives != 0){
+  return true;
+}
+return false;
+}
  string Robot::handle_upgrades(){
   
   //Seeing ScoutBot or TrackBot
@@ -148,6 +156,8 @@ return 0;
 void SeeingRobot::look(BattleField &battle){
  int t = -1;
  int u = -1;
+   enemyPos.clear();
+
      while (t<=1) {
       u = -1;
       while (u<=1) {
@@ -155,9 +165,9 @@ void SeeingRobot::look(BattleField &battle){
 
           if(battle.isOccupied(getPositionX() + u,getPositionY() + t) && (t!=0 || u!=0)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
             
-            cout << "Enemy robot found at (" << getPositionY() + t<<"," << getPositionX() + u <<")" <<endl ;
+            cout << "Enemy robot found at (" << getPositionX() + u<<"," << getPositionY() + t <<")" <<endl ;
             // 
-            enemyPos.push_back(make_pair(getPositionX()+u,getPositionY() + t)) ;
+            enemyPos.push_back(make_pair(getPositionY()+t,getPositionX() + u)) ;
           } // inner if 
           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
             cout << "Possible positions to move to ";
@@ -281,7 +291,7 @@ cout <<  name  << " used fire action" << endl;
 if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
    --shells;
     int i =  rand() % enemyPos.size();
-   destroyedRobotName = battle.field[enemyPos[i].second][enemyPos[i].first]; // gets the name of the robot
+   destroyedRobotName = battle.field[enemyPos[i].first][enemyPos[i].second]; // gets the name of the robot
   // using a map and the name get the object
   for (auto pair: GenericRobot::robotObjects){
 
@@ -289,19 +299,21 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
       destroyedRobotName = pair.first ;
     }
   }
-
-   destroyedRobot = &GenericRobot::robotObjects.at(destroyedRobotName);
+  destroyedRobot = &GenericRobot::robotObjects.at(destroyedRobotName);
    // using the object we can acccess lives,name etc
   --destroyedRobot->lives; // reduce from the lives  of the loser robot
-   battle.clearPosition(enemyPos[i].first,enemyPos[i].second); // x,y == row,col
+   battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == row,col
   cout << name << " hits " << destroyedRobot->name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroys it."  <<endl; 
   // send the loser robot to the backrooms using queue can reneter in next round? 
   cout << "Lives left for " << destroyedRobot->name << ": " << destroyedRobot->lives << endl;
    if (destroyedRobot->lives > 0){
    cout << "*" <<destroyedRobot->name<< " goes into the queue*" <<endl;
-   GenericRobot::re_enteringRobots.push(destroyedRobot); }
+   
+   destroyedRobot->re_enteringRobots.push(destroyedRobot); }
    else {
     cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
+     battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == row,col
+    GenericRobot::robotObjects.erase(destroyedRobotName) ; //of o delte from here will pointer disappear also?
    }
   enemyPos.clear();
   kills++ ;    // add to the kills of the winner robot
@@ -359,7 +371,6 @@ for ( auto row =0 ; row < battle.height ; row++) {
 string GenericRobot::type = "Generic Robot" ; //static variable, shared by all objects
 GenericRobot::GenericRobot(string name) : Robot(name, GenericRobot::type) {}
 map<string,GenericRobot> GenericRobot::robotObjects; // static definition
-queue <GenericRobot*> GenericRobot::re_enteringRobots;
 
 GenericRobot GenericRobot::getRobotByName(string& name) {
 

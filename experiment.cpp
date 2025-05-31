@@ -6,6 +6,8 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <memory>
+
 
 Simulation::Simulation() : currentTurn(0)
 {
@@ -91,45 +93,83 @@ void Simulation::run(BattleField &battle)
 {
     ofstream logfile("simulation_log.txt");
     currentTurn = -1;
+    GenericRobot* robot = nullptr;
      while ( currentTurn < maxTurns)
     {    
 
         // Process each robot's turn
-        for (GenericRobot* robot : robots)
-        {
-                        ++currentTurn;      
+        for (int i = 0; i < robots.size();)
+        { 
+             robot = robots[i];
+            ++currentTurn;      
 
             logfile << "=== Turn " << currentTurn << " ===" << endl;
-        cout << "=== Turn " << currentTurn << " ===" << endl;
-            // if (!robot->isAlive())
-            //     continue;
+            cout << "=== Turn " << currentTurn << " (" << robot->name <<") ===" << endl;
 
+        if (!robot->isAlive()) {
+                for(int i =0 ; i< robots.size();i++) {
+                    if(robots[i] == robot) {
+                    robots.erase(robots.begin() + i);
+                    cout << robot->name << " is dead" <<endl;                 }
+                 continue; } }
+
+
+        else if(robot->re_enteringRobots.size() > 0 ){
+                cout << robot->name << " is re-entering" << endl;
+                robot->re_enteringRobots.pop();
+                auto pos = battle.getRandomEmptyPosition();
+                //robot->setPosition(pos.first, pos.second);
+                robot->setPositionX(pos.second);
+                robot->setPositionY(pos.first);
+                cout << "Placed " << robot->name << " at random position (" << pos.second << "," << pos.first << ")" << endl;
+                battle.placeRobot(robot->getPositionX(),robot->getPositionY(),robot->name);
             // Robot actions
-            //robot->look(battle);
+            robot->look(battle);
             //robot->think();
             //robot->move(battle);
             //robot->ScoutBot(battle);
-            //robot->fire(battlefield);
-            robot->LongShotBot(battle);
+             robot->fire(battle);
+            //robot->LongShotBot(battle);
 
             // Log robot status
             logfile << robot->getname() << " at ("
                     << robot->getPositionX() << ","
                     << robot->getPositionY() << ")" << endl;
-                      battle.printBattlefield();
 
+            }
+
+        else if (robot->lives == 3 || (robot->lives < 3 && robot->re_enteringRobots.size() == 0)) {
+            // Robot actions
+            robot->look(battle);
+            //robot->think();
+            //robot->move(battle);
+            //robot->ScoutBot(battle);
+             robot->fire(battle);
+            //robot->LongShotBot(battle);
+
+            // Log robot status
+            logfile << robot->getname() << " at ("
+                    << robot->getPositionX() << ","
+                    << robot->getPositionY() << ")" << endl;
+
+            }
+            i++;
+            battle.printBattlefield();
         }
-
-
+            
         // Print battlefield state
         // battle.printBattlefield();
 
         // Check for game over condition
         if (checkGameOver())
         {
-            //logfile << "Game over! Winner: " << getWinner()->getname() << endl;
-            //cout << "Game over! Winner: " << getWinner()->getname() << endl;
-            //break;
+            logfile << "Game over! Winner: " << getWinner()->getname() << endl;
+            cout << "Game over! Winner: " << getWinner()->getname() << endl;
+            break;
+        }
+        else if (currentTurn >= maxTurns){
+            cout << "No one won, game time has run out" << endl;
+            break; //needed? if turn over it will just break already..
         }
 
     }
@@ -144,27 +184,27 @@ bool Simulation::checkGameOver()
 
     for (GenericRobot* robot : robots)
     {
-        // if (robot->isAlive())
-        // {
-        //     aliveCount++;
-        //     lastAlive = robot;
-        // }
+         if (robot->isAlive())
+        {
+            aliveCount++;
+            lastAlive = robot;
+        }
     }
 
     return aliveCount <= 1;
 }
 
-// Robot *Simulation::getWinner()
-// {
-//     for (GenericRobot robot : robots)
-//     {
-//         if (robot->isAlive())
-//         {
-//             return robot;
-//             }
-//     }
-//     return nullptr;
-//}
+Robot *Simulation::getWinner()
+{
+    for (GenericRobot* robot : robots)
+    {
+        if (robot->isAlive())
+        {
+            return robot;
+            }
+    }
+    return nullptr;
+}
 
 // void Simulation::cleanup()
 // {

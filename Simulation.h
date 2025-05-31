@@ -15,7 +15,7 @@ public:
     int battlefieldWidth;
     int battlefieldHeight;
     BattleField battlefield;
-    vector<GenericRobot *> robots;
+    vector<GenericRobot*> robots;
     int currentTurn;
     int maxTurns;
     int numRobots;

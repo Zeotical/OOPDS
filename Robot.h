@@ -19,12 +19,11 @@ class Robot {
     int robotsPositionY; // col
     int kills;
     int shells; // max 10
-    int upgrades; // max 3
 
 
     public:
-        int lives; // max 3
-
+    int lives; // max 3
+    int upgrades; // max 3
     string name;
     int numOfRobots;
     Robot () ;
@@ -78,13 +77,13 @@ class ShootingRobot: virtual public Robot {
     void semiAutoBot(BattleField &battle);
     void thirtyShotBot () ; // add var from cpp here 
     void LongShotBot(BattleField &battle);
+    vector<string> choices;
    
 
 };
 class ThinkingRobot: virtual public Robot {
     public:
     int think();
-    void handleUpgrades(); //no need
 };
 
 // Multiple inheritance

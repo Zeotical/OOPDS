@@ -164,7 +164,7 @@ void Simulation::run(BattleField &battle)
             //robot->LongShotBot(battle);
 
             action = robot->think();
-
+        if (robot->upgrades == 0 || robot->choices.size() == 0) {
             if (action == 1) {
                 robot->look(battle);
                 robot->move(battle);
@@ -177,6 +177,20 @@ void Simulation::run(BattleField &battle)
                 // optional fallback, maybe just look? or upgrades?
                 robot->look(battle);
             }
+        }
+
+        else {
+            string choice = robot->handle_upgrades;
+
+            if (choice=="ScoutBot") {}
+            else if (choice== "TrackBot") {}
+            else if (choice=="HideBot") {}
+            else if (choice=="JumpBot") {}
+            else if (choice=="LongShotBot") {}
+            else if (choice=="SemiAutoBot") {}
+            else if (choice=="ThirtyShotBot") {}
+
+        }
 
             // Log robot status
             logfile << robot->getname() << " at ("

@@ -74,7 +74,7 @@ if (see==0){
 }
   //Moving HideBot or JumpBot.
 else if (move==0){
-    if(shells < 4 || lives == 1 && move == 0) {
+    if((shells < 4 || lives == 1) && move == 0) {
     move++;
     return "HideBot" ; }
     
@@ -113,11 +113,11 @@ else if (move==0){
   }
     else {
         random = rand() % 10;
-        if (0 < random && random < 3){
+        if (0 <= random && random < 3){
           shoot++;
           return "LongShotBot" ;
         }
-        else if (3<random && random<6) {
+        else if (3 <= random && random < 6) {
           shoot++;
           return "SemiAutoBot" ;
           }
@@ -129,7 +129,7 @@ else if (move==0){
       }
 
   }//shoot else if
-return 0 ;
+return "None" ;
 }
 
 // ThinkingRobot
@@ -227,7 +227,7 @@ void SeeingRobot::trackbot(BattleField &battle){
         } // outer if
         else{
             cout << "(" << col << "," << row << ") is out of bounds " <<endl ;
-         } // outer els
+         } // outer else
 
         } 
     }
@@ -318,7 +318,11 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
   enemyPos.clear();
   kills++ ;    // add to the kills of the winner robot
   if (kills < 4) { //after 3 no more upgrades possible
-  upgrades ++; // call upgragde func    // if kills ++ then choose upgrade  
+  ++upgrades; // call upgragde func    // if kills ++ then choose upgrade 
+   string choice = handle_upgrades();
+   choices.push_back(choice); 
+  cout << "*" << name << " is picking an upgrade*" << endl ;
+  cout << name << " picked " << choice << endl;
   }
   } //if
 else {

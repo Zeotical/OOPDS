@@ -114,13 +114,13 @@ void Simulation::run(BattleField &battle)
                 for(int i =0 ; i< robots.size();i++) {
                     if(robots[i] == robot) {
                     robots.erase(robots.begin() + i);
-                    cout << robot->name << " is dead" <<endl;  
+                    cout << "#### " << robot->name << " is dead #### (╥‸╥)" <<endl;  
                     logfile << robot->name << " is dead" <<endl; 
                     }
                  continue; } }
         //Handle cooldown for re-entering Robots
         else if (robot->re_enteringRobots.size() > 0 && robot->cooldown == 1) {
-            cout << robot->name << " will respawn in it's next turn" <<endl ;
+            cout << "|||| " << robot->name << " will respawn in it's next turn ||||" <<endl ;
             logfile << robot->name << " will respawn in it's next turn" <<endl ;
             --robot->cooldown ;
             i++;
@@ -311,11 +311,11 @@ void Simulation::run(BattleField &battle)
         if (checkGameOver())
         {
             logfile << "Game over! Winner: " << getWinner()->getname() << endl;
-            cout << "Game over! Winner: " << getWinner()->getname() << endl;
+            cout << "Game over! Winner: " << getWinner()->getname()  <<" ୧(๑•̀ヮ•́)૭ LET'S GO!" << endl;
             break;
         }
         else if (currentTurn >= maxTurns){
-            cout << "No one won, game time has run out" << endl;
+            cout << "No one won, game time has run out " << "( ˶°ㅁ°) !!" << endl;
             break; //needed? if turn over it will just break already..
         }
 

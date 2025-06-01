@@ -190,7 +190,7 @@ void SeeingRobot::look(BattleField &battle){
             
             cout << "Enemy robot found at (" << getPositionX() + u<<"," << getPositionY() + t <<")" <<endl ;
             // 
-            enemyPos.push_back(make_pair(getPositionY()+t,getPositionX() + u)) ; //y,x
+            enemyPos.push_back(make_pair(getPositionY()+t,getPositionX() + u)) ; //y,x //row,col
           } // inner if 
           else if (!battle.isOccupied(getPositionX()+u,getPositionY()+t) && (t!=0 || u!=0)) { // don't need the first cond
             cout << "Possible positions to move to ";
@@ -332,7 +332,7 @@ cout <<  name  << " used fire action" << endl;
 if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
    --shells;
     int i =  rand() % enemyPos.size();
-   destroyedRobotName = battle.field[enemyPos[i].first][enemyPos[i].second]; // gets the name of the robot
+   destroyedRobotName = battle.field[enemyPos[i].first][enemyPos[i].second]; // gets the name of the robot // field[y][x]
   // using a map and the name get the object
   for (auto pair: GenericRobot::robotObjects){
 
@@ -343,7 +343,7 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
   destroyedRobot = &GenericRobot::robotObjects.at(destroyedRobotName);
    // using the object we can acccess lives,name etc
   --destroyedRobot->lives; // reduce from the lives  of the loser robot
-   battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == row,col
+   battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == will get flippled to y,x == row,col
   cout << name << " hits " << destroyedRobot->name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroys it."  <<endl; 
   // send the loser robot to the backrooms using queue can reneter in next round? 
   cout << "Lives left for " << destroyedRobot->name << ": " << destroyedRobot->lives << endl;
@@ -354,7 +354,7 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
   }
    else {
     cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
-    battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == row,col
+    battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == will get flippled to y,x == row,col
     GenericRobot::robotObjects.erase(destroyedRobotName) ; //of o delte from here will pointer disappear also?
    }
   enemyPos.clear();
@@ -372,7 +372,7 @@ else if(values[probability] > 7 && enemyPos.size()!=0) {
   --shells;
   cout << name << " missed" << endl;
   self_destruction(battle);
-} //else 
+} //else if
 
 else {
   cout <<"There are no enemies nearby " << name << " will not fire" << endl;
@@ -408,11 +408,10 @@ for ( auto row =0 ; row < battle.height ; row++) {
         if(battle.isInside(col,row)){ // can join with the below if? or nvm
 
           if(battle.isOccupied(col,row) && battle.field[row][col] != name.substr(0, 2) && (abs(col - robotsPositionX) + abs(row - robotsPositionY) <=3)){  //(width,height) (row,col) // t!= 0  && u!=0 robot doesn't consider itself an enemy
-            
+            // col = x , row = y
             cout << "Enemy robot found at (" << col <<"," << row <<")" <<endl ; //for the above name.substr(0,2) since only the first 2 charas of robots name is placed
-            // 
             enemyPos.clear(); //in case other funcs already filled it
-            enemyPos.push_back(make_pair(col,row)) ;
+            enemyPos.push_back(make_pair(row,col)) ; //field[row][col] == y,x
           } // inner if 
         } //outer if
       } //inner for

@@ -75,7 +75,6 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
                 robot.setPositionX(y);
                 robot.setPositionY(x);   
 
-
                 battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
 
                 cout << "Placed " << name << " at position (" << y << "," << x << ")" << endl;
@@ -85,7 +84,7 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
             //battlefield.placeRobot(robot->getPositionX(), robot->getPositionY(), robot->getname());
         //}
     }
-                battle.printBattlefield();
+    battle.printBattlefield();
 
     file.close();
 }
@@ -96,6 +95,8 @@ void Simulation::run(BattleField &battle)
     currentTurn = -1;
     GenericRobot* robot = nullptr;
     int action =0;
+    int random_spawn = rand() % maxTurns ;
+    int random_spawn_times = 0; // make func if random_spawn is b/w so so maxturns then gen robot,name and push to vector shall i make a new inout file for this?
      while ( currentTurn < maxTurns)
     {    
 
@@ -137,6 +138,7 @@ void Simulation::run(BattleField &battle)
                 cout << "Placed " << robot->name << " at random position (" << pos.first << "," << pos.second << ")" << endl;
                 battle.placeRobot(pos.first,pos.second,robot->name);
                 robot->choices.clear(); //robot re enters as a generic robot with 0 upgrades
+                robot->re_entryReset();
             // Robot actions
             action = robot->think();
 

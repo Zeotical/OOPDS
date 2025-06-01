@@ -13,11 +13,7 @@
 #include <iostream>
 #include <cstdlib> 
 #include <vector>
-#include <algorithm>
-
- 
-queue <Robot*> re_enteringRobots;
-
+#include <algorithm> //to use find
 
 //Robot class 
 Robot::Robot() {} //default constructor
@@ -29,6 +25,16 @@ Robot::Robot(string robotName, string robotType){
     shells = 10;
     upgrades = 0;
     numOfRobots ++ ;
+    see = 0;
+    move = 0;
+    shoot = 0;
+    scout_bot_uses = 0;
+    track_bot_uses = 0;
+    hide_bot_uses = 0;
+    jump_bot_uses = 0;
+    long_shot_bot_uses = 0;
+    semi_auto_bot_uses = 0;
+    thirty_shot_uses = 0;
     //robotsPositionX= rand() % 30; // random num from (0 to 29) because vector indexing starts at 0 //width
     //robotsPositionY = rand() % 20; // random num from (0 to 19) //height
 }
@@ -60,13 +66,6 @@ if(lives != 0 && shells > 0 ){
 return false;
 }
  string Robot::handle_upgrades(){
-  scout_bot_uses = 0;
-  track_bot_uses = 0;
-  hide_bot_uses = 0;
-  jump_bot_uses = 0;
-  long_shot_bot_uses = 0;
-  semi_auto_bot_uses = 0;
-  thirty_shot_uses = 0;
   //Seeing ScoutBot or TrackBot
 if (see!=1 || see < 1){ // To force it to choose from another area
   if(shells < 4 ){ //|| enemyPos.size() == 0
@@ -138,6 +137,24 @@ else if (move!=1 || move < 1){
 return "None" ;
 }
 
+void Robot::re_entryReset(){
+  //choices vector to be cleared in sim don't feel like moving from shooting etc
+  upgrades = 0;
+  kills = 0;
+  shells = 10;
+  see = 0;
+  move = 0;
+  shoot = 0;
+  scout_bot_uses = 0;
+  track_bot_uses = 0;
+  hide_bot_uses = 0;
+  jump_bot_uses = 0;
+  long_shot_bot_uses = 0;
+  semi_auto_bot_uses = 0;
+  thirty_shot_uses = 0;
+
+}
+
 // ThinkingRobot
 int ThinkingRobot::think(){
 cout << "*" << name << " is thinking*" <<endl;
@@ -193,7 +210,6 @@ void SeeingRobot::look(BattleField &battle){
     } // outer while
 }
 
-
 void SeeingRobot::TrackBot(BattleField &battle){
   look(battle) ;
   if(enemyPos.size()!=0) {
@@ -217,7 +233,7 @@ void SeeingRobot::TrackBot(BattleField &battle){
 // pass pos to a make pair vector 
 }
 
- void  SeeingRobot::ScoutBot(BattleField &battle){
+void  SeeingRobot::ScoutBot(BattleField &battle){
   for ( auto row =0 ; row < battle.height ; row++) {
       for (auto col=0 ; col < battle.width; col++) {
         if(battle.isInside(col,row)){ // can join with the below if? or nvm
@@ -297,7 +313,6 @@ void MovingRobot::JumpBot(BattleField &battle){
   }
 
 // ShootingRobot
-
 void ShootingRobot::self_destruction(BattleField &battle) {
 if (shells == 0){
   lives = 0;

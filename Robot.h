@@ -36,9 +36,9 @@ class Robot {
     vector <pair<int,int>> movePositions ; //use std::pair stores safe to move to positions
     vector <pair<int,int>> enemyPos ; //use std::pair stores enemy positions in surrounding area
     string handle_upgrades();
-    int see = 0;
-    int move = 0;
-    int shoot = 0;
+    int see;
+    int move;
+    int shoot;
     int random ;
     int scout_bot_uses;
     int track_bot_uses;
@@ -48,6 +48,7 @@ class Robot {
     int semi_auto_bot_uses;
     int thirty_shot_uses;
     bool isAlive();
+    void re_entryReset();
 };
 
 

@@ -214,11 +214,11 @@ void SeeingRobot::look(BattleField &battle){
 
 void SeeingRobot::TrackBot(BattleField &battle){
   look(battle) ;
-  //check if any dead robot is in the vector if yes then remove it
+  //check if any dead robot is in the vector or if it is in queue if yes then remove it
   for(int x = 0 ; x < trackedrobots.size();x++){
     robottotrack = trackedrobots[x];
-    if (!robottotrack->isAlive()){
-      cout << name << " is no longer tracking " << robottotrack->name <<",as it died already." <<endl;
+    if (!robottotrack->isAlive() || !robottotrack->re_enteringRobots.empty()){
+      cout << name << " is no longer tracking " << robottotrack->name <<",as it died already or was hit." <<endl;
       trackedrobots.erase(trackedrobots.begin() + x);
     }
   }

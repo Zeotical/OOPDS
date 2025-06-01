@@ -123,6 +123,7 @@ void Simulation::run(BattleField &battle)
             cout << "|||| " << robot->name << " will respawn in it's next turn ||||" <<endl ;
             logfile << robot->name << " will respawn in it's next turn" <<endl ;
             --robot->cooldown ;
+            robot->jumpUsesLeft = 3;
             i++;
             continue;
         } 
@@ -196,7 +197,10 @@ void Simulation::run(BattleField &battle)
                         robot->choices.erase(robot->choices.begin() + idx);
                     }
                 }
-                else if (choice=="HideBot") {} //TBD
+                else if (choice=="HideBot") {
+                  cout << robot->name <<" is using " << choice << " upgrade" << endl;
+
+                } 
                 else if (choice=="JumpBot" && robot->jump_bot_uses < 3) {
                     ++robot->jump_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
@@ -240,7 +244,7 @@ void Simulation::run(BattleField &battle)
         //Handle still alive robots
         else if (robot->lives == 3 || (robot->lives <= 3 && robot->re_enteringRobots.size() == 0)) {
             // Robot actions
-            action = robot->think();
+            action = robot->think(); 
             if (robot->upgrades == 0 || robot->choices.size() == 0) {
                 if (action == 1) {
                     robot->look(battle);
@@ -280,12 +284,12 @@ void Simulation::run(BattleField &battle)
                         int posy = robot->robottotrack->getPositionY();
                         if (robot->think() == 2 && robot->robottotrack->isAlive()) {
                         robot->enemyPos.push_back(make_pair(posy,posx));
-                        cout << robot->name << "will try to shoot the tracked robot " << robot->robottotrack->name << endl;
+                        cout << robot->name << " will try to shoot the tracked robot " << robot->robottotrack->name << endl;
                         robot->fire(battle);
                     }
                         else {
                             //no logic is actually implemented for the below it's just random on whether it will move further or not
-                            cout << robot->name << "will try to move further from the tracked robot " << robot->robottotrack->name << endl;
+                            cout << robot->name << " will try to move further from the tracked robot " << robot->robottotrack->name << endl;
                             robot->look(battle);
                             robot->move(battle);
                         }
@@ -295,7 +299,10 @@ void Simulation::run(BattleField &battle)
                         robot->choices.erase(robot->choices.begin() + idx);
                     }
                 }
-                else if (choice=="HideBot") {} //TBD
+                else if (choice=="HideBot") {
+                 cout << robot->name <<" is using " << choice << " upgrade" << endl;
+
+                } 
                 else if (choice=="JumpBot" && robot->jump_bot_uses < 3) {
                     ++robot->jump_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;

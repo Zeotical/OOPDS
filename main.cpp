@@ -1,13 +1,21 @@
 /**********|**********|**********|
 Program: YOUR_FILENAME.cpp / YOUR_FILENAME.h
-Course: Data Structures and Algorithms? oopds
-Trimester: 2410
-Name: Frank Carrano
-ID: 1071001234
+Course: CCP6124-OOPDS
+Trimester: 2510
+Name: BASMALA MOHAMMED ALI ELIMAM
+ID: 243UC247PF
+Email: BASMALA.MOHAMED.ALI@student.mmu.edu.my
+Phone: +966 50 8493218 (whatsapp)
+Name: LEE KAH WAI
+ID: 243UC247K0
+Email: LEE.KAH.WAI@STUDENT.MMU.EDU.MY
+Phone: 011-11173393
+Name: YAP HUI CHI
+ID: 242UC244M6
+Email: YAP.HUI.CHI@STUDENT.MMU.EDU.MY
+Phone: 016-3225726
 Lecture Section: TC101
-Tutorial Section: TT1L
-Email: abc123@yourmail.com
-Phone: 018-1234567
+Tutorial Section: T10L 
 **********|**********|**********/
 
 #include <iostream>
@@ -24,12 +32,13 @@ Phone: 018-1234567
 #include "Battlefield.h"
 #include "Simulation.h"
 
+
 using namespace std;
 
 int main()
 {
 
-  srand(time(0)); // each time program runs get a new random number
+  //srand(time(0)); // each time program runs get a new random number
   
 BattleField battle;
 //battle.initialize(40,50);

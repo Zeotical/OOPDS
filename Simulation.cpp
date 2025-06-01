@@ -167,6 +167,14 @@ void Simulation::run(BattleField &battle)
                     ++robot->scout_bot_uses ;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->ScoutBot(battle);
+                    if (!robot->enemyPos.empty()) {
+                        cout << "After scouting " << robot->name << " has decided to fire" <<endl;
+                        robot->fire(battle);
+                    } 
+                    else {
+                        cout << "After scouting " << robot->name << " has decided to move" <<endl;
+                        robot->move(battle);
+                    }
                     if(robot->scout_bot_uses == 3) {
                         robot->choices.erase(robot->choices.begin() + idx);
                     }
@@ -269,6 +277,14 @@ void Simulation::run(BattleField &battle)
                     ++robot->scout_bot_uses ;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->ScoutBot(battle);
+                    if (!robot->enemyPos.empty()) {
+                        cout << "After scouting " << robot->name << " has decided to fire" <<endl;
+                        robot->fire(battle);
+                    } 
+                    else {
+                        cout << "After scouting " << robot->name << " has decided to move" <<endl;
+                        robot->move(battle);
+                    }
                     if(robot->scout_bot_uses == 3) {
                         robot->choices.erase(robot->choices.begin() + idx);
                     }

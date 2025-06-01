@@ -254,7 +254,7 @@ void  SeeingRobot::ScoutBot(BattleField &battle){
           else if (!battle.isOccupied(col,row) ) { // don't need the first cond
             cout << "Possible positions to move to ";
             movePositions.push_back(make_pair(col,row));
-            cout << "(" << col << "," << row << ")" << endl ;
+            cout << "(" << col << "," << row << ")" << endl ; //could be tooo many depending on battlefield size
 
             //clear vector after moving //everytime I run I get smth diff
 

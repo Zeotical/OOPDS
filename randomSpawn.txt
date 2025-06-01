@@ -1,0 +1,4 @@
+robots: 3  
+5 GenericRobot Nasi random random  
+10 GenericRobot Lemak random random
+21 GenericRobot Migoreng random random 

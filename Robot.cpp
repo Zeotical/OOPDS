@@ -216,7 +216,6 @@ void SeeingRobot::TrackBot(BattleField &battle){
   int i =  rand() % enemyPos.size();
   robottotrackName = battle.field[enemyPos[i].first][enemyPos[i].second]; // gets the name of the robot //use y,x
   for (auto pair: GenericRobot::robotObjects){
-
     if(pair.first.substr(0, 2) == robottotrackName) {
       robottotrackName = pair.first ;
     }
@@ -365,7 +364,7 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
    string choice = handle_upgrades();
    choices.push_back(choice); 
   cout << "*" << name << " is picking an upgrade*" << endl ;
-  cout << name << " picked " << choice << endl;
+  cout << "[ "<< name << " picked " << choice << " ]" << endl;
   }
   } //if
 else if(values[probability] > 7 && enemyPos.size()!=0) {
@@ -424,7 +423,7 @@ string GenericRobot::type = "Generic Robot" ; //static variable, shared by all o
 GenericRobot::GenericRobot(string name) : Robot(name, GenericRobot::type) {}
 map<string,GenericRobot> GenericRobot::robotObjects; // static definition
 
-GenericRobot GenericRobot::getRobotByName(string& name) {
+GenericRobot GenericRobot::getRobotByName(string& name) { //what was this for? I forgot maybe shooting
 
   return GenericRobot::robotObjects.at(name) ; }
 

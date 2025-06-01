@@ -24,6 +24,7 @@ public:
     void run(BattleField &battle);
     void cleanup();
     bool checkGameOver();
+    void randomSpawn(const string &filename,BattleField &battle,int Turn);
     Robot *getWinner();
 };
 

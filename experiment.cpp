@@ -38,7 +38,7 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
 
     // Initialize battlefield with correct dimensions
     battle.initialize(battlefieldWidth, battlefieldHeight);
-
+    cout << "⫘⫘⫘⫘⫘⫘✦✦ ROBOT BATTLE SIMULATION ✦✦⫘⫘⫘⫘⫘⫘" << endl; 
     cout << "Battlefield: " << battlefieldWidth << "x" << battlefieldHeight << endl;
     cout << "Max turns: " << maxTurns << endl;
     cout << "Number of robots: " << numRobots << endl;
@@ -50,8 +50,8 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
         string type, name, xStr, yStr;
         file >> type >> name >> xStr >> yStr;
 
-        //if (type == "GenericRobot")
-        //{
+        if (type == "GenericRobot")
+        {
             //GenericRobot *robot = new GenericRobot(name);
                GenericRobot::robotObjects.emplace(name,name); // (key,obj)
                  auto& robot =  GenericRobot::robotObjects.at(name); // doesn't need a defualt constructor as [] does
@@ -82,7 +82,7 @@ void Simulation::loadScenario(const string &filename, BattleField &battle)
 
             robots.push_back(&robot);
             //battlefield.placeRobot(robot->getPositionX(), robot->getPositionY(), robot->getname());
-        //}
+        }
     }
     battle.printBattlefield();
 
@@ -95,11 +95,11 @@ void Simulation::run(BattleField &battle)
     currentTurn = -1;
     GenericRobot* robot = nullptr;
     int action =0;
-    int random_spawn = rand() % maxTurns ;
-    int random_spawn_times = 0; // make func if random_spawn is b/w so so maxturns then gen robot,name and push to vector shall i make a new inout file for this?
+    //int random_spawn = rand() % maxTurns ;
+    //int random_spawn_times = 0; // make func if random_spawn is b/w so so maxturns then gen robot,name and push to vector shall i make a new inout file for this?
      while ( currentTurn < maxTurns)
     {    
-
+        //randomSpawn("randomSpawn.txt",battle,currentTurn);
         // Process each robot's turn
         for (int i = 0; i < robots.size();)
         { 
@@ -302,6 +302,8 @@ void Simulation::run(BattleField &battle)
             }
             i++;
             battle.printBattlefield();
+                    randomSpawn("randomSpawn.txt",battle,currentTurn);
+
         }
             
         // Print battlefield state
@@ -353,11 +355,61 @@ Robot *Simulation::getWinner()
     return nullptr;
 }
 
-// void Simulation::cleanup()
-// {
-//     for (GenericRobot* robot : robots) //no need for this
-//     {
-//         delete robot;
-//     }
-//     robots.clear();
-// }
+void Simulation::cleanup()
+{
+    
+    robots.clear();
+}
+
+void Simulation::randomSpawn(const string &filename,BattleField &battle, int Turn){
+string dummy, type, name, xStr, yStr;
+int numOfRobots;
+int entry_turn;
+ifstream file(filename);
+    if (!file.is_open())
+    {
+        cerr << "Error: Could not open input file: " << filename << endl;
+        exit(1);
+    }
+file >> dummy >> numOfRobots;
+for (int i =0; i < numOfRobots; i++) {
+file >> entry_turn >> type >> name >> xStr >> yStr ;
+if (entry_turn == Turn) {
+
+//15 GenericRobot cat random random  
+     if (type == "GenericRobot")
+        {
+            //GenericRobot *robot = new GenericRobot(name);
+               GenericRobot::robotObjects.emplace(name,name); // (key,obj)
+                 auto& robot =  GenericRobot::robotObjects.at(name); // doesn't need a defualt constructor as [] does
+
+
+            //Handle random position
+            if (xStr == "random" || yStr == "random")
+            {
+                auto pos = battle.getRandomEmptyPosition();
+                //robot->setPosition(pos.first, pos.second);
+                robot.setPositionX(pos.first);
+                robot.setPositionY(pos.second);
+                battle.placeRobot(pos.first,pos.second,robot.getname());
+
+                cout << "New Robot entering ~~<" << name << ">~~" << endl ;
+                cout << "Placed " << name << " at random position (" << pos.first << "," << pos.second << ")" << endl;
+            }
+             else
+            {
+                int x = stoi(xStr);
+                int y = stoi(yStr);
+                robot.setPositionX(y);
+                robot.setPositionY(x);   
+
+                battle.placeRobot(robot.getPositionX(),robot.getPositionY(),robot.getname());
+                cout << "New Robot entering <" << name << ">" << endl ;
+                cout << "Placed " << name << " at position (" << y << "," << x << ")" << endl;
+            }
+
+            robots.push_back(&robot);
+        }
+} //if loop
+}//for loop
+}

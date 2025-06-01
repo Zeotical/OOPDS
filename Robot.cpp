@@ -36,8 +36,8 @@ Robot::Robot(string robotName, string robotType){
     semi_auto_bot_uses = 0;
     thirty_shot_uses = 0;
     isHidden = false;
-    //robotsPositionX= rand() % 3; // random num from (0 to 29) because vector indexing starts at 0 //width
-    //robotsPositionY = rand() % 3; // random num from (0 to 19) //height
+    //robotsPositionX= rand() % 4; // random num from (0 to 29) because vector indexing starts at 0 //width
+    //robotsPositionY = rand() % 4; // random num from (0 to 19) //height
 }
 
 void Robot::setPositionX(int posx){
@@ -447,44 +447,3 @@ GenericRobot GenericRobot::getRobotByName(string& name) { //what was this for? I
 
   return GenericRobot::robotObjects.at(name) ; }
 
-// do func here ?? no in sub-classes
-// UPGRADES
-// There are three possible areas to upgrade. They are moving, shooting and seeing. 
-// 1. Moving: HideBot or JumpBot.
-//  2. Shooting: LongShotBot, SemiAutoBot or ThirtyShotBot.
-// 3. Seeing: ScoutBot or TrackBot
-// In each area, a robot can choose only one upgrade. For the next upgrade, the robot
-// must choose from the areas not chosen before. After three upgrades, a robot
-// cannot be upgraded anymore.
-
-// The capabilites of the upgrades are as follow:
-//MOVING
-
-// HideBot : The robot can hide three times in a match. When the robot hides, it
-// cannot be hit by other robots
-
-// SHOOTING
-
-// SEEING
-
-//Doing/Done
-
-// SemiAutoBot : Each shell the robot fires is now considered as three consecutive
-// shots into one location and each shot has a 70% probability to hit and destroy
-// another robot. (shooting)
-
-// TrackBot : The robot can plant a tracker on another robot it can see. The location
-// of the targetted robot will be known to the robot until the end of a match. The
-// robot has three trackers. (seeing)
-
-// ThirtyShotBot : The robot now has a fresh load of 30 shells replacing its current 
-// load of shells. (shooting)
-
-// JumpBot : The robot can jump to a new location anywhere in the map. It can
-// jump three times in a match. (moving)
-
-// ScoutBot : Instead of look(x, y) The robot can see the entire battlefield for one
-// turn. This ability can be used three times in a match. (seeing)
-
-// LongShotBot : The robot can fire up to three unit distance away from its location.
-// It means the robot can fire(x, y) where x + y <= 3. (shooting)

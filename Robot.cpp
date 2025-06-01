@@ -35,8 +35,9 @@ Robot::Robot(string robotName, string robotType){
     long_shot_bot_uses = 0;
     semi_auto_bot_uses = 0;
     thirty_shot_uses = 0;
-    //robotsPositionX= rand() % 30; // random num from (0 to 29) because vector indexing starts at 0 //width
-    //robotsPositionY = rand() % 20; // random num from (0 to 19) //height
+    isHidden = false;
+    //robotsPositionX= rand() % 3; // random num from (0 to 29) because vector indexing starts at 0 //width
+    //robotsPositionY = rand() % 3; // random num from (0 to 19) //height
 }
 
 void Robot::setPositionX(int posx){
@@ -78,7 +79,7 @@ if (see!=1 || see < 1){ // To force it to choose from another area
   }
 }
   //Moving HideBot or JumpBot.
-else if (move!=1 || move < 1){
+if (move!=1 || move < 1){
     if((shells < 4 || lives == 1) && move == 0) {
     move++;
     return "HideBot" ; }
@@ -319,6 +320,11 @@ void MovingRobot::JumpBot(BattleField &battle){
     }
   }
 
+void MovingRobot::HideBot() {
+  isHidden = true ;
+  hidingcooldown = 1;
+}
+
 // ShootingRobot
 void ShootingRobot::self_destruction(BattleField &battle) {
 if (shells == 0){
@@ -348,24 +354,29 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
     }
   }
   destroyedRobot = &GenericRobot::robotObjects.at(destroyedRobotName);
+  //check if enemy robot is hiding
+    if(destroyedRobot->isHidden) {
+      cout << destroyedRobot->name << " is hiding and couldn't be hit by " << name << endl;
+    }
    // using the object we can acccess lives,name etc
+    else if (!destroyedRobot->isHidden){
   --destroyedRobot->lives; // reduce from the lives  of the loser robot
    battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == will get flippled to y,x == row,col
   cout << name << " hits " << destroyedRobot->name << " at (" << enemyPos[i].second << "," << enemyPos[i].first << ") and destroys it."  <<endl; 
-  // send the loser robot to the backrooms using queue can reneter in next round? 
-  cout << "Lives left for " << destroyedRobot->name << ": " << destroyedRobot->lives << endl;
-   if (destroyedRobot->lives > 0){
+  // send the loser robot to the backrooms using queue can reneter in next round after cooldown 
+  cout << "Lives left for " << destroyedRobot->name << ": " << destroyedRobot->lives << endl; 
+  if (destroyedRobot->lives > 0){
    cout << "*" <<destroyedRobot->name<< " goes into the queue*" <<endl;
    destroyedRobot->re_enteringRobots.push(destroyedRobot); 
-   destroyedRobot->cooldown = 1;
+   destroyedRobot->cooldown = 1; //cooldown for re_entry
   }
-   else {
+  else {
     cout << destroyedRobotName << " has used up all it's lives and will not be entering again." << endl;
     battle.clearPosition(enemyPos[i].second,enemyPos[i].first); // x,y == will get flippled to y,x == row,col
     GenericRobot::robotObjects.erase(destroyedRobotName) ; //of o delte from here will pointer disappear also?
    }
   enemyPos.clear();
-  kills++ ;    // add to the kills of the winner robot
+  kills++ ;    // add to the kills of the winner robot 
   self_destruction(battle); //check if it has to self destruct, if yes no need for upgrades
   if (kills < 4) { //after 3 no more upgrades possible
   ++upgrades; // call upgragde func    // if kills ++ then choose upgrade 
@@ -374,7 +385,8 @@ if (values[probability] <=7 && enemyPos.size()!=0){ //Hit probability 70%
   cout << "*" << name << " is picking an upgrade*" << endl ;
   cout << "[ "<< name << " picked " << choice << " ]" << endl;
   }
-  } //if
+  } // else if
+}
 else if(values[probability] > 7 && enemyPos.size()!=0) {
   --shells;
   cout << name << " missed" << endl;

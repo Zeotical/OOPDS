@@ -1,5 +1,5 @@
 /**********|**********|**********|
-Program: YOUR_FILENAME.cpp / YOUR_FILENAME.h
+Program: main.cpp ; Robot.cpp / Robot.h ; Simulation.cpp / Simulation.h ; Battlefield.cpp / Battlefield.h ; input.txt ; randomSpawn.txt
 Course: CCP6124-OOPDS
 Trimester: 2510
 Name: BASMALA MOHAMMED ALI ELIMAM
@@ -16,6 +16,7 @@ Email: YAP.HUI.CHI@STUDENT.MMU.EDU.MY
 Phone: 016-3225726
 Lecture Section: TC101
 Tutorial Section: T10L 
+Group: 8
 **********|**********|**********/
 
 #include <iostream>

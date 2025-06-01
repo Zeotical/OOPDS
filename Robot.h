@@ -49,6 +49,7 @@ class Robot {
     int thirty_shot_uses;
     bool isAlive();
     void re_entryReset();
+    bool isHidden ;
 };
 
 
@@ -73,6 +74,8 @@ class MovingRobot: virtual public Robot {
     void move(BattleField &battle);
     int jumpUsesLeft; // Declaration of jumpUsesLeft
     void JumpBot(BattleField &battle);
+    void HideBot();
+    int hidingcooldown ;
 
 };
 class ShootingRobot: virtual public Robot {

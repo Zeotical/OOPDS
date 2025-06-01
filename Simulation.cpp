@@ -105,7 +105,6 @@ void Simulation::run(BattleField &battle)
         { 
              robot = robots[i];
             ++currentTurn;      
-
             logfile << "=== Turn " << currentTurn << " ===" << endl;
             cout << "=== Turn " << currentTurn << " (" << robot->name <<") ===" << endl;
 
@@ -205,9 +204,13 @@ void Simulation::run(BattleField &battle)
                         robot->choices.erase(robot->choices.begin() + idx);
                     }
                 }
-                else if (choice=="HideBot") {
-                  cout << robot->name <<" is using " << choice << " upgrade" << endl;
-
+                 else if (choice=="HideBot") {
+                    ++robot->hide_bot_uses;
+                 cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                 robot->HideBot();
+                 if(robot->hide_bot_uses == 3) {
+                        robot->choices.erase(robot->choices.begin() + idx);
+                    }
                 } 
                 else if (choice=="JumpBot" && robot->jump_bot_uses < 3) {
                     ++robot->jump_bot_uses;
@@ -252,6 +255,10 @@ void Simulation::run(BattleField &battle)
         //Handle still alive robots
         else if (robot->lives == 3 || (robot->lives <= 3 && robot->re_enteringRobots.size() == 0)) {
             // Robot actions
+            if(robot->hidingcooldown == 1) {
+                robot->hidingcooldown = 0;
+                robot->isHidden = false;
+            }
             action = robot->think(); 
             if (robot->upgrades == 0 || robot->choices.size() == 0) {
                 if (action == 1) {
@@ -316,7 +323,12 @@ void Simulation::run(BattleField &battle)
                     }
                 }
                 else if (choice=="HideBot") {
+                    ++robot->hide_bot_uses;
                  cout << robot->name <<" is using " << choice << " upgrade" << endl;
+                 robot->HideBot();
+                 if(robot->hide_bot_uses == 3) {
+                        robot->choices.erase(robot->choices.begin() + idx);
+                    }
 
                 } 
                 else if (choice=="JumpBot" && robot->jump_bot_uses < 3) {

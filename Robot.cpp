@@ -106,7 +106,7 @@ else if (move!=1 || move < 1){
       shoot++;
       return "LongShotBot" ;
     }
-    else if(lives > 4 || enemyPos.size() > 4) {
+    else if(lives > 4 || enemyPos.size() > 3) {
       shoot++;
       return "SemiAutoBot";
   }
@@ -158,6 +158,7 @@ void Robot::re_entryReset(){
 // ThinkingRobot
 int ThinkingRobot::think(){
 cout << "*" << name << " is thinking*" <<endl;
+
 if (lives == 1 || shells < 4){
   //look
   //move
@@ -177,6 +178,7 @@ return 0;
 
 // SeeinngRobot
 void SeeingRobot::look(BattleField &battle){
+  cout <<  name << " is looking around...." << endl ;
  int t = -1;
  int u = -1;
    enemyPos.clear();
@@ -212,6 +214,14 @@ void SeeingRobot::look(BattleField &battle){
 
 void SeeingRobot::TrackBot(BattleField &battle){
   look(battle) ;
+  //check if any dead robot is in the vector if yes then remove it
+  for(int x = 0 ; x < trackedrobots.size();x++){
+    robottotrack = trackedrobots[x];
+    if (!robottotrack->isAlive()){
+      cout << name << " is no longer tracking " << robottotrack->name <<",as it died already." <<endl;
+      trackedrobots.erase(trackedrobots.begin() + x);
+    }
+  }
   if(enemyPos.size()!=0) {
   int i =  rand() % enemyPos.size();
   robottotrackName = battle.field[enemyPos[i].first][enemyPos[i].second]; // gets the name of the robot //use y,x
@@ -222,14 +232,12 @@ void SeeingRobot::TrackBot(BattleField &battle){
   }
   robottotrack =  &GenericRobot::robotObjects.at(robottotrackName); //enemyPos uses y,x and so does field[y][x]
   robotIsTracked = find(trackedrobots.begin(),trackedrobots.end(),robottotrack);
-   if (robotIsTracked==trackedrobots.end() && trackedrobots.size() < 3){
+   if (robotIsTracked==trackedrobots.end() && trackedrobots.size() < 3 && robottotrack->isAlive()){
 
-  trackedrobots.push_back(robottotrack); } }
-// ranomd pos1
-// random pos2
-// posx = robotTotrack.robotposx
-// pos y = robottotrack.posy
-// pass pos to a make pair vector 
+    trackedrobots.push_back(robottotrack);
+    cout << name << " is now tracking " << robottotrack->name << endl;
+  } 
+}
 }
 
 void  SeeingRobot::ScoutBot(BattleField &battle){

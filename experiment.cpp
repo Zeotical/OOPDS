@@ -173,7 +173,25 @@ void Simulation::run(BattleField &battle)
                 else if (choice== "TrackBot" && robot->track_bot_uses < 3) {
                     ++robot->track_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
-                    robot->TrackBot(battle); //cout the robots being tracked and their pos, kill them if near and lives r high else move away from them
+                    robot->TrackBot(battle);
+                    if (!robot->trackedrobots.empty()){ //check if there are tracked robots first
+                        int i = rand() % robot->trackedrobots.size();
+                        robot->robottotrack = robot->trackedrobots[i] ;
+                        int posx = robot->robottotrack->getPositionX();
+                        int posy = robot->robottotrack->getPositionY();
+                        if (robot->think() == 2 && robot->robottotrack->isAlive()) {
+                        robot->enemyPos.push_back(make_pair(posy,posx));
+                        cout << robot->name << " will try to shoot the tracked robot " << robot->robottotrack->name << endl;
+                        robot->fire(battle);
+                    }
+                        else {
+                            //no logic is actually implemented for the below it's just random on whether it will move further or not
+                            cout << robot->name << " will try to move further from the tracked robot " << robot->robottotrack->name << endl;
+                            robot->look(battle);
+                            robot->move(battle);
+                        }
+
+                    }
                     if(robot->track_bot_uses == 3) {
                         robot->choices.erase(robot->choices.begin() + idx);
                     }
@@ -255,6 +273,24 @@ void Simulation::run(BattleField &battle)
                     ++robot->track_bot_uses;
                     cout << robot->name <<" is using " << choice << " upgrade" << endl;
                     robot->TrackBot(battle);
+                    if (!robot->trackedrobots.empty()){ //check if there are tracked robots first
+                        int i = rand() % robot->trackedrobots.size();
+                        robot->robottotrack = robot->trackedrobots[i] ;
+                        int posx = robot->robottotrack->getPositionX();
+                        int posy = robot->robottotrack->getPositionY();
+                        if (robot->think() == 2 && robot->robottotrack->isAlive()) {
+                        robot->enemyPos.push_back(make_pair(posy,posx));
+                        cout << robot->name << "will try to shoot the tracked robot " << robot->robottotrack->name << endl;
+                        robot->fire(battle);
+                    }
+                        else {
+                            //no logic is actually implemented for the below it's just random on whether it will move further or not
+                            cout << robot->name << "will try to move further from the tracked robot " << robot->robottotrack->name << endl;
+                            robot->look(battle);
+                            robot->move(battle);
+                        }
+
+                    }
                     if(robot->track_bot_uses == 3) {
                         robot->choices.erase(robot->choices.begin() + idx);
                     }
@@ -302,7 +338,7 @@ void Simulation::run(BattleField &battle)
             }
             i++;
             battle.printBattlefield();
-                    randomSpawn("randomSpawn.txt",battle,currentTurn);
+            randomSpawn("randomSpawn.txt",battle,currentTurn);
 
         }
             
@@ -412,4 +448,5 @@ if (entry_turn == Turn) {
         }
 } //if loop
 }//for loop
+
 }

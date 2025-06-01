@@ -1,0 +1,106 @@
+=== Turn 0 ===
+Kidd at (6,3)
+=== Turn 1 ===
+Jet at (1,12)
+=== Turn 2 ===
+Alpha at (3,1)
+=== Turn 3 ===
+Kidd at (6,3)
+=== Turn 4 ===
+Jet at (1,12)
+=== Turn 5 ===
+Alpha at (3,1)
+=== Turn 6 ===
+Nasi at (0,1)
+=== Turn 7 ===
+Kidd at (6,3)
+=== Turn 8 ===
+Jet at (1,12)
+=== Turn 9 ===
+Alpha at (3,1)
+=== Turn 10 ===
+Nasi at (0,1)
+=== Turn 11 ===
+Lemak at (8,13)
+=== Turn 12 ===
+Kidd at (6,3)
+=== Turn 13 ===
+Jet at (1,12)
+=== Turn 14 ===
+Alpha at (3,1)
+=== Turn 15 ===
+Nasi at (0,1)
+=== Turn 16 ===
+Lemak at (8,13)
+=== Turn 17 ===
+Kidd at (6,3)
+=== Turn 18 ===
+Jet at (1,12)
+=== Turn 19 ===
+Alpha at (3,1)
+=== Turn 20 ===
+Nasi at (0,1)
+=== Turn 21 ===
+Lemak at (8,13)
+=== Turn 22 ===
+Migoreng at (5,4)
+=== Turn 23 ===
+Kidd will respawn in it's next turn
+=== Turn 24 ===
+Jet at (1,12)
+=== Turn 25 ===
+Alpha at (3,1)
+=== Turn 26 ===
+Nasi at (0,1)
+=== Turn 27 ===
+Lemak at (8,13)
+=== Turn 28 ===
+Migoreng at (5,4)
+=== Turn 29 ===
+Kidd at (3,4)
+=== Turn 30 ===
+Jet at (1,12)
+=== Turn 31 ===
+Alpha at (3,1)
+=== Turn 32 ===
+Nasi at (0,1)
+=== Turn 33 ===
+Lemak at (8,13)
+=== Turn 34 ===
+Migoreng at (5,4)
+=== Turn 35 ===
+Kidd at (3,4)
+=== Turn 36 ===
+Jet at (1,12)
+=== Turn 37 ===
+Alpha at (3,1)
+=== Turn 38 ===
+Nasi at (0,1)
+=== Turn 39 ===
+Lemak at (8,13)
+=== Turn 40 ===
+Migoreng at (5,4)
+=== Turn 41 ===
+Kidd at (3,4)
+=== Turn 42 ===
+Jet at (1,12)
+=== Turn 43 ===
+Alpha at (3,1)
+=== Turn 44 ===
+Nasi at (0,1)
+=== Turn 45 ===
+Lemak at (8,13)
+=== Turn 46 ===
+Migoreng at (5,4)
+=== Turn 47 ===
+Kidd at (3,4)
+=== Turn 48 ===
+Jet at (1,12)
+=== Turn 49 ===
+Alpha at (3,1)
+=== Turn 50 ===
+Nasi at (0,1)
+=== Turn 51 ===
+Lemak at (8,13)
+=== Turn 52 ===
+Migoreng at (5,4)
